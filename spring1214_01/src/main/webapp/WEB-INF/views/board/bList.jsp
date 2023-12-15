@@ -47,14 +47,17 @@
         <th>조회수</th>
       </tr>
       <!-- 내용부분 -->
-      <tr>
-        <td><span class="table-notice"></span></td>
-        <td class="table-title">
-        <a href=""></a>
-        </td>
-        <td></td>
-        <td></td>
-      </tr>
+      <c:forEach var="bdto" items="${list}">
+	      <tr>
+	        <td><span class="table-notice"> ${bdto.bno }</span></td>
+	        <td class="table-title">
+	        <a href="">${bdto.btitle }</a>
+	        </td>
+	        <td>${bdto.bdate }</td>
+	        <td>${bdto.bhit }</td>
+	      </tr>
+      
+      </c:forEach>
       
     </table>
 
