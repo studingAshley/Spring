@@ -78,7 +78,7 @@
 		    <version>23.2.0.0</version>
 		</dependency>
 		
-				<dependency>
+		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>3.0.3</version>
@@ -98,6 +98,7 @@
 			<artifactId>ojdbc11</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		
 	</dependencies>
 
 	<build>
