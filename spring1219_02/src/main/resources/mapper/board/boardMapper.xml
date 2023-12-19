@@ -1,0 +1,16 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.www.mapper.BoardMapper">
+
+	<select id="selectAll" resultType="com.java.www.dto.BoardDto">
+	<![CDATA[
+		select * from (select rownum rnum, a.* from (select * from board order by bgroup desc, bstep asc) a ) where rnum >=11 and rnum <= 20
+	]]>
+	</select>
+	
+	<select id="selectOne" resultType="com.java.www.dto.BoardDto">
+		select * from board where bno=#{bno}
+	</select>
+	
+</mapper>
