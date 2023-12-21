@@ -53,6 +53,7 @@ public class BoardController {
 	@RequestMapping("doBInsert")
 	public String doBInsert(BoardDto boardDto, MultipartFile files, Model model )
 	{
+		int result = serv.bInsert(boardDto);
 		
 		return "list";
 	}

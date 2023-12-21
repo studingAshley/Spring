@@ -19,4 +19,13 @@ public interface BService {
 	BoardDto selectOneNext(int bno);
 
 	int bInsert(BoardDto bdto);
+
+	int deleteOne(int bno);
+
+	BoardDto SelectOne(int bno);
+
+	int doBUpdate(BoardDto bdto);
+
+	int bReply(BoardDto bdto);
+
 }

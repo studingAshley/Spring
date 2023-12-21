@@ -14,4 +14,6 @@ public interface BoardMapper  {
 
 	BoardDto selectOne(int bno);
 
+	int bInsert(BoardDto boardDto);
+
 }

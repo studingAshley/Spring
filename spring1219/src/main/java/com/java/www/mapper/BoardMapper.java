@@ -21,4 +21,14 @@ public interface BoardMapper {
 
 	public int bInsert(BoardDto bdto);
 
+	public int doBUpdate(BoardDto bdto);
+
+	public int doBReply(BoardDto bdto);
+
+	public void bstepUp(BoardDto bdto);
+
+	public int deleteOne(int bno);
+
+	public void bHitUp(int bno);
+
 }

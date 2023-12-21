@@ -29,4 +29,10 @@ public class BoardServiceImpl implements Bservice {
 		return bdto;
 	}
 
+	@Override
+	public int bInsert(BoardDto boardDto) {
+		int result = mapper.bInsert(boardDto);
+		return 0;
+	}
+
 }

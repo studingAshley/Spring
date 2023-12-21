@@ -41,4 +41,25 @@
 	      insert into board values (board_seq.nextval,#{btitle},#{bcont},sysdate,#{id},
 	      board_seq.currval,0,0,1,#{bfile})
 	</insert>
+	
+	<delete id="deleteOne">
+		delete from board where bno=#{bno}
+	</delete>
+	
+	<update id="doBUpdate">
+		update board set btitle=#{btitle}, bcont = #{bcont}, bfile = #{bfile}, bdate=sysdate where bno=#{bno}
+	</update>
+	
+	<update id="bstepUp">
+		update board set bstep=bstep+1 where bgroup=#{bgroup} and bstep>#{bstep}
+	</update>
+	
+	<insert id="doBReply">
+	      insert into board values (board_seq.nextval,#{btitle},#{bcont},sysdate,#{id},
+	      #{bgroup},#{bstep}+1,#{bindent}+1,1,#{bfile})
+	</insert>
+	
+		<update id="bHitUp">
+		update board set bhit=bhit+1 where bno=#{bno}
+	</update>
 </mapper>

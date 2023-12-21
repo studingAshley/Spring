@@ -17,9 +17,11 @@
     <h1>게시글수정</h1>
     <hr>
 
-    <form action="modify.do" name="modify" method="post">
+    <form action="doBUpdate" name="modify" method="post" encType="multipart/form-data">
       <table>
-      <input type="hidden" name="bId" value="">
+      <input type="hidden" name="id" value="${session_id}">
+      <input type="hidden" name="bfile" value="${bdto.bfile}">
+      <input type="hidden" name="bno" value="${bdto.bno}">
         <colgroup>
           <col width="15%">
           <col width="85%">
@@ -27,34 +29,38 @@
         <tr>
           <th>작성자</th>
           <td>
-            <input type="text" name="bName" value="" readonly>
+            <input type="text"  value="${session_id}" readonly>
           </td>
         </tr>
         <tr>
           <th>제목</th>
           <td>
-            <input type="text" name="bTitle" value="">
+            <input type="text" name="btitle" value="${bdto.btitle}">
           </td>
         </tr>
         <tr>
           <th>내용</th>
           <td>
-            <textarea name="bContent" cols="50" rows="10">
-           
-            </textarea>
+            <textarea name="bcont" cols="50" rows="10">${bdto.bcont}</textarea>
           </td>
         </tr>
         <tr>
           <th>이미지 표시</th>
           <td>
-            <input type="file" name="file" id="file">
+            <img style="width:300px" src="upload/${bdto.bfile}">
+          </td>
+        </tr>
+        <tr>
+          <th>파일첨부</th>
+          <td>
+            <input type="file" name="files" id="file">
           </td>
         </tr>
       </table>
       <hr>
       <div class="button-wrapper">
         <button type="submit" class="write">수정완료</button>
-        <button type="button" class="cancel" onclick="javascript:location.href='list.do'">취소</button>
+        <button type="button" class="cancel" onclick="javascript:location.href='bList'">취소</button>
       </div>
     </form>
 

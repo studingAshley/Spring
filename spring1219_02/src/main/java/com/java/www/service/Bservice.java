@@ -10,4 +10,6 @@ public interface Bservice {
 
 	BoardDto selectOne(int bno);
 
+	int bInsert(BoardDto boardDto);
+
 }

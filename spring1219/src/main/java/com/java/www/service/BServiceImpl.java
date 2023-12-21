@@ -30,6 +30,8 @@ public class BServiceImpl implements BService {
 		BoardDto bdtoPrev = boardMapper.selectOnePrev(bno);
 		BoardDto bdtoNext = boardMapper.selectOneNext(bno);
 		
+		boardMapper.bHitUp(bno);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("bdto", bdto);
@@ -56,6 +58,36 @@ public class BServiceImpl implements BService {
 		int result = boardMapper.bInsert(bdto);
 		return result;
 	}
+
+	@Override
+	public int deleteOne(int bno) {
+		int result =  boardMapper.deleteOne(bno);
+		return result;
+	}
+
+	@Override
+	public BoardDto SelectOne(int bno) {
+		BoardDto bdto = boardMapper.selectOne(bno);
+		return bdto;
+	}
+
+	@Override
+	public int doBUpdate(BoardDto bdto) {
+		int result = boardMapper.doBUpdate(bdto);
+		return result	;
+	}
+
+	@Override
+	public int bReply(BoardDto bdto) {
+		// 부모보다 큰 bstep을 가진 게시물의 bstep + 1 / 답변달기 글의 bstep은 부모의 bstep + 1 /bgroup은 부모와 같음 /indent 부모의 indent + 1
+		
+		boardMapper.bstepUp(bdto);
+
+		int result = boardMapper.doBReply(bdto);
+		return result;
+	}
+
+
 
 
 

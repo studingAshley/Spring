@@ -13,4 +13,8 @@
 		select * from board where bno=#{bno}
 	</select>
 	
+	<insert id="">
+		insert into board values 
+	</insert>
+	
 </mapper>

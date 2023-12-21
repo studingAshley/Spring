@@ -9,6 +9,13 @@ h1 {
   font-size: 40px;
 }
 
+h1 a {
+ 	text-decoration : none;
+  font-size: 40px;
+  color:black;
+  list-style: none;
+}
+
 .wrapper {
   position: relative;
 }
