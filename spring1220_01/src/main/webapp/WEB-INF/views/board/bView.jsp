@@ -84,6 +84,10 @@
       <tr>
         <td colspan="3"><strong>이전글</strong> <span class="separator">|</span><a href="bView?bno=${map.nextBdto.bno}">${map.nextBdto.btitle }</a></td>
       </tr>
+      
+       <tr>
+        <td colspan="3"><div style="border: solid 1px black;"><input type="text" style="padding:3px; width :800px; height: 150px; border: none;"><input type="button" value="답글"></div></td>
+      </tr>
     </table>
 
     <a href="bList"><div class="list">목록</div></a>
