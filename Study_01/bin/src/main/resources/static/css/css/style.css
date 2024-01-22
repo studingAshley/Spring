@@ -7,6 +7,7 @@
  * Author: sajith dilshan <sajithd784@gmail.com>
  */
 
+
  @font-face {
     font-family: "TwitterChirp";
     src: url("../fonts/chirp-regular-web.woff") format("woff2"),
@@ -23,33 +24,21 @@ html{
 }
 
 :root{
-    --twitter-theme-color: #191970;
+    --twitter-theme-color: #50b7f5;
     --twitter-background-color: #e6ecf0;
-    --emphasis-line-color:#848484;
 }
 
 .nav_logo{
     width: 50px;
-    height: 50px;
+    height: 30px;
     color: var(--twitter-theme-color);
     fill: currentColor;
-}
-
-.profile-name h2{
-    font-size: 20px;
-    font-weight: bold;
-    margin-right: 10px;
-}
-.profile-follow h4{
-    font-size: 15px;
-    font-weight: bold;
 }
 
 .Menu_options{
     display: flex;
     align-items: center;
     cursor: pointer;
-    height:50px;
 }
 
 .Menu_options .material-icons{
@@ -81,12 +70,10 @@ html{
 body{
     display: flex;
     height: 100vh;
-    max-width: 100%;
+    max-width: 1300px;
     margin-left: auto;
     margin-right: auto;
     padding: 0 10px;
-    
-    justify-content: center;
 }
 
 nav{
@@ -130,22 +117,17 @@ main::-webkit-scrollbar{
     font-size: 20px;
 }
 
-.tweet_box-image
-{
-	height: 40px;
-	width:40px;
-	margin:2px;
-	overflow: hidden;
-}
-
 .tweet_box-input img{
+    border-radius: 50%;
     height: 40px;
-    
+
+
 }
 
 .tweet_box{
     padding-bottom: 10px;
     border-bottom: 8px solid var(--twitter-background-color);
+    padding-right: 10px;
 }
 
 .tweet_box form{
@@ -155,7 +137,7 @@ main::-webkit-scrollbar{
 
 .tweet_box-input{
     display: flex;
-    padding: 20px 20px 10px 20px;
+    padding: 20px;
 
 }
 
@@ -167,7 +149,7 @@ main::-webkit-scrollbar{
     outline: none;
 }
 
-.tweet_box button, .box-footer label{ 
+.tweet_box-input button{ 
     background-color: var(--twitter-theme-color);
     color: white;
     font-weight: bold;
@@ -175,13 +157,13 @@ main::-webkit-scrollbar{
     border: none;
     width: 80px;
     height: 40px;
-    margin-left: 5px; 
+    margin-top: 20px;
+    margin-left: auto; 
 }
 
 .post_profile-image img{
     border-radius: 50%;
     height: 40px;
-    width:40px;
 
 }
 
@@ -190,82 +172,12 @@ main::-webkit-scrollbar{
     align-items: flex-start;
     border-bottom: 1px solid var(--twitter-background-color);
     padding-bottom: 10px;
- 
 }
 
-.post_body .img-sm img{
-    width: 180px;
+.post_body img{
+    width: 450px;
     object-fit: contain;
     border-radius: 20px;
-
-}
-
-.post_body .img-md{
-	
-	width: 180px;
-    position: relative;
-    overflow: hidden;
-    margin-left:calc(var(--bs-gutter-x));
-    margin-right:calc(var(--bs-gutter-x));
-}
-
-.post_body .img-lg{
-	
-	width: 180px;
-	height : 200px;
-    position: relative;
-    overflow: hidden;
-    margin-left:calc(var(--bs-gutter-x)*0.5);
-    margin-right:calc(var(--bs-gutter-x)*0.5);
-
-}
-
-.post_body .img-xl{
-	
-	width: 360px;
-	height : 200px;
-    position: relative;
-    overflow: hidden;
-    margin-left:calc(var(--bs-gutter-x)*0.5);
-    margin-right:calc(var(--bs-gutter-x)*0.5);
-
-}
-
-.post_body .img-lx img{
-    width: 360px;
-    height:200px;
-    object-fit: contain;
-    border-radius: 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-}
-
-
-.post_body .img-lg img{
-    width: 360px;
-    height:200px;
-    object-fit: contain;
-    border-radius: 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-}
-
-
-.post_body .img-md img{
-    width: 360px;
-    height:200px;
-    object-fit: contain;
-    border-radius: 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 
 }
 
@@ -304,8 +216,6 @@ main::-webkit-scrollbar{
 .post_body{ 
     flex: 1;
     padding: 10px;
-    width:410px;
-
 }
 
 .post_profile-image{
@@ -351,78 +261,3 @@ aside{
     font-size: 18px;
     font-weight: 800;
 }
-
-
-.box-footer{
-    display: block;
-    padding-right: 10px;
-    padding-left: 60px;
-    position: relative;
-
-}
-
-
-<!--  -->
-
-#text-area{
-	width:400px; height:180px; border: 1px solid var(--twitter-background-color);  padding: 5px; overflow: overlay;
-	
-}
-
-#text-area img{
-	
-}
-
-.write-btn{
-	position: absolute; right: 30px;
-
-}
-
-#imgFile{
-		display: inline-block;
-	 vertical-align: middle;
-	 padding-top:0.6rem;
-}
-
-
-.profile-wrapper{
-	height:auto; padding: 10px 5px; border-top: 1px solid var(--twitter-background-color); border-bottom : 1px solid var(--twitter-background-color);
-}
-
-.img-wrapper{
-	width:50px; height:50px; background-image: url('../images/profile01.jpg'); background-size: cover; border: 3px solid var(--twitter-background-color);
-	cursor: pointer;
-}
-
-.post_header-discription:hover {
-	
-	background-color:var(--twitter-background-color);
-	cursor: pointer;
-	
-}
-
-
-
-
-.text-bg-light{
-color: #e6ecf0 !important;
-background-color: #191970 !important;
-}
-
-.row {
-    --bs-gutter-x: 0.1rem;
-    }
-.note-resizebar{display: none;}
-
-
-
-
-
-
-
-
-
-
-
-
-

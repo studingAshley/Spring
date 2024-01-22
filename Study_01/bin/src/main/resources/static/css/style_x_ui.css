@@ -167,7 +167,7 @@ main::-webkit-scrollbar{
     outline: none;
 }
 
-.tweet_box button, .box-footer label{ 
+.tweet_box button{ 
     background-color: var(--twitter-theme-color);
     color: white;
     font-weight: bold;
@@ -365,23 +365,12 @@ aside{
 <!--  -->
 
 #text-area{
-	width:400px; height:180px; border: 1px solid var(--twitter-background-color);  padding: 5px; overflow: overlay;
-	
-}
-
-#text-area img{
+	width:400px; height:180px; border: 1px solid var(--twitter-background-color); outline:none; padding: 5px; overflow: overlay;
 	
 }
 
 .write-btn{
 	position: absolute; right: 30px;
-
-}
-
-#imgFile{
-		display: inline-block;
-	 vertical-align: middle;
-	 padding-top:0.6rem;
 }
 
 

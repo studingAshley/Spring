@@ -26,23 +26,6 @@
     <script src="js/summernote-lite.js"></script>
 <style>
 
-input[type="file"] {
-    position: absolute;
-    width: 0;
-    height: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 0;
-}
-
-.userfile{
-
-width:80px;
-height:80px;
-}
-
-pre{    white-space: pre-wrap;    background: #EEE;}
-
 </style>
 
 <script>
@@ -196,146 +179,26 @@ $(function(){
                     	<img src="images/profile01.jpg" alt="profile imagw">
                     	
                     </div>
-                    <div id="text-area" class="rounded" style="position:relative;">
-                    <!-- 
-                    	<div id="write-box" style="outline:none; display: inline-block;width: 370px;"  contenteditable="true">
-                    	</div>
-                     -->
-                     <textarea rows="" cols="" class="content" id="write-box"  style="outline:none; width: 370px; border: none; resize: none;" ></textarea>
-                    	<div id="image-area" style=""></div>
-                    </div>
+                    <div id="text-area" class="rounded"  contenteditable="true"></div>
 
+					    <script>
+					      $(function(){
+					    	  
+					    	  $("#text-area").keypress(function(){
+					    		  console.log("test-box : " + $("#text-area").html());
+					    	  })
+					      })
+					    </script>
+                    
 
                 </div>
 
                 <div class="box-footer" style="">
 
-
-                    <label for="file" id="imgFile" class="btn btn-sm btn-dark">사진등록</label>
-					<input type="file" id="file" multiple="multiple">
+                    <button class="btn btn-sm btn-dark">사진등록</button>
                     <button class="btn btn-sm btn-dark">위치등록</button>
-                    <button id="write" class="write-btn btn btn-sm btn-dark">게시하기</button>
-                 		 <script>
-                 		 var fileCount = 0;
-
-					      $(function(){
-					    	  /*
-					    	  const $textarea = $('#write-box');
-
-					    	  $textarea.oninput = (event) => {
-					    	    const $target = event.target;
-
-					    	    $target.style.height = 0;
-					    	    $target.style.height = DEFAULT_HEIGHT + $target.scrollHeight + 'px';
-					    	  };
-					    	  */
-					    	 
-					    	 /* 
-					    	  $("#write-box").on("paste",function(e){
-					    		  e.preventDefault();
-					    		  var pastedData = event.clipboardData ||  window.clipboardData;
-					    		  var textData = pastedData.getData('Text');
-					    		  $(e.target).prepend(textData);
-					    	  })
-					    	  */
-					    	  const DEFAULT_HEIGHT = 16; // textarea 기본 height
-					    	  
-					    	  $("#write-box").on("keyup",function(e){
-					    		  console.log($(e.target).val());
-					    	//	  console.log(e.target.style);
-					    		  let text = $(e.target).val();
-					    		  e.target.style.height=0;
-					    		  e.target.style.height = DEFAULT_HEIGHT + e.target.scrollHeight + 'px';
-//					    		 
-								 if(text.length > 150)
-								 {
-								  console.log("글자수입력제한");
-								  $(e.target).val(($(e.target).val().substring(0, 150)));
-								 }
-
-					    		 
-					    	  })
-					    	  
-					    	  $("#text-area").click(function(){
-					    		  $("#write-box").focus();
-					    	  })
-					    	  
-					    	  $("#file").on("change",function(e){
-					    		//  console.log(e);
-					    		//  console.log(e.target.files.length);
-					    		  var felement = e.target.files;
-					    			 $("#image-area").html("");
-					    			 fileCount=0;
-					    		  for(var i = 0 ; i < e.target.files.length ; i++)
-				    			  {
-					    			  if(fileCount>3)
-			    			  	        {
-			    			  	        	alert("파일은 최대 네개까지만 첨부가능합니다.");
-			    			  	        	break;
-			    			  	        }
-				    			  		
-				    			  		var file = e.target.files[i];
-				    			  		
-				    			  		let name=file.name;
-				    			  		
-				    			  		//console.log(name);
-				    			  		
-				    			  	    if(isImageFile(file)) {
-				    			  	    	
-				    			  	      var reader = new FileReader(); 
-				    			  	      reader.onload = function(e) {	
-				    			  	    	 var img = document.createElement("img");
-				    			  	    //	console.log("isImageFile",e.target);
-				    			  	         img.setAttribute("src", e.target.result);
-				    			  	       	 img.setAttribute("class", "userfile");
-				    			  	       	 img.setAttribute("onmouseover","this.src='images/cancel.png'");
-				    			  	       	 img.setAttribute("onmouseout","this.src='"+e.target.result+"'");
-				    			  	       	 img.setAttribute("style","width:80px; height:80px; object-fit:cover;");
-				    						 img.setAttribute("data-set",name);	  	       
-				    			  	       	 $("#image-area").prepend(img);
-				    			  	        
-				    			  	       
-				    			  	      }
-					    			  	reader.readAsDataURL(file);
-				    			  	    }
-				    			  	  fileCount++;
-
-				    			  }
-					    	  })
-					    	  
-
-					    	  function isImageFile(file) {
-								  // 파일명에서 확장자를 가져옴
-								  var ext = file.name.split(".").pop().toLowerCase(); 
-								  return ($.inArray(ext, ["jpg", "jpeg", "gif", "png"]) === -1) ? false : true;
-								}
-					    	  
-					    	  $(document).on("click",".userfile",function(e){
-					    			  
-					    		  	const files = $("#file")[0].files;
-					    		  	const dataTranster = new DataTransfer();
-					    		  	const removeTargetId = $(e.target).attr("data-set");
-					    		  	
-					    		  	console.log("target : " , e);
-					    	  		
-					    	  		
-					    	  		 Array.from(files).forEach(file => {
-					    	  			console.log(removeTargetId+" "+file.name);
-					    	  			 if(removeTargetId!=file.name)
-				    	  				 {
-					    	  				dataTranster.items.add(file);
-				    	  				 }
-					                 });
-					    	  		$("#file")[0].files = dataTranster.files;
-					    	  		$(e.target).remove();
-					    	  		console.log($("#file")[0].files);
-					    	  });
-					    	  
-					    	  
-					    	  
-							})
-					    </script>
-					
+                    
+					<button class="write-btn btn btn-sm btn-dark" style="">게시하기</button>
                 </div>
             </form>
         </div>
@@ -345,9 +208,7 @@ $(function(){
             <div class="post_profile-image rounded-5">
                 <img class="" src="images/profile01.jpg" alt="profile">
 	            <div style="position: absolute; height: 100%;     width: 80px;">
-		            <div style="width:3px; height:98%; top:-3px; background-color: var(--emphasis-line-color); position:absolute; left:25%;">
-		            	
-		            </div>
+		            <div style="width:3px; height:98%; top:-3px; background-color: var(--emphasis-line-color); position:absolute; left:25%;"></div>
 				</div>
             </div>
 
@@ -368,8 +229,6 @@ $(function(){
                             Release notes: https://social.ora.cl/6013KoqQF <br>
                             API Javadoc: https://social.ora.cl/6015KoqQN <br>
                             Features: https://social.ora.cl/6016KoqQ4 <br>
-                            이게&nbsp; 맞나 ?&nbsp; &nbsp; &nbsp;<br>
-                            이게&nbsp; 맞나 ?&nbsp; &nbsp; &nbsp;<br>
                             </p>
                     </div>
                     
