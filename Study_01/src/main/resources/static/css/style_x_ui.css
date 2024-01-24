@@ -23,9 +23,11 @@ html{
 }
 
 :root{
-    --twitter-theme-color: #191970;
-    --twitter-background-color: #e6ecf0;
-    --emphasis-line-color:#848484;
+    --twitter-theme-color: #BA68C8;
+    --twitter-background-color: #F3E5F5;
+    --emphasis-line-color: #F3E5F5;
+    --emphasis-theme-color: #AB47BC;
+    --twitter-line-color: #E6ECF0;
 }
 
 .nav_logo{
@@ -91,7 +93,7 @@ body{
 
 nav{
     flex: 0.2;
-    border-right: 1px solid var(--twitter-background-color);
+    border-right: 1px solid var(--twitter-line-color);
     min-width: 250px;
     margin-top: 20px;
     padding-left: 20px;
@@ -102,7 +104,7 @@ nav{
 
 main{
     flex: 0.5; 
-    border-right: 1px solid var(--twitter-background-color);
+    border-right: 1px solid var(--twitter-line-color);
     min-width: fit-content;
     overflow-y: scroll;
     -ms-overflow-style: none;
@@ -115,7 +117,7 @@ main{
     top: 0;
     background-color: white;
     z-index: 10;
-    border: 1px solid var(--twitter-background-color);
+    border: 1px solid var(--twitter-line-color);
     padding: 15px 20px;
 
 }
@@ -145,7 +147,7 @@ main::-webkit-scrollbar{
 
 .tweet_box{
     padding-bottom: 10px;
-    border-bottom: 8px solid var(--twitter-background-color);
+    border-bottom: 8px solid var(--twitter-line-color);
 }
 
 .tweet_box form{
@@ -178,6 +180,10 @@ main::-webkit-scrollbar{
     margin-left: 5px; 
 }
 
+.tweet_box button:hover,.box-footer label:hover{
+	background-color: var(--emphasis-theme-color);
+}
+
 .post_profile-image img{
     border-radius: 50%;
     height: 40px;
@@ -188,9 +194,28 @@ main::-webkit-scrollbar{
 .post{
     display: flex;
     align-items: flex-start;
-    border-bottom: 1px solid var(--twitter-background-color);
+    border-bottom: 1px solid var(--twitter-line-color);
     padding-bottom: 10px;
  
+}
+
+.post_body .img-xs{
+	width: 60px;
+    position: relative;
+    overflow: hidden;
+  	margin: 0.1rem;
+  	padding:0;
+
+}
+
+.post_body .img-xs img{
+    width: 100px;
+    object-fit: contain;
+    border-radius: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .post_body .img-sm img{
@@ -296,7 +321,7 @@ main::-webkit-scrollbar{
 
 }
 
-.post_header-discription{
+.post_header-discription, .post_header-renote{
     margin-bottom: 10px;
     font-size: 15px;
 }
@@ -365,7 +390,7 @@ aside{
 <!--  -->
 
 #text-area{
-	width:400px; height:180px; border: 1px solid var(--twitter-background-color);  padding: 5px; overflow: overlay;
+	width:400px; height:180px; border: 1px solid var(--twitter-line-color);  padding: 5px; overflow: overlay;
 	
 }
 
@@ -378,7 +403,7 @@ aside{
 
 }
 
-#imgFile{
+#imgBtn, #regBtn{
 		display: inline-block;
 	 vertical-align: middle;
 	 padding-top:0.6rem;
@@ -386,11 +411,11 @@ aside{
 
 
 .profile-wrapper{
-	height:auto; padding: 10px 5px; border-top: 1px solid var(--twitter-background-color); border-bottom : 1px solid var(--twitter-background-color);
+	height:auto; padding: 10px 5px; border-top: 1px solid var(--twitter-line-color); border-bottom : 1px solid var(--twitter-line-color);
 }
 
 .img-wrapper{
-	width:50px; height:50px; background-image: url('../images/profile01.jpg'); background-size: cover; border: 3px solid var(--twitter-background-color);
+	width:50px; height:50px; background-image: url('../images/profile01.jpg'); background-size: cover; border: 3px solid var(--twitter-line-color);
 	cursor: pointer;
 }
 
@@ -405,8 +430,8 @@ aside{
 
 
 .text-bg-light{
-color: #e6ecf0 !important;
-background-color: #191970 !important;
+color: var(--twitter-background-color) !important;
+background-color: var(--twitter-theme-color) !important;
 }
 
 .row {

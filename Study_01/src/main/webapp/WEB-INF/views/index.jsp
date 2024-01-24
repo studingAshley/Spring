@@ -26,7 +26,7 @@
     <script src="js/summernote-lite.js"></script>
 <style>
 
-input[type="file"] {
+input[type="file"],input[type="button"] {
     position: absolute;
     width: 0;
     height: 0;
@@ -43,6 +43,15 @@ height:80px;
 
 pre{    white-space: pre-wrap;    background: #EEE;}
 
+.invis{
+	display: none;
+}
+
+.row:hover{
+
+background-color: var(--bs-primary-border-subtle);
+cursor: pointer;
+}
 </style>
 
 <script>
@@ -115,7 +124,7 @@ $(function(){
 </head>
  <body>
  
- <div id="view-box" style="display: flex; justify-content: center; border-left: 1px solid var(--twitter-background-color);" >
+ <div id="view-box" style="display: flex; justify-content: center; border-left: 1px solid var(--twitter-line-color);" >
  
 
 	 <nav style="margin-top: 20px;" >
@@ -201,8 +210,15 @@ $(function(){
                     	<div id="write-box" style="outline:none; display: inline-block;width: 370px;"  contenteditable="true">
                     	</div>
                      -->
-                     <textarea rows="" cols="" class="content" id="write-box"  style="outline:none; width: 370px; border: none; resize: none;" ></textarea>
+                     	<textarea rows="" cols="" class="content" id="write-box"  style="outline:none; width: 370px; border: none; resize: none;" ></textarea>
+                    	<div id="position_wrap" class="invis">
+	                    	<div id="position-area" style="display: flex;" >
+	                    		<span class="material-icons">location_on</span>
+	                    		<div id="currLocation"></div>
+	                    	</div>
+                    	</div>
                     	<div id="image-area" style=""></div>
+                    	
                     </div>
 
 
@@ -211,14 +227,18 @@ $(function(){
                 <div class="box-footer" style="">
 
 
-                    <label for="file" id="imgFile" class="btn btn-sm btn-dark">사진등록</label>
+                    <label for="file" id="imgBtn" class="btn btn-sm btn-dark">사진등록</label>
 					<input type="file" id="file" multiple="multiple">
-                    <button class="btn btn-sm btn-dark">위치등록</button>
+					<label for="regPosition" id="regBtn" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#locationModal" data-bs-whatever="Test">위치등록</label>
+                    <input type="button" class="btn btn-sm btn-dark" id="regPosition">
                     <button id="write" class="write-btn btn btn-sm btn-dark">게시하기</button>
                  		 <script>
                  		 var fileCount = 0;
 
 					      $(function(){
+					    	  
+					    	  
+					    	
 					    	  /*
 					    	  const $textarea = $('#write-box');
 
@@ -238,6 +258,27 @@ $(function(){
 					    		  $(e.target).prepend(textData);
 					    	  })
 					    	  */
+					    	  /*
+					    	  $("#regPosition").on("click",function(){
+					    		 // alert("test");
+					     		 $.ajax({
+					    			 type : "GET",        
+					    			 url : "location",        
+					    			 dataType : "text",       
+					    			 error : function() {            
+					    				 alert('통신실패!!');        
+					    			 },        
+					    			 success : function(data) {            
+					    				 $("#position_wrap").removeClass("invis");    
+					    				 $("#currLocation").html(data);
+					    			 }
+					    			
+					    		      });
+					    		 
+					    		  
+					    	  })
+					    	  */
+					    	  
 					    	  const DEFAULT_HEIGHT = 16; // textarea 기본 height
 					    	  
 					    	  $("#write-box").on("keyup",function(e){
@@ -340,12 +381,86 @@ $(function(){
             </form>
         </div>
 
+
+		<div class="post" style="position:relative;">
+       	
+            <div class="post_profile-image rounded-5">
+                <img class="" src="images/profile01.jpg" alt="profile">
+            </div>
+
+            <div class="post_body">
+                <div class="post_header">
+                    <div class="post_header-text">
+                        <h3>만두
+                            <span class="header-icon-section">
+                                @Mandoo
+                            </span>
+                        </h3>
+                    </div>
+
+                    <div class="post_header-discription" onclick="location.href='viewContent'">
+	                    
+	                        <p>흠터레스팅</p>                    
+	                    
+                    </div>
+                    
+                </div>
+                <div class="container">
+				  <div class="row row-cols-auto">
+				    <div class="col-md-auto">
+							
+							<!--Renote Content -->
+							
+						<div class="rounded-4" style="width:360px; border: 1px solid var(--twitter-line-color); padding : 1rem;"  onclick="location.href='viewContent'" >
+							 <div class="post_header" >
+			                    <div class="post_header-text">
+			                        <h3>만두
+			                            <span class="header-icon-section">@Mandoo</span>
+			                        </h3>
+			                    </div>
+			                </div>
+			                
+		                    <div class="post_header-renote" style="display: flex;">
+	                    		<div class="container img-xs rounded" style="">
+	                    			<img src="images/post-image.jpeg" >
+	                    		</div>
+		                    	<div style="width:200px; height:50px;">
+			                        <p>Text Only</p>                    		                    	
+		                    	</div>
+						   </div>
+						
+						
+				    </div>
+
+				 </div>
+
+               </div>
+               </div>
+
+                <div class="post_footer">
+
+                    <span class="material-icons">chat</span>
+                    <span class="material-icons">repeat</span>
+                    <span class="material-icons">favorite_border</span>
+                    <span class="material-icons">bar_chart</span>
+                    
+
+                </div>
+
+            </div>
+
+        </div>
+        
+        
+
+
+
         <div class="post" style="position:relative;">
        	
             <div class="post_profile-image rounded-5">
                 <img class="" src="images/profile01.jpg" alt="profile">
 	            <div style="position: absolute; height: 100%;     width: 80px;">
-		            <div style="width:3px; height:98%; top:-3px; background-color: var(--emphasis-line-color); position:absolute; left:25%;">
+		            <div style="width:3px; height:98%; top:-3px; background-color: var(--twitter-line-color); position:absolute; left:25%;">
 		            	
 		            </div>
 				</div>
@@ -605,7 +720,142 @@ $(function(){
 
     </div>
   </div>
+</div>
 
+<script>
+
+$(function(){
+	
+	$("#locSearch").on("keyup",function(e){
+		
+		if (e.keyCode == 13) 
+		{
+   			 $.ajax({
+			 type : "GET",        
+			 url : "location",        
+			 dataType : "text",       
+			 error : function() {            
+				 alert('통신실패!!');        
+			 },        
+			 success : function(data) {    
+				 alert("Success");        
+			//	 $("#position_wrap").removeClass("invis");    
+			//	 $("#currLocation").html(data);
+			 }
+			
+		      });
+		}
+
+	});
+	
+	$(".selAddr").on("click",function(e){
+		
+		let element = $(e.currentTarget).attr("data-location");
+		
+		console.log(element);
+		$("#position_wrap").removeClass("invis");    
+		$("#currLocation").html(element);
+		
+		$("#locationModal").modal("hide");
+
+	
+		
+	});
+	
+})
+</script>
+
+<div class="modal" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true"  data-bs-keyboard="false" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fs-6 fw-bold font-family-sans-serif" id="locationModalLabel">지역 검색</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+      </div>
+      <div class="modal-body text-center">
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label ">검색:</label>
+            <input type="text" class="form-control" id="locSearch" data-bs-keyboard="false">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label  ">검색 결과:</label>
+            <div style="">
+            
+            	<div class="container text-center " style="overflow-y: scroll; height:100px;">
+				 
+				 <div class="row  align-items-start selAddr" data-location="Loacation1" > 
+				    <div class="col col-2 border-end border-secondary mt-1" >우편번호</div>
+				    <div class="col col-5 mt-1">주소</div>
+				  </div>  
+				  
+				    <div class="w-100"></div>
+				    
+				  <div class="row  align-items-start selAddr" data-location="Loacation2"  > 
+				    <div class="col col-2 border-end border-secondary mt-1">우편번호</div>
+				    <div class="col col-5 mt-1">주소</div>
+				   </div>  
+				   
+				    <div class="w-100"></div>
+				    
+				  <div class="row  align-items-start selAddr" data-location="Loacation3" >  
+				    <div class="col col-2 border-end border-secondary mt-1">우편번호</div>
+				    <div class="col col-5 mt-1">주소</div>
+				  </div>
+
+				    <div class="w-100"></div>
+				    
+				  <div class="row  align-items-start selAddr" data-location="Loacation4" >  
+				    <div class="col col-2 border-end border-secondary mt-1">우편번호</div>
+				    <div class="col col-5 mt-1">주소</div>
+				  </div>
+				  
+				    <div class="w-100"></div>
+				    
+				  <div class="row  align-items-start selAddr" > 
+				    <div class="col col-2 border-end border-secondary mt-1" data-location="Loacation5" >우편번호</div>
+				    <div class="col col-5 mt-1">주소</div>
+				  </div>				  
+				  
+
+				    <div class="w-100"></div>
+				    
+				  <div class="row  align-items-start selAddr" > 
+				    <div class="col col-2 border-end border-secondary mt-1" data-location="Loacation6" >우편번호</div>
+				    <div class="col col-5 mt-1">주소</div>
+				  </div>
+
+				    <div class="w-100"></div>
+				    
+				  <div class="row  align-items-start selAddr" data-location="Loacation7"  > 
+				    <div class="col col-2 border-end border-secondary mt-1">우편번호</div>
+				    <div class="col col-5 mt-1">주소</div>
+				  </div>				  
+				  
+				    <div class="w-100"></div>
+				    
+				  <div class="row  align-items-start selAddr" data-location="Loacation8" > 
+				    <div class="col col-2 border-end border-secondary mt-1">우편번호</div>
+				    <div class="col col-5 mt-1">주소</div>
+				  </div>
+				  
+				  
+				    <div class="w-100"></div>
+				    
+				  <div class="row  align-items-start selAddr" data-location="Loacation9"  > 
+				    <div class="col col-2 border-end border-secondary mt-1">우편번호</div>
+				    <div class="col col-5 mt-1">주소</div>
+				  </div>				  				  				  				  
+				</div>
+				
+            </div>
+          </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
 <!-- Modal End -->
   </body>
   
