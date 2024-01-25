@@ -21,38 +21,19 @@
 
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
+<script src="js/cross/index.js"></script>
+
  <!-- include summernote css/js-->
     <link href="css/summernote-lite.css" rel="stylesheet">
     <script src="js/summernote-lite.js"></script>
 <style>
 
-input[type="file"],input[type="button"] {
-    position: absolute;
-    width: 0;
-    height: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 0;
-}
-
-.userfile{
-
-width:80px;
-height:80px;
-}
-
-pre{    white-space: pre-wrap;    background: #EEE;}
-
-.invis{
-	display: none;
-}
-
-.row:hover{
-
-background-color: var(--bs-primary-border-subtle);
-cursor: pointer;
-}
+pre{
+	white-space: pre-wrap; 
+	background : #EEE;
+	}
 </style>
+
 
 <script>
 
@@ -129,7 +110,7 @@ $(function(){
 
 	 <nav style="margin-top: 20px;" >
 	    <div class="nav_logo-wrapper" >
-       		<img class="nav_logo" src="images/apple.jpg">
+       		<img class="nav_logo" src="images/cross.jpg">
         </div>
         
 	 	<div class="profile-wrapper " style="">
@@ -142,10 +123,10 @@ $(function(){
 	 			<div style="margin: 4px;"><h2>Name</h2></div>
 	 		</div>
 	 		<div class="profile-follow" style="display: flex; margin-top:20px;">
-	 			<div style="margin:0 4px;"><h4>팔로우</h4></div> 
+	 			<div style="margin:0 4px; "><h4 >팔로우</h4></div> 
 	 			<div style="margin:0;">100</div>
 
-	 			<div style="margin:0 4px 0 10px;"><h4>팔로워</h4></div> 
+	 			<div style="margin:0 4px 0 10px; cursor: pointer;"><h4>팔로워</h4></div> 
 	 			<div style="margin:0;">100</div>
 	 		</div>
 	 	
@@ -210,7 +191,7 @@ $(function(){
                     	<div id="write-box" style="outline:none; display: inline-block;width: 370px;"  contenteditable="true">
                     	</div>
                      -->
-                     	<textarea rows="" cols="" class="content" id="write-box"  style="outline:none; width: 370px; border: none; resize: none;" ></textarea>
+                     	<textarea rows="" cols="" class="content" id="write-box"  style="outline:none; width: 480px; border: none; resize: none; overflow: hidden" ></textarea>
                     	<div id="position_wrap" class="invis">
 	                    	<div id="position-area" style="display: flex;" >
 	                    		<span class="material-icons">location_on</span>
@@ -281,7 +262,11 @@ $(function(){
 					    	  
 					    	  const DEFAULT_HEIGHT = 16; // textarea 기본 height
 					    	  
-					    	  $("#write-box").on("keyup",function(e){
+					    	  $("#currLocation").on("click",function(){
+					    		  $("#locationModal").modal("show");
+					    	  })
+					    	  
+					    	  $("#write-box").on("keydown",function(e){
 					    		  console.log($(e.target).val());
 					    	//	  console.log(e.target.style);
 					    		  let text = $(e.target).val();
@@ -292,6 +277,7 @@ $(function(){
 								 {
 								  console.log("글자수입력제한");
 								  $(e.target).val(($(e.target).val().substring(0, 150)));
+								  e.target.style.height = DEFAULT_HEIGHT + e.target.scrollHeight - 32 + 'px';
 								 }
 
 					    		 
@@ -380,6 +366,61 @@ $(function(){
                 </div>
             </form>
         </div>
+        
+        
+        
+        
+        <!-- Post -->
+
+     <div class="post" style="position:relative;">
+       	
+            <div class="post_profile-image rounded-5">
+                <img class="" src="images/profile01.jpg" alt="profile">
+	            <div style="position: absolute; height: 100%;     width: 80px;">
+		            <div style="width:3px; height:98%; top:-3px; background-color: var(--twitter-line-color); position:absolute; left:25%;">
+		            	
+		            </div>
+				</div>
+            </div>
+
+            <div class="post_body">
+                <div class="post_header">
+                    <div class="post_header-text">
+                        <h3>Java
+                            <span class="header-icon-section">
+                                <span class="material-icons post_badge">verified</span>@java
+                            </span>
+                        </h3>
+                        <div style="margin-left: 1rem; text-align: center;"><h3>24.01.01</h3></div>
+                    </div>
+
+                    <div class="post_header-discription" onclick="location.href='viewContent'">
+                        <p> 동영상 </p>
+
+                    </div>
+                    
+                </div>
+                <div class="container video_contaner">
+					<video controls loop muted poster="" preload="auto">
+					  <source src="video/video01.mp4" type="video/mp4">
+					  Video
+					</video>
+               </div>
+
+                <div class="post_footer">
+
+                    <span class="material-icons ms_icons">chat</span><h3>100</h3>
+                    <span class="material-icons ms_icons repeat">repeat</span><h3>100</h3>
+                    <span class="material-icons ms_icons favorite">favorite_border</span><h3>100</h3>
+                    <span class="material-icons ms_icons">bar_chart</span><h3>100</h3>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
 
 
 		<div class="post" style="position:relative;">
@@ -396,6 +437,7 @@ $(function(){
                                 @Mandoo
                             </span>
                         </h3>
+                        <div style="margin-left: 1rem; text-align: center;"><h3>24.01.01</h3></div>
                     </div>
 
                     <div class="post_header-discription" onclick="location.href='viewContent'">
@@ -406,17 +448,18 @@ $(function(){
                     
                 </div>
                 <div class="container">
-				  <div class="row row-cols-auto">
-				    <div class="col-md-auto">
+				  <div class="">
+				    <div class="">
 							
 							<!--Renote Content -->
 							
-						<div class="rounded-4" style="width:360px; border: 1px solid var(--twitter-line-color); padding : 1rem;"  onclick="location.href='viewContent'" >
+						<div class="rounded-4" style="width:450px; border: 1px solid var(--twitter-line-color); padding : 1rem;"  onclick="location.href='viewContent'" >
 							 <div class="post_header" >
 			                    <div class="post_header-text">
 			                        <h3>만두
 			                            <span class="header-icon-section">@Mandoo</span>
 			                        </h3>
+			                        <div style="margin-left: 1rem; text-align: center;"><h3>24.01.01</h3></div>
 			                    </div>
 			                </div>
 			                
@@ -439,10 +482,10 @@ $(function(){
 
                 <div class="post_footer">
 
-                    <span class="material-icons">chat</span>
-                    <span class="material-icons">repeat</span>
-                    <span class="material-icons">favorite_border</span>
-                    <span class="material-icons">bar_chart</span>
+                    <span class="material-icons ms_icons">chat</span><h3>100</h3>
+                    <span class="material-icons ms_icons repeat">repeat</span><h3>100</h3>
+                    <span class="material-icons ms_icons favorite">favorite_border</span><h3>100</h3>
+                    <span class="material-icons ms_icons">bar_chart</span><h3>100</h3>
                     
 
                 </div>
@@ -474,6 +517,7 @@ $(function(){
                                 <span class="material-icons post_badge">verified</span>@java
                             </span>
                         </h3>
+                        <div style="margin-left: 1rem; text-align: center;"><h3>24.01.01</h3></div>
                     </div>
 
                     <div class="post_header-discription" onclick="location.href='viewContent'">
@@ -511,10 +555,10 @@ $(function(){
 
                 <div class="post_footer">
 
-                    <span class="material-icons">chat</span>
-                    <span class="material-icons">repeat</span>
-                    <span class="material-icons">favorite_border</span>
-                    <span class="material-icons">bar_chart</span>
+                    <span class="material-icons ms_icons">chat</span><h3>100</h3>
+                    <span class="material-icons ms_icons repeat">repeat</span><h3>100</h3>
+                    <span class="material-icons ms_icons favorite">favorite_border</span><h3>100</h3>
+                    <span class="material-icons ms_icons">bar_chart</span><h3>100</h3>
                     
 
                 </div>
@@ -541,6 +585,7 @@ $(function(){
                                 <span class="material-icons post_badge">verified</span>@java
                             </span>
                         </h3>
+                        <div style="margin-left: 1rem; text-align: center;"><h3>24.01.01</h3></div>
                     </div>
 
                     <div class="post_header-discription" onclick="location.href='viewContent'">
@@ -572,10 +617,10 @@ $(function(){
 
                 <div class="post_footer">
 
-                    <span class="material-icons">chat</span>
-                    <span class="material-icons">repeat</span>
-                    <span class="material-icons">favorite_border</span>
-                    <span class="material-icons">bar_chart</span>
+                    <span class="material-icons ms_icons">chat</span><h3>100</h3>
+                    <span class="material-icons ms_icons repeat">repeat</span><h3>100</h3>
+                    <span class="material-icons ms_icons favorite">favorite_border</span><h3>100</h3>
+                    <span class="material-icons ms_icons">bar_chart</span><h3>100</h3>
                     
 
                 </div>
@@ -601,6 +646,7 @@ $(function(){
                                 <span class="material-icons post_badge">verified</span>@java
                             </span>
                         </h3>
+                        <div style="margin-left: 1rem; text-align: center;"><h3>24.01.01</h3></div>
                     </div>
 
                     <div class="post_header-discription" onclick="location.href='viewContent'">
@@ -626,10 +672,10 @@ $(function(){
 
                 <div class="post_footer">
 
-                    <span class="material-icons">chat</span>
-                    <span class="material-icons">repeat</span>
-                    <span class="material-icons">favorite_border</span>
-                    <span class="material-icons">bar_chart</span>
+                    <span class="material-icons ms_icons">chat</span><h3>100</h3>
+                    <span class="material-icons ms_icons repeat">repeat</span><h3>100</h3>
+                    <span class="material-icons ms_icons favorite">favorite_border</span><h3>100</h3>
+                    <span class="material-icons ms_icons">bar_chart</span><h3>100</h3>
                     
 
                 </div>
@@ -656,6 +702,7 @@ $(function(){
                                 <span class="material-icons post_badge">verified</span>@java
                             </span>
                         </h3>
+                        <div style="margin-left: 1rem; text-align: center;"><h3>24.01.01</h3></div>
                     </div>
 
                     <div class="post_header-discription" onclick="location.href='viewContent'">
@@ -680,10 +727,10 @@ $(function(){
 
                 <div class="post_footer">
 
-                    <span class="material-icons">chat</span>
-                    <span class="material-icons">repeat</span>
-                    <span class="material-icons">favorite_border</span>
-                    <span class="material-icons">bar_chart</span>
+                    <span class="material-icons ms_icons">chat</span><h3>100</h3>
+                    <span class="material-icons ms_icons repeat">repeat</span><h3>100</h3>
+                    <span class="material-icons ms_icons favorite">favorite_border</span><h3>100</h3>
+                    <span class="material-icons ms_icons">bar_chart</span><h3>100</h3>
                     
 
                 </div>
@@ -751,7 +798,8 @@ $(function(){
 	$(".selAddr").on("click",function(e){
 		
 		let element = $(e.currentTarget).attr("data-location");
-		
+		$(".locSelected").remove();
+		$(e.currentTarget).append('<span class="material-icons locSelected">close</span>');
 		console.log(element);
 		$("#position_wrap").removeClass("invis");    
 		$("#currLocation").html(element);
@@ -760,6 +808,11 @@ $(function(){
 
 	
 		
+	});
+	
+	$(document).on("click",".locSelected",function(e){		
+		$("#position_wrap").addClass("invis"); 
+		$("#currLocation").html("");
 	});
 	
 })
@@ -782,7 +835,7 @@ $(function(){
             <label for="message-text" class="col-form-label  ">검색 결과:</label>
             <div style="">
             
-            	<div class="container text-center " style="overflow-y: scroll; height:100px;">
+            	<div class="container text-center locArray" style="overflow-y: scroll; height:100px;">
 				 
 				 <div class="row  align-items-start selAddr" data-location="Loacation1" > 
 				    <div class="col col-2 border-end border-secondary mt-1" >우편번호</div>
@@ -793,7 +846,7 @@ $(function(){
 				    
 				  <div class="row  align-items-start selAddr" data-location="Loacation2"  > 
 				    <div class="col col-2 border-end border-secondary mt-1">우편번호</div>
-				    <div class="col col-5 mt-1">주소</div>
+				    <div class="col col-5 mt-1">주소 </div> 
 				   </div>  
 				   
 				    <div class="w-100"></div>

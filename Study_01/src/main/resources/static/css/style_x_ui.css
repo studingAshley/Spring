@@ -30,9 +30,37 @@ html{
     --twitter-line-color: #E6ECF0;
 }
 
+
+.ms_icons, .container, .post_profile-image, .nav_logo, .tweet_box-image, .currLocation{
+	cursor: pointer;
+}
+
+.ms_icons{
+	margin-right: 0.5rem;
+	margin-left:1rem;
+}
+.post_footer h3{
+	margin-right: 4rem;
+	cursor: pointer;
+}
+
+.ms_icons:hover{
+	
+	color:var(--twitter-theme-color);
+}
+
+.locSelected{
+	font-size: 1.0rem; text-align: right;position: absolute; right: 40px;
+}
+
+.selected{
+	
+	color:var(--emphasis-theme-color);
+}
+
 .nav_logo{
-    width: 50px;
-    height: 50px;
+    width: 70px;
+
     color: var(--twitter-theme-color);
     fill: currentColor;
 }
@@ -45,6 +73,7 @@ html{
 .profile-follow h4{
     font-size: 15px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .Menu_options{
@@ -105,7 +134,7 @@ nav{
 main{
     flex: 0.5; 
     border-right: 1px solid var(--twitter-line-color);
-    min-width: fit-content;
+    min-width: 600px;
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -141,7 +170,7 @@ main::-webkit-scrollbar{
 }
 
 .tweet_box-input img{
-    height: 40px;
+    height: 45px;
     
 }
 
@@ -184,10 +213,18 @@ main::-webkit-scrollbar{
 	background-color: var(--emphasis-theme-color);
 }
 
-.post_profile-image img{
-    border-radius: 50%;
+
+.post_profile-image{
     height: 40px;
     width:40px;
+    margin:1rem;
+	overflow: hidden;
+
+}
+
+.post_profile-image img{
+
+    width:45px;
 
 }
 
@@ -219,7 +256,7 @@ main::-webkit-scrollbar{
 }
 
 .post_body .img-sm img{
-    width: 180px;
+    width: 230px;
     object-fit: contain;
     border-radius: 20px;
 
@@ -227,17 +264,20 @@ main::-webkit-scrollbar{
 
 .post_body .img-md{
 	
-	width: 180px;
+	width: 230px;
+	max-height:360px;
     position: relative;
     overflow: hidden;
     margin-left:calc(var(--bs-gutter-x));
     margin-right:calc(var(--bs-gutter-x));
 }
 
+
 .post_body .img-lg{
 	
-	width: 180px;
-	height : 200px;
+	width: 230px;
+	min-height:180px;
+	max-height:260px;
     position: relative;
     overflow: hidden;
     margin-left:calc(var(--bs-gutter-x)*0.5);
@@ -247,8 +287,9 @@ main::-webkit-scrollbar{
 
 .post_body .img-xl{
 	
-	width: 360px;
-	height : 200px;
+	width: 460px;
+	min-height:180px;
+	max-height:260px;
     position: relative;
     overflow: hidden;
     margin-left:calc(var(--bs-gutter-x)*0.5);
@@ -257,10 +298,10 @@ main::-webkit-scrollbar{
 }
 
 .post_body .img-lx img{
-    width: 360px;
-    height:200px;
-    object-fit: contain;
-    border-radius: 20px;
+    
+
+    object-fit: contain;  
+
     position: absolute;
     top: 50%;
     left: 50%;
@@ -270,10 +311,10 @@ main::-webkit-scrollbar{
 
 
 .post_body .img-lg img{
-    width: 360px;
-    height:200px;
+
+
     object-fit: contain;
-    border-radius: 20px;
+    
     position: absolute;
     top: 50%;
     left: 50%;
@@ -283,8 +324,8 @@ main::-webkit-scrollbar{
 
 
 .post_body .img-md img{
-    width: 360px;
-    height:200px;
+
+
     object-fit: contain;
     border-radius: 20px;
     position: absolute;
@@ -296,7 +337,7 @@ main::-webkit-scrollbar{
 
 .post_footer{
     display: flex;
-    justify-content: space-between;
+  justify-content: center;
     margin-top: 10px;
 
 
@@ -315,9 +356,14 @@ main::-webkit-scrollbar{
     color: grey;
 }
 
+.post_header-text{
+	position: relative; display: flex;    align-items: flex-end;
+}
+
 .post_header-text h3{
     font-size: 13px;
     margin-bottom: 5px;
+
 
 }
 
@@ -326,6 +372,11 @@ main::-webkit-scrollbar{
     font-size: 15px;
 }
 
+.video_contaner{
+	text-align: center;
+}
+
+
 .post_body{ 
     flex: 1;
     padding: 10px;
@@ -333,9 +384,7 @@ main::-webkit-scrollbar{
 
 }
 
-.post_profile-image{
-    padding: 20px;
-}
+
 
 
 /* == aside  */
@@ -390,7 +439,7 @@ aside{
 <!--  -->
 
 #text-area{
-	width:400px; height:180px; border: 1px solid var(--twitter-line-color);  padding: 5px; overflow: overlay;
+	width:510px; height:180px; border: 1px solid var(--twitter-line-color);  padding: 5px; overflow: overlay;
 	
 }
 
@@ -440,14 +489,58 @@ background-color: var(--twitter-theme-color) !important;
 .note-resizebar{display: none;}
 
 
+input[type="file"],input[type="button"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.userfile{
+
+width:80px;
+height:80px;
+}
 
 
 
+.invis{
+	display: none;
+}
+
+.row:hover{
+
+background-color: var(--bs-primary-border-subtle);
+cursor: pointer;
+}
+
+video{
+width:360px;
+height:200px;
+}
+
+.mateBtn{
+	font-size: 1.2rem; cursor: pointer;
+}
+
+.dropBtn{
+	 position:absolute; width:20px; height:20px; 
+	 color:var(--twitter-theme-color); border:1px solid var(--twitter-line-color); 
+	 vertical-align:middle ; right:1rem;
+}
+
+.dropBtn:hover{
+	background-color: var(--twitter-background-color);
+}
+
+.dropdown-toggle::after{display: none;}
 
 
+.dropdown-item:focus{background-color:var(--twitter-theme-color);}
 
 
-
-
-
-
+.repeat.toggle, .favorite.toggle, .bookmark.toggle{
+	color:var(--twitter-theme-color);
+}
