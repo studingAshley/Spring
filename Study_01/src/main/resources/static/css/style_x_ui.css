@@ -31,7 +31,7 @@ html{
 }
 
 
-.ms_icons, .container, .post_profile-image, .nav_logo, .tweet_box-image, .currLocation{
+.ms_icons, .container, .post_profile-image, .nav_logo, .tweet_box-image, .currLocation, .modal_currLocation{
 	cursor: pointer;
 }
 
@@ -40,7 +40,7 @@ html{
 	margin-left:1rem;
 }
 .post_footer h3{
-	margin-right: 4rem;
+	margin-right: 3.2rem;
 	cursor: pointer;
 }
 
@@ -49,8 +49,9 @@ html{
 	color:var(--twitter-theme-color);
 }
 
-.locSelected{
+.locSelected, .locSelectedM{
 	font-size: 1.0rem; text-align: right;position: absolute; right: 40px;
+	width:0.5rem;
 }
 
 .selected{
@@ -198,7 +199,7 @@ main::-webkit-scrollbar{
     outline: none;
 }
 
-.tweet_box button, .box-footer label{ 
+.tweet_box button, .box-footer label, .box-footer button, .modal_box-footer label, .modal_box-footer button{ 
     background-color: var(--twitter-theme-color);
     color: white;
     font-weight: bold;
@@ -209,7 +210,7 @@ main::-webkit-scrollbar{
     margin-left: 5px; 
 }
 
-.tweet_box button:hover,.box-footer label:hover{
+.tweet_box button:hover,.box-footer label:hover, .modal_box-footer button:hover,.modal_box-footer label:hover{
 	background-color: var(--emphasis-theme-color);
 }
 
@@ -297,15 +298,14 @@ main::-webkit-scrollbar{
 
 }
 
-.post_body .img-lx img{
+.post_body .img-xl img{
     
 
-    object-fit: contain;  
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    object-fit: contain;
+    min-width : 230px;
+	max-width: 460px;
+	min-height : 260px;
+	max-height: 360px;
 
 }
 
@@ -443,20 +443,39 @@ aside{
 	
 }
 
+#modal_text-area{
+	width:410px; height:180px; border: 1px solid var(--twitter-line-color);  padding: 5px; overflow: overlay;
+	
+}
+
+
 #text-area img{
 	
 }
 
-.write-btn{
+.write-btn, .modal_write-btn{
 	position: absolute; right: 30px;
 
 }
 
 #imgBtn, #regBtn{
-		display: inline-block;
+	 display: inline-block;
 	 vertical-align: middle;
 	 padding-top:0.6rem;
 }
+
+.modal_box-footer{
+	width : 100%;
+	display: block;
+    padding-right: 10px;
+    position: relative;
+	
+}
+ #modalregBtn, #modalImgBtn{
+ 	 display: inline-block;
+	 vertical-align: middle;
+	 padding-top:0.6rem;
+ }
 
 
 .profile-wrapper{
