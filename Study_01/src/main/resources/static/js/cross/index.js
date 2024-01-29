@@ -70,6 +70,11 @@ $(function() {
 	$("#text-area").click(function() {
 		$("#write-box").focus();
 	})
+	
+	$("#modal_text-area").click(function() {
+		$("#modal_write-box").focus();
+	})
+	
 
 	$("#file").on("change", function(e) {
 		//  console.log(e);
@@ -106,6 +111,27 @@ $(function() {
 
 				}
 				reader.readAsDataURL(file);
+			}else if(isVideoFile(file)){
+				if (fileCount > 0) {
+					alert("영상 파일은 최대 하나까지만 첨부가능합니다.");
+					break;
+				}
+				
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					var video = document.createElement("video");
+					console.log("isVideoFile",e.target);
+					video.setAttribute("src", e.target.result);
+					video.setAttribute("controls", "controls");
+					video.setAttribute("loop", "loop");
+					video.setAttribute("muted", "muted");
+					video.setAttribute("preload", "preload");
+					$("#image-area").prepend(video);
+
+
+				}
+				
+				reader.readAsDataURL(file);
 			}
 			fileCount++;
 
@@ -119,10 +145,6 @@ $(function() {
 		$("#modal_image-area").html("");
 		fileCount = 0;
 		for (var i = 0; i < e.target.files.length; i++) {
-			if (fileCount > 3) {
-				alert("파일은 최대 네개까지만 첨부가능합니다.");
-				break;
-			}
 
 			var file = e.target.files[i];
 
@@ -131,10 +153,15 @@ $(function() {
 			//console.log(name);
 
 			if (isImageFile(file)) {
+				if (fileCount > 3) {
+					alert("이미지 파일은 최대 네개까지만 첨부가능합니다.");
+					break;
+				}
+
 
 				var reader = new FileReader();
 				reader.onload = function(e) {
-					var img = document.createElement("img");
+					var img = document.createElement("source");
 					//	console.log("isImageFile",e.target);
 					img.setAttribute("src", e.target.result);
 					img.setAttribute("class", "modal_userfile");
@@ -146,6 +173,28 @@ $(function() {
 
 
 				}
+				
+				reader.readAsDataURL(file);
+			}else if(isVideoFile(file)){
+				if (fileCount > 0) {
+					alert("영상 파일은 최대 하나까지만 첨부가능합니다.");
+					break;
+				}
+				
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					var video = document.createElement("video");
+					console.log("isVideoFile",e.target);
+					video.setAttribute("src", e.target.result);
+					video.setAttribute("controls", "controls");
+					video.setAttribute("loop", "loop");
+					video.setAttribute("muted", "muted");
+					video.setAttribute("preload", "preload");
+					$("#modal_image-area").prepend(video);
+
+
+				}
+				
 				reader.readAsDataURL(file);
 			}
 			fileCount++;
@@ -153,6 +202,10 @@ $(function() {
 		}
 	})
 	
+	function isVideoFile(file){
+		var ext = file.name.split(".").pop().toLowerCase();
+		return ($.inArray(ext, ["mpg", "mpeg", "mp4", "ogg", "webm","avi","wmv"]) === -1) ? false : true;
+	}
 
 	function isImageFile(file) {
 		// 파일명에서 확장자를 가져옴
@@ -272,7 +325,7 @@ $(function() {
 	});
 	
 	$(document).on("click", ".chart", function(e) {
-		alert(".chart");
+		location.href='analystic';
 	});	
 	
 
@@ -314,5 +367,7 @@ $(function() {
 		}
 
 	})
+	
+
 
 })

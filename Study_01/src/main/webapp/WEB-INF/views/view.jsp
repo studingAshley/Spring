@@ -23,7 +23,6 @@
 
 <script src="js/cross/index.js"></script>
 
-
 <script>
 @import "../node_modules/bootstrap/scss/bootstrap";
 
@@ -167,7 +166,7 @@
 	
 	                <div class="post_footer">
 	
-	                    <span class="material-icons ms_icons">chat</span><h3>100</h3>
+	                    <span class="material-icons ms_icons" data-bs-toggle="modal" data-bs-target="#writeModal">chat</span><h3>100</h3>
 	                    <span class="material-icons ms_icons repeat">repeat</span><h3>100</h3>
 	                    <span class="material-icons ms_icons favorite">favorite_border</span><h3>100</h3>
 	                    <span class="material-icons ms_icons bookmark">bookmark_border</span><h3>100</h3>
@@ -243,7 +242,7 @@
 
                 <div class="post_footer">
 
-                    <span class="material-icons ms_icons">chat</span><h3>100</h3>
+                    <span class="material-icons ms_icons" data-bs-toggle="modal" data-bs-target="#writeModal">chat</span><h3>100</h3>
                     <span class="material-icons ms_icons repeat">repeat</span><h3>100</h3>
                     <span class="material-icons ms_icons favorite">favorite_border</span><h3>100</h3>
                     <span class="material-icons ms_icons bookmark">bookmark_border</span><h3>100</h3>
@@ -316,7 +315,7 @@
 
                 <div class="post_footer">
 
-                    <span class="material-icons ms_icons">chat</span><h3>100</h3>
+                    <span class="material-icons ms_icons" data-bs-toggle="modal" data-bs-target="#writeModal">chat</span><h3>100</h3>
                     <span class="material-icons ms_icons repeat ">repeat</span><h3>100</h3>
                     <span class="material-icons ms_icons favorite">favorite_border</span><h3>100</h3>
                     <span class="material-icons ms_icons bookmark">bookmark_border</span><h3>100</h3>
@@ -385,7 +384,7 @@
 
                 <div class="post_footer">
 
-                    <span class="material-icons ms_icons">chat</span><h3>100</h3>
+                    <span class="material-icons ms_icons" data-bs-toggle="modal" data-bs-target="#writeModal">chat</span><h3>100</h3>
                     <span class="material-icons ms_icons repeat">repeat</span><h3>100</h3>
                     <span class="material-icons ms_icons favorite">favorite</span><h3>100</h3>
                     <span class="material-icons ms_icons bookmark">bookmark</span><h3>100</h3>
@@ -403,6 +402,179 @@
     
  </div>
 
+
+<!-- Modal -->
+
+
+	<div class="modal" id="writeModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" style="height: 2rem;">
+					<h5 class="modal-title">답글쓰기</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="tweet_box">
+						<form>
+							<div class="tweet_box-input">
+								<div id="modal_text-area" class="rounded" style="position: relative;">
+
+									<textarea rows="" cols="" class="content" id="modal_write-box"
+										style="outline: none; width: 380px; border: none; resize: none; overflow: hidden"></textarea>
+									<div id="modal_position_wrap" class="invis">
+										<div id="position-area" style="display: flex;">
+											<span class="material-icons">location_on</span>
+											<div id="modal_currLocation"></div>
+										</div>
+									</div>
+									<div id="modal_image-area" style=""></div>
+
+								</div>
+
+
+							</div>
+
+
+						</form>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<div class="modal_box-footer" style="">
+
+
+						<label for="modalFile" id="modalImgBtn" class="btn btn-sm btn-dark">사진등록</label>
+						<input type="file" id="modalFile" multiple="multiple"> 
+						<label for="modalRegPosition" id="modalregBtn" class="btn btn-sm btn-dark"
+							data-bs-toggle="modal" data-bs-target="#locationModal2"
+							data-bs-whatever="Test">위치등록</label> 
+						<input type="button" id="madalRegPosition">
+						<button class="modal_write-btn btn btn-sm btn-dark">게시하기</button>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+	<div class="modal" id="locationModal2" tabindex="-1"
+		aria-labelledby="locationModalLabel2" aria-hidden="true"
+		data-bs-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title fs-6 fw-bold font-family-sans-serif"
+						id="locationModalLabel2">지역 검색</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body text-center">
+
+					<div class="mb-3">
+						<label for="recipient-name" class="col-form-label ">검색:</label> 
+						<input	type="text" class="form-control" id="locSearch"
+							data-bs-keyboard="false">
+					</div>
+					<div class="mb-3">
+						<label for="message-text" class="col-form-label  ">검색 결과:</label>
+						<div style="">
+
+							<div class="container text-center locArray"
+								style="overflow-y: scroll; height: 100px;">
+
+								<div class="row  align-items-start selAddr2"
+									data-location="Loacation1">
+									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
+									<div class="col col-5 mt-1">주소</div>
+								</div>
+
+								<div class="w-100"></div>
+
+								<div class="row  align-items-start selAddr2"
+									data-location="Loacation2">
+									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
+									<div class="col col-5 mt-1">주소</div>
+								</div>
+
+								<div class="w-100"></div>
+
+								<div class="row  align-items-start selAddr2"
+									data-location="Loacation3">
+									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
+									<div class="col col-5 mt-1">주소</div>
+								</div>
+
+								<div class="w-100"></div>
+
+								<div class="row  align-items-start selAddr2"
+									data-location="Loacation4">
+									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
+									<div class="col col-5 mt-1">주소</div>
+								</div>
+
+								<div class="w-100"></div>
+
+								<div class="row  align-items-start selAddr2"
+									data-location="Loacation5">
+									<div class="col col-2 border-end border-secondary mt-1"
+										data-location="Loacation5">우편번호</div>
+									<div class="col col-5 mt-1">주소</div>
+								</div>
+
+
+								<div class="w-100"></div>
+
+								<div class="row  align-items-start selAddr2">
+									<div class="col col-2 border-end border-secondary mt-1"
+										data-location="Loacation6">우편번호</div>
+									<div class="col col-5 mt-1">주소</div>
+								</div>
+
+								<div class="w-100"></div>
+
+								<div class="row  align-items-start selAddr2"
+									data-location="Loacation7">
+									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
+									<div class="col col-5 mt-1">주소</div>
+								</div>
+
+								<div class="w-100"></div>
+
+								<div class="row  align-items-start selAddr2"
+									data-location="Loacation8">
+									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
+									<div class="col col-5 mt-1">주소</div>
+								</div>
+
+
+								<div class="w-100"></div>
+
+								<div class="row  align-items-start selAddr2"
+									data-location="Loacation9">
+									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
+									<div class="col col-5 mt-1">주소</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+<!-- Modal End -->
 
 
   </body>

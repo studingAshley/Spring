@@ -263,9 +263,9 @@ $(function(){
 
 					</div>
 					<div class="container video_contaner">
-						<video controls loop muted poster="" preload="auto">
-							<source src="video/video01.mp4" type="video/mp4">
-							Video
+						<video controls loop muted preload="auto" src="video/video01.mp4">
+							
+							
 						</video>
 					</div>
 
@@ -353,7 +353,7 @@ $(function(){
 
 					<div class="post_footer">
 
-						<span class="material-icons ms_icons">chat</span>
+						<span class="material-icons ms_icons" data-bs-toggle="modal" data-bs-target="#writeModal">chat</span>
 						<h3>100</h3>
 						<span class="material-icons ms_icons repeat">repeat</span>
 						<h3>100</h3>
@@ -442,7 +442,7 @@ $(function(){
 
 					<div class="post_footer">
 
-						<span class="material-icons ms_icons">chat</span>
+						<span class="material-icons ms_icons" data-bs-toggle="modal" data-bs-target="#writeModal">chat</span>
 						<h3>100</h3>
 						<span class="material-icons ms_icons repeat">repeat</span>
 						<h3>100</h3>
@@ -526,7 +526,7 @@ $(function(){
 
 					<div class="post_footer">
 
-						<span class="material-icons ms_icons">chat</span>
+						<span class="material-icons ms_icons" data-bs-toggle="modal" data-bs-target="#writeModal">chat</span>
 						<h3>100</h3>
 						<span class="material-icons ms_icons repeat">repeat</span>
 						<h3>100</h3>
@@ -597,7 +597,7 @@ $(function(){
 
 					<div class="post_footer">
 
-						<span class="material-icons ms_icons">chat</span>
+						<span class="material-icons ms_icons" data-bs-toggle="modal" data-bs-target="#writeModal">chat</span>
 						<h3>100</h3>
 						<span class="material-icons ms_icons repeat">repeat</span>
 						<h3>100</h3>
@@ -664,7 +664,7 @@ $(function(){
 
 					<div class="post_footer">
 
-						<span class="material-icons ms_icons">chat</span>
+						<span class="material-icons ms_icons" data-bs-toggle="modal" data-bs-target="#writeModal">chat</span>
 						<h3>100</h3>
 						<span class="material-icons ms_icons repeat">repeat</span>
 						<h3>100</h3>

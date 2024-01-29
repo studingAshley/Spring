@@ -149,6 +149,7 @@ main{
     z-index: 10;
     border: 1px solid var(--twitter-line-color);
     padding: 15px 20px;
+    display: flex;
 
 }
 
@@ -562,4 +563,14 @@ height:200px;
 
 .repeat.toggle, .favorite.toggle, .bookmark.toggle{
 	color:var(--twitter-theme-color);
+}
+
+.arrow_back{
+	margin:0 0.3rem;
+	cursor: pointer;
+}
+
+
+.hitCounters{
+	border-bottom: 1px solid var(--twitter-line-color);
 }
