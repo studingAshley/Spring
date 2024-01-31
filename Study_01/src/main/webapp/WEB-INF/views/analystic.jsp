@@ -108,9 +108,9 @@
 		<h2>게시활동</h2>
 	</div>
 	
-	<div class="analystic_wrab">
-		<div class="hitCounters">
-			<span>노출수 : 100 </span>
+	<div class="analystic_wrab" style="padding:2rem;">
+		<div class="hitCounters" style="margin-bottom:2rem; padding-bottom :2rem;">
+			<span>노출수 : 100 </span><br><br>
 			<span>조회수 : 100 </span>
 		</div>
 	
