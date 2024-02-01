@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.java.mapper.PostMapper">
+		
+
+ 	
+	<insert id="sendPost"  >
+		<selectKey resultType="int" keyProperty="post_id" order="AFTER">
+			select post_seq.currval from dual
+		</selectKey>
+		insert into post (POST_ID, USER_ID,PCONTENT, PLOCATION,PGROUP, PSTEP, PINDENT, HIT,RENOTE, PLIKE, VIEWHIT0, VIEWHIT6,VIEWHIT12, VIEWHIT18, CREATED , UPDATED)
+			values(
+			POST_SEQ.nextval,
+			#{user_id},
+			#{pcontent},
+			#{plocation},
+			post_seq.currval,
+			0,0,
+			0,0,0,
+			0,0,0,0,
+			sysdate,
+			sysdate
+			)
+	</insert>
+	
+	 <select id="getMyTimeline" resultType="com.java.dto.PostDto">
+ 		select * from post where user_id= #{id}
+ 	</select>
+</mapper>

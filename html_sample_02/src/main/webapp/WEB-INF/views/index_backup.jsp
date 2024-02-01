@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,72 +99,9 @@ pre {
 			</div>
 
 
-			
-
 
 
 			<!-- Post -->
-			
-			<c:forEach var="pdto" items="${plist}">
-				<div class="post" style="position: relative;">
-	
-					<div class="post_profile-image rounded-5">
-						<img class="" src="/images/profile01.jpg" alt="profile">
-						<div style="position: absolute; height: 100%; width: 80px;">
-							<div
-								style="width: 3px; height: 98%; top: -3px; background-color: var(--twitter-line-color); position: absolute; left: 25%;">
-	
-							</div>
-						</div>
-					</div>
-	
-					<div class="post_body">
-						<div class="post_header">
-							<div class="post_header-text">
-								<h3>
-									Java <span class="header-icon-section"> <span
-										class="material-icons post_badge">verified</span>@java
-									</span>
-								</h3>
-								<div style="margin-left: 1rem; text-align: center;">
-									<h3>24.01.01</h3>
-								</div>
-							</div>
-	
-							<div class="post_header-discription"
-								onclick="location.href='/viewContent'">
-								<p>동영상</p>
-	
-							</div>
-	
-						</div>
-						<div class="container video_contaner">
-							<video controls loop muted preload="auto" src="/video/video01.mp4">
-	
-	
-							</video>
-						</div>
-	
-						<div class="post_footer">
-	
-							<span class="material-icons ms_icons chat" data-bs-toggle="modal"
-								data-bs-target="#writeModal">chat</span>
-							<h3>100</h3>
-							<span class="material-icons ms_icons repeat">repeat</span>
-							<h3>100</h3>
-							<span class="material-icons ms_icons favorite">favorite_border</span>
-							<h3>100</h3>
-							<span class="material-icons ms_icons chart">bar_chart</span>
-							<h3>100</h3>
-	
-	
-						</div>
-	
-					</div>
-	
-				</div>
-			
-			</c:forEach>
 
 			<div class="post" style="position: relative;">
 

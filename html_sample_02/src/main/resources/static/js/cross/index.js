@@ -160,7 +160,7 @@ $(function() {
 					//	console.log("isImageFile",e.target);
 					img.setAttribute("src", e.target.result);
 					img.setAttribute("class", "modal_userfile");
-					img.setAttribute("onmouseover", "this.src='images/cancel.png'");
+					img.setAttribute("onmouseover", "this.src='/images/cancel.png'");
 					img.setAttribute("onmouseout", "this.src='" + e.target.result + "'");
 					img.setAttribute("style", "width:80px; height:80px; object-fit:cover;");
 					img.setAttribute("data-set", name);
@@ -253,7 +253,7 @@ $(function() {
 		if (e.keyCode == 13) {
 			$.ajax({
 				type: "GET",
-				url: "location",
+				url: "/location",
 				dataType: "text",
 				error: function() {
 					alert('통신실패!!');
@@ -293,7 +293,7 @@ $(function() {
 		console.log(element);
 		$("#modal_position_wrap").removeClass("invis");
 		$("#modal_currLocation").html(element);
-		$("#madalRegPosition").val(element);
+		$("#modalRegPosition").val(element);
 	
 
 		$("#locationModal2").modal("hide");
@@ -323,7 +323,7 @@ $(function() {
 	});
 	
 	$(document).on("click", ".chart", function(e) {
-		location.href='analystic';
+		location.href='/analystic';
 	});	
 	
 
