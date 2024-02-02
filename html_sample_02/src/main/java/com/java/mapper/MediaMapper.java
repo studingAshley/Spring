@@ -9,4 +9,6 @@ public interface MediaMapper {
 
 	int sendPost(MediaDto mediaDto);
 
+	MediaDto getMedia(int post_id);
+
 }

@@ -1,6 +1,7 @@
 package com.java.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ public interface PostService {
 
 	int sendPost(PostDto postDto);
 
-	ArrayList<PostDto> getMyTimelin(String id);
+
+	Map<String, Object> getMyTimeline(String id);
 
 }

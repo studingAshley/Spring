@@ -10,5 +10,9 @@
 		MEDIA_SEQ.nextval, #{post_id}, #{file_name},#{file_type},#{file_size},sysdate,sysdate
 		)
 	</insert>
+	
+	<select id="getMedia" resultType="com.java.dto.MediaDto">
+		select * from media where post_id = #{post_id}
+	</select>
  	
 </mapper>

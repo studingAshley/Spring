@@ -42,7 +42,7 @@ public class LoginController {
 	@ResponseBody
 	public String ajaxLogin() {
 		
-		session.setAttribute("session_id", "bbb");
+		session.setAttribute("session_id", "aaa");
 		session.setAttribute("session_image", "/images/profile01.jpg");
 		session.setAttribute("session_name","Name111");
 		

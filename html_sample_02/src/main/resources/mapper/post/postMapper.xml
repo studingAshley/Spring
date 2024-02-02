@@ -26,6 +26,10 @@
 	</insert>
 	
 	 <select id="getMyTimeline" resultType="com.java.dto.PostDto">
- 		select * from post where user_id= #{id}
+ 		select distinct post_id, ff.* from 
+ 		(select post.* from 
+ 		(select * from user_follow  where source_id=#{user_id})uf, post  
+ 		where post.user_id = uf.target_id or post.user_id=#{user_id}) ff 
+ 		order by ff.created desc
  	</select>
 </mapper>

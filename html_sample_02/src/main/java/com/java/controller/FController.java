@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.catalina.Session;
 import org.json.simple.JSONObject;
@@ -32,7 +33,7 @@ public class FController {
 	PostService postService;
 	@Autowired
 	MediaService mediaService;
-	@
+
 	
 	@RequestMapping("/")
 	public String index(Model model) {
@@ -47,15 +48,13 @@ public class FController {
 		else
 		{
 			id= session.getAttribute("session_id").toString();
-			ArrayList<PostDto> plist =  postService.getMyTimelin(id);
+			Map<String, Object> map =  postService.getMyTimeline(id);
 			
-			model.addAttribute("plist", plist);
+			model.addAttribute("plist", map.get("plist"));
+			model.addAttribute("ulist", map.get("ulist"));
+			model.addAttribute("mlist", map.get("mlist")); 
 			
-			ArrayList<Cross_userDto> ulist = new ArrayList<>();
-			for(int i = 0 ; i < plist.size() ; i++)
-			{
-				ulist.add(null)
-			}
+
 			
 			
 			model.addAttribute("user_id",session.getAttribute("session_id").toString());
@@ -174,6 +173,8 @@ public class FController {
 		types = types.substring(0, types.length()-1);
 		mediaDto.setFile_type(types);
 		mediaDto.setFile_size(totalsize);
+		
+		
 		if(totalsize>0)
 		{
 			mediaService.sendPost(mediaDto);
