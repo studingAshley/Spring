@@ -15,4 +15,7 @@ public interface PostService {
 
 	Map<String, Object> getMyTimeline(String id);
 
+
+	Map<String, Object> getSelected(int post_id);
+
 }

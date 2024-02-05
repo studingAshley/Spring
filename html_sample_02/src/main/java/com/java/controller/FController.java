@@ -64,7 +64,12 @@ public class FController {
 	}
 	
 	@RequestMapping("/viewContent")
-	public String view() {
+	public String view(int post_id, Model model) {
+		
+		Map<String, Object> postDto = postService.getSelected(post_id);
+
+		model.addAttribute("pdto",postDto);
+		
 		return "/view";
 	}
 	

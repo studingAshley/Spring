@@ -16,5 +16,10 @@ public class MediaServiceImpl implements MediaService {
 		int result = mediaMapper.sendPost(mediaDto);
 		return result;
 	}
+	@Override
+	public MediaDto getSelected(int post_id) {
+		MediaDto mdto = mediaMapper.getMedia(post_id);
+		return mdto;
+	}
 
 }

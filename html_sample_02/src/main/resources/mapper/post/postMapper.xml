@@ -32,4 +32,8 @@
  		where post.user_id = uf.target_id or post.user_id=#{user_id}) ff 
  		order by ff.created desc
  	</select>
+ 	
+ 	<select id="getSelected" resultType="com.java.dto.PostDto">
+ 		select * from post where post_id = #{post_id}
+ 	</select>
 </mapper>

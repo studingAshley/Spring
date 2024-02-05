@@ -13,4 +13,6 @@ public interface PostMapper {
 
 	ArrayList<PostDto> getMyTimeline(String id);
 
+	ArrayList<PostDto> getSelected(int post_id);
+
 }

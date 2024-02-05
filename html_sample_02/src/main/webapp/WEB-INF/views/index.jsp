@@ -88,7 +88,7 @@ pre {
 					<div class="box-footer" style="">
 
 
-						<label for="file"  id="imgBtn" class="btn btn-sm btn-dark">사진등록</label>
+						<label for="file"  id="imgBtn" class="btn btn-sm btn-dark">미디어</label>
 						<input type="file" id="file" name="files" multiple="multiple"> <label
 							for="regPosition" id="regBtn" class="btn btn-sm btn-dark"
 							data-bs-toggle="modal" data-bs-target="#locationModal"
@@ -143,7 +143,7 @@ pre {
 								</div>
 		
 								<div class="post_header-discription"
-									onclick="location.href='/viewContent'">
+									onclick="location.href='/viewContent?${post_id}'">
 									<p>${plist[status.index].pcontent}</p>
 		
 								</div>

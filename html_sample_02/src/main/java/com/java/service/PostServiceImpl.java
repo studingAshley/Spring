@@ -60,4 +60,23 @@ public class PostServiceImpl implements PostService {
 		return map;
 	}
 
+	@Override
+	public Map<String, Object> getSelected(int post_id) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		ArrayList<Cross_userDto> ulist = new ArrayList<>();
+		ArrayList<MediaDto> mlist = new ArrayList<>();
+		
+		ArrayList<PostDto> plist = postMapper.getSelected(post_id);
+		
+		for(int i = 0 ; i < plist.size() ; i++)
+		{
+			ulist.add(cUserMapper.getUserProfile(plist.get(i).getUser_id()));
+			mlist.add(mediaMapper.getMedia(plist.get(i).getPost_id()));
+		}
+		
+		return map;
+	}
+
 }
