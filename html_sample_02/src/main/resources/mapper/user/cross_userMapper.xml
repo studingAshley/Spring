@@ -5,7 +5,7 @@
 <mapper namespace="com.java.mapper.Cross_userMapper">
 		
 	<select id="getUserProfile" resultType="com.java.dto.Cross_userDto">
-		select name,profile_img from cross_user where user_id=#{user_id}
+		select user_id,name,profile_img from cross_user where user_id=#{user_id}
 	</select>
  	
 </mapper>

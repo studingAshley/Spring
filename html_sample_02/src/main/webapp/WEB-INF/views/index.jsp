@@ -134,12 +134,11 @@ pre {
 							<div class="post_header">
 								<div class="post_header-text">
 									<h3>
-										Java <span class="header-icon-section"> <span
-											class="material-icons post_badge">verified</span>@java
+										${ulist[status.index].name}<span class="header-icon-section">@${ulist[status.index].user_id}
 										</span>
 									</h3>
 									<div style="margin-left: 1rem; text-align: center;">
-										<h3>24.01.01</h3>
+										<h3>${plist[status.index].created}</h3>
 									</div>
 								</div>
 		
@@ -221,7 +220,7 @@ pre {
 							
 							<c:if test="${fn:length(img)==4}">
 								<div class="container img-sm">
-									<div class="row row-cols-auto">
+									<div class="row">
 										<div class="col-md-auto">
 											<img src="upload/${img[0]}" class="rounded " alt="java18"
 												data-bs-toggle="modal" data-bs-target="#exampleModal"
@@ -234,7 +233,7 @@ pre {
 										</div>
 									</div>
 			
-									<div class="row row-cols-auto">
+									<div class="row">
 										<div class="col-md-auto">
 											<img src="upload/${img[2]}" class="rounded " alt="java18"
 												data-bs-toggle="modal" data-bs-target="#exampleModal"

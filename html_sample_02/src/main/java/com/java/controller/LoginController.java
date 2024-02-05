@@ -43,7 +43,7 @@ public class LoginController {
 	public String ajaxLogin() {
 		
 		session.setAttribute("session_id", "aaa");
-		session.setAttribute("session_image", "/images/profile01.jpg");
+		session.setAttribute("session_image", "1706975992612_F6y1Uk7bEAA_pPA.jpg");
 		session.setAttribute("session_name","Name111");
 		
 		return "Test";	

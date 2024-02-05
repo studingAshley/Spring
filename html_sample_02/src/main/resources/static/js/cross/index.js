@@ -327,7 +327,7 @@ $(function() {
 	});	
 	
 
-	$(".repeat").on("click", function(e) {
+	$(document).on("click",".repeat", function(e) {
 		if ($(e.target).hasClass("toggle") == false) {
 			$(e.target).addClass("toggle");
 
@@ -338,7 +338,7 @@ $(function() {
 
 	});
 
-	$(".favorite").on("click", function(e) {
+	$(document).on("click",".favorite", function(e) {
 
 		if ($(e.target).hasClass("toggle") == false) {
 			$(e.target).addClass("toggle");
@@ -352,7 +352,7 @@ $(function() {
 
 	})
 
-	$(".bookmark").on("click", function(e) {
+	$(document).on("click",".bookmark", function(e) {
 
 		if ($(e.target).hasClass("toggle") == false) {
 			$(e.target).addClass("toggle");
@@ -381,8 +381,35 @@ $(function() {
           url: url,
           type: 'POST',
           data: formData,
+          dataType:"json",
           success: function (data) {
-          	alert(data);
+          	console.log(data);
+          	console.log("number of files : " + data.nof);
+          	console.log("profile : " + data.profile);
+          	console.log("files : " + data.files);
+          	console.log("type : " + data.type);
+          	if(data.nof==0){
+				  console.log(makePostHtml0(data.name,data.profile,data.post));
+			    $("#post_wrap").prepend(makePostHtml0(data.name,data.profile,data.post));
+			}else if(data.nof==1){
+				console.log("왜 안 됨 ? ");
+				if((data.type).includes("image")){
+					 $("#post_wrap").prepend(makePostHtml1(data.name,data.profile,data.post,data.files));	
+					console.log("이미지")	;			
+				}else if((data.type).includes("video")){
+					 $("#post_wrap").prepend(makePostHtmlv(data.name,data.profile,data.post,data.files));
+					console.log("비디오");	
+				}
+			}else if(data.nof==2){
+				 $("#post_wrap").prepend(makePostHtml2(data.name,data.profile,data.post,data.files));
+			}else if(data.nof==3){
+				 $("#post_wrap").prepend(makePostHtml3(data.name,data.profile,data.post,data.files));
+			}else if(data.nof==4){
+				 $("#post_wrap").prepend(makePostHtml4(data.name,data.profile,data.post,data.files));
+			}
+          	
+          	$("#write-box").val("");
+          	$("")
 
           },
           error: function (data) {
@@ -394,7 +421,168 @@ $(function() {
         });
         
         
-        
+        function makePostHtml0(name,image,post){
+			
+			var phtml = '<div class="post" style="position: relative;">';
+			phtml += '<div class="post_profile-image rounded-5">';
+			phtml += '<img class="" src="/upload/'+image+'" alt="profile">';
+			phtml += '<div style="position: absolute; height: 100%; width: 80px;"></div></div>';
+			phtml += '<div class="post_body">';
+			phtml +='<div class="post_header">'
+			phtml +='<div class="post_header-text">';
+			phtml +='<h3>';
+			phtml += name+'<span class="header-icon-section">@'+post.user_id;
+			phtml += '</span>';
+			phtml += '</h3>';
+			phtml += '<div style="margin-left: 1rem; text-align: center;">';
+			phtml += '<h3>방금 전</h3>';
+			phtml += '</div></div>';
+			phtml += '<div class="post_header-discription"';
+			phtml += 'onclick="location.href='+"'/viewContent'"+'">';
+			phtml += '<p>'+post.pcontent+'</p>';
+			phtml += '</div></div>';
+			
+			phtml += makePostHtmlFooter();
+			
+			
+			return phtml;
+		}
+		
+		function makePostHtmlv(name,image,post,files){
+			
+			var phtml = makePostHtml0(name,image,post);
+			phtml += '<div class="container video_contaner">';
+			phtml += '<video controls loop muted preload="auto" src="/upload/'+files+'">';
+			phtml += '</video></div>';
+			
+			phtml += makePostHtmlFooter();
+			
+			return phtml;
+		}
+		
+		function makePostHtml1(name,image,post,files){
+			//var file = files.split(",");
+			var phtml = makePostHtml0(name,image,post);
+			
+			phtml += '<div class="container">';
+			phtml += '<div class="row row-cols-auto ">';
+			phtml += '<div class="col-md-auto img-xl rounded-4">';
+			phtml += '<img src="/upload/'+files+'" class="rounded " alt="java18"';
+			phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
+			phtml += 'data-bs-whatever="/upload/'+files+'">';
+			phtml += '</div></div></div>';
+			
+			phtml += makePostHtmlFooter();
+			
+			return phtml;
+		}
+		
+		function makePostHtml2(name,image,post,files){
+			var file = files.split(",");
+			var phtml = makePostHtml0(name,image,post);
+			
+			phtml += '<div class="container">';
+			phtml += '<div class="row row-cols-auto ">';
+			phtml += '<div class="col-md-auto img-lg rounded-4">';
+			phtml += '<img src="/upload/'+file[0]+'" class="rounded " alt="java18"';
+			phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
+			phtml += 'data-bs-whatever="upload/'+file[0]+'">';
+			phtml += '</div>';
+			phtml += '<div class="col-md-auto img-lg rounded-4">';
+			phtml += '<img src="/upload/'+file[1]+'" class="rounded " alt="java18"';
+			phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
+			phtml += 'data-bs-whatever="/upload/'+file[1]+'">';
+			phtml += '</div></div></div>';
+			
+			phtml += makePostHtmlFooter();
+			
+			return phtml;
+		}
+		
+		function makePostHtml3(name,image,post,files){
+			var file = files.split(",");
+			var phtml = makePostHtml0(name,image,post);
+			
+			phtml += '<div class="container">';
+			phtml += '<div class="row row-cols-auto">';
+			phtml += '<div class="col-md-auto img-md rounded-4">';
+			phtml += '<img src="upload/'+file[0]+'" class="rounded " alt="java18"';
+			phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
+			phtml += 'data-bs-whatever="upload/'+file[0]+'">';
+			phtml += '</div>';
+			phtml += '<div class="col-md-auto">';
+			phtml += '<div class="row row-cols-auto">';
+			phtml += '<div class="col-md-auto img-sm">';
+			phtml += '<img src="upload/'+file[1]+'" class="rounded "';
+			phtml += 'alt="java18" data-bs-toggle="modal"';
+			phtml += 'data-bs-target="#exampleModal"';
+			phtml += 'data-bs-whatever="upload/'+file[1]+'">';
+			phtml += '</div>';
+			phtml += '</div>';
+			phtml += '<div class="row row-cols-auto">';
+			phtml += '<div class="col-md-auto img-sm">';
+			phtml += '<img src="upload/'+file[2]+'" class="rounded "';
+			phtml += 'alt="java18" data-bs-toggle="modal"';
+			phtml += 'data-bs-target="#exampleModal"';
+			phtml += 'data-bs-whatever="upload/'+file[2]+'">';
+			phtml += '</div></div></div></div></div>';
+			
+			phtml += makePostHtmlFooter();
+			
+			return phtml;
+		}
+		
+		function makePostHtml4(name,image,post,files){
+			var file = files.split(",");
+			var phtml = makePostHtml0(name,image,post);
+			
+			phtml += '<div class="container img-sm">';
+			phtml += '<div class="row">';
+			phtml += '<div class="col-md-auto">';
+			phtml += '<img src="upload/'+file[0]+'" class="rounded " alt="java18"';
+			phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
+			phtml += 'data-bs-whatever="upload/'+file[0]+'">';
+			phtml += '</div>';
+			phtml += '<div class="col-md-auto">';
+			phtml += '<img src="upload/'+file[1]+'" class="rounded " alt="java18"';
+			phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
+			phtml += 'data-bs-whatever="upload/'+file[1]+'">';
+			phtml += '</div>';
+			phtml += '</div>';
+			phtml += '<div class="row">';
+			phtml += '<div class="col-md-auto">';
+			phtml += '<img src="upload/'+file[2]+'" class="rounded " alt="java18"';
+			phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
+			phtml += 'data-bs-whatever="upload/'+file[2]+'">';
+			phtml += '</div>';
+			phtml += '<div class="col-md-auto">';
+			phtml += '<img src="upload/'+file[3]+'" class="rounded " alt="java18"';
+			phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
+			phtml += 'data-bs-whatever="upload/'+file[3]+'">';
+			phtml += '</div></div></div>';
+			
+			phtml += makePostHtmlFooter();
+			
+			return phtml;
+		}
+		
+		function makePostHtmlFooter()
+		{
+			var phtml = '<div class="post_footer">';
+		 	phtml += '<span class="material-icons ms_icons chat" data-bs-toggle="modal"';
+			phtml += 'data-bs-target="#writeModal">chat</span>';
+			phtml += '<h3>100</h3>';
+			phtml += '<span class="material-icons ms_icons repeat">repeat</span>';
+			phtml += '<h3>100</h3>';
+			phtml += '<span class="material-icons ms_icons favorite">favorite_border</span>';
+			phtml += '<h3>100</h3>';
+			phtml += '<span class="material-icons ms_icons chart">bar_chart</span>';
+			phtml += '<h3>100</h3>';
+			phtml += '</div></div></div>';
+			
+			return phtml;
+			
+		}
 		
 	})
 
