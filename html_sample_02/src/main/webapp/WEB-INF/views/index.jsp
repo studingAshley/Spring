@@ -62,15 +62,17 @@ pre {
 			</div>
 
 			<div class="tweet_box">
-				<form id="writeForm" action="/sendPost" method="post" enctype="multipart/form-data">
+				<form id="writeForm" action="/sendPost" method="post"
+					enctype="multipart/form-data">
 					<div class="tweet_box-input">
 						<div class="tweet_box-image rounded-5">
-							<img src="/images/profile01.jpg" alt="profile imagw">
+							<img src="/upload/${session_image}" alt="profile imagw">
 
 						</div>
 						<div id="text-area" class="rounded" style="position: relative;">
 
-							<textarea rows="" cols="" class="content" id="write-box" name="pcontent"
+							<textarea rows="" cols="" class="content" id="write-box"
+								name="pcontent"
 								style="outline: none; width: 480px; border: none; resize: none; overflow: hidden"></textarea>
 							<div id="position_wrap" class="invis">
 								<div id="position-area" style="display: flex;">
@@ -88,12 +90,12 @@ pre {
 					<div class="box-footer" style="">
 
 
-						<label for="file"  id="imgBtn" class="btn btn-sm btn-dark">미디어</label>
-						<input type="file" id="file" name="files" multiple="multiple"> <label
-							for="regPosition" id="regBtn" class="btn btn-sm btn-dark"
+						<label for="file" id="imgBtn" class="btn btn-sm btn-dark">미디어</label>
+						<input type="file" id="file" name="files" multiple="multiple">
+						<label for="regPosition" id="regBtn" class="btn btn-sm btn-dark"
 							data-bs-toggle="modal" data-bs-target="#locationModal"
-							data-bs-whatever="Test">위치등록</label>
-							 <input type="hidden"class="btn btn-sm btn-dark" id="regPosition" name="plocation">
+							data-bs-whatever="Test">위치등록</label> 
+							<input type="hidden" class="btn btn-sm btn-dark" id="regPosition" name="plocation">
 						<button id="writeBtn" class="write-btn btn btn-sm btn-dark">게시하기</button>
 
 
@@ -102,34 +104,36 @@ pre {
 			</div>
 
 
-			
+
 
 
 
 			<!-- Post -->
 			<div id="post_wrap">
-			
-				
+
+
 				<c:forEach var="pdto" items="${plist}" varStatus="status">
 					<div class="post" style="position: relative;">
-		
+
 						<div class="post_profile-image rounded-5">
-							<img class="" src="/upload/${ulist[status.index].profile_img}" alt="profile">
+							<img class="" src="/upload/${ulist[status.index].profile_img}"
+								alt="profile">
 							<div style="position: absolute; height: 100%; width: 80px;">
-							
-							
-							<c:if test="${plist[status.index].pgroup == plist[status.index+1].pgroup}">
-								<div
-									style="width: 3px; height: 98%; top: -3px; background-color: var(--twitter-line-color); position: absolute; left: 25%;">
-								</div>						
-							</c:if>
-	
-								
-								
-								
+
+
+								<c:if
+									test="${plist[status.index].pgroup == plist[status.index+1].pgroup}">
+									<div
+										style="width: 3px; height: 98%; top: -3px; background-color: var(--twitter-line-color); position: absolute; left: 25%;">
+									</div>
+								</c:if>
+
+
+
+
 							</div>
 						</div>
-		
+
 						<div class="post_body">
 							<div class="post_header">
 								<div class="post_header-text">
@@ -141,133 +145,145 @@ pre {
 										<h3>${plist[status.index].created}</h3>
 									</div>
 								</div>
-		
+
 								<div class="post_header-discription"
-									onclick="location.href='/viewContent?${post_id}'">
+									onclick="location.href='/viewContent?post_id=${plist[status.index].post_id}'">
 									<p>${plist[status.index].pcontent}</p>
-		
-								</div>
-							</div>
-							
-						<c:if test="${fn:contains(mlist[status.index].file_type,'video')}">
-							<div class="container video_contaner">
-								<video controls loop muted preload="auto" src="/upload/${mlist[status.index].file_name}">
-								</video>
-							</div>
-						</c:if>
-						
-						<c:if test="${fn:contains(mlist[status.index].file_type,'image')}">
-							<c:set var="img" value="${fn:split(mlist[status.index].file_name,',')}" />
-							<c:if test="${fn:length(img)==1}">
-								<div class="container">
-									<div class="row row-cols-auto ">
-										<div class="col-md-auto img-xl rounded-4">
-											<img src="/upload/${mlist[status.index].file_name}" class="rounded " alt="java18"
-												data-bs-toggle="modal" data-bs-target="#exampleModal"
-												data-bs-whatever="/upload/${mlist[status.index].file_name}">
-										</div>
-			
-									</div>
-								</div>
-							</c:if>
-							
-							<c:if test="${fn:length(img)==2}">
-								<div class="container">
-									<div class="row row-cols-auto ">
-										<div class="col-md-auto img-lg rounded-4">
-											<img src="/upload/${img[0]}" class="rounded " alt="java18"
-												data-bs-toggle="modal" data-bs-target="#exampleModal"
-												data-bs-whatever="upload/${img[0]}">
-										</div>
-										<div class="col-md-auto img-lg rounded-4">
-											<img src="/upload/${img[1]}" class="rounded " alt="java18"
-												data-bs-toggle="modal" data-bs-target="#exampleModal"
-												data-bs-whatever="/upload/${img[1]}">
-										</div>
-									</div>
-								</div>
-							</c:if>
-							
-							<c:if test="${fn:length(img)==3}">
-								<div class="container">
-									<div class="row row-cols-auto">
-										<div class="col-md-auto img-md rounded-4">
-											<img src="upload/${img[0]}" class="rounded " alt="java18"
-												data-bs-toggle="modal" data-bs-target="#exampleModal"
-												data-bs-whatever="upload/${img[0]}">
-										</div>
-										<div class="col-md-auto">
-											<div class="row row-cols-auto">
-												<div class="col-md-auto img-sm">
-													<img src="upload/${img[1]}" class="rounded "
-														alt="java18" data-bs-toggle="modal"
-														data-bs-target="#exampleModal"
-														data-bs-whatever="upload/${img[1]}">
-												</div>
+									<c:if test="${plist[status.index].plocation!=null}">
+										<div class="" style="color:gray">
+											<div style="display: flex;">
+												<span class="material-icons">location_on</span>
+												<div>${plist[status.index].plocation}</div>
 											</div>
-											<div class="row row-cols-auto">
-												<div class="col-md-auto img-sm">
-													<img src="upload/${img[2]}" class="rounded "
-														alt="java18" data-bs-toggle="modal"
-														data-bs-target="#exampleModal"
-														data-bs-whatever="upload/${img[2]}">
-												</div>
+										</div>
+									</c:if>
+									
+									
+								</div>
+							</div>
+
+							<c:if
+								test="${fn:contains(mlist[status.index].file_type,'video')}">
+								<div class="container video_contaner">
+									<video controls loop muted preload="auto"
+										src="/upload/${mlist[status.index].file_name}">
+									</video>
+								</div>
+							</c:if>
+
+							<c:if
+								test="${fn:contains(mlist[status.index].file_type,'image')}">
+								<c:set var="img"
+									value="${fn:split(mlist[status.index].file_name,',')}" />
+								<c:if test="${fn:length(img)==1}">
+									<div class="container">
+										<div class="row row-cols-auto ">
+											<div class="col-md-auto img-xl rounded-4">
+												<img src="/upload/${mlist[status.index].file_name}"
+													class="rounded " alt="java18" data-bs-toggle="modal"
+													data-bs-target="#exampleModal"
+													data-bs-whatever="/upload/${mlist[status.index].file_name}">
+											</div>
+
+										</div>
+									</div>
+								</c:if>
+
+								<c:if test="${fn:length(img)==2}">
+									<div class="container">
+										<div class="row row-cols-auto ">
+											<div class="col-md-auto img-lg rounded-4">
+												<img src="/upload/${img[0]}" class="rounded " alt="java18"
+													data-bs-toggle="modal" data-bs-target="#exampleModal"
+													data-bs-whatever="upload/${img[0]}">
+											</div>
+											<div class="col-md-auto img-lg rounded-4">
+												<img src="/upload/${img[1]}" class="rounded " alt="java18"
+													data-bs-toggle="modal" data-bs-target="#exampleModal"
+													data-bs-whatever="/upload/${img[1]}">
 											</div>
 										</div>
 									</div>
-								</div>
-							</c:if>
-							
-							<c:if test="${fn:length(img)==4}">
-								<div class="container img-sm">
-									<div class="row">
-										<div class="col-md-auto">
-											<img src="upload/${img[0]}" class="rounded " alt="java18"
-												data-bs-toggle="modal" data-bs-target="#exampleModal"
-												data-bs-whatever="upload/${img[0]}">
-										</div>
-										<div class="col-md-auto">
-											<img src="upload/${img[1]}" class="rounded " alt="java18"
-												data-bs-toggle="modal" data-bs-target="#exampleModal"
-												data-bs-whatever="upload/${img[1]}">
-										</div>
-									</div>
-			
-									<div class="row">
-										<div class="col-md-auto">
-											<img src="upload/${img[2]}" class="rounded " alt="java18"
-												data-bs-toggle="modal" data-bs-target="#exampleModal"
-												data-bs-whatever="upload/${img[2]}">
-										</div>
-										<div class="col-md-auto">
-											<img src="upload/${img[3]}" class="rounded " alt="java18"
-												data-bs-toggle="modal" data-bs-target="#exampleModal"
-												data-bs-whatever="upload/${img[3]}">
+								</c:if>
+
+								<c:if test="${fn:length(img)==3}">
+									<div class="container">
+										<div class="row row-cols-auto">
+											<div class="col-md-auto img-md rounded-4">
+												<img src="upload/${img[0]}" class="rounded " alt="java18"
+													data-bs-toggle="modal" data-bs-target="#exampleModal"
+													data-bs-whatever="upload/${img[0]}">
+											</div>
+											<div class="col-md-auto">
+												<div class="row row-cols-auto">
+													<div class="col-md-auto img-sm">
+														<img src="upload/${img[1]}" class="rounded " alt="java18"
+															data-bs-toggle="modal" data-bs-target="#exampleModal"
+															data-bs-whatever="upload/${img[1]}">
+													</div>
+												</div>
+												<div class="row row-cols-auto">
+													<div class="col-md-auto img-sm">
+														<img src="upload/${img[2]}" class="rounded " alt="java18"
+															data-bs-toggle="modal" data-bs-target="#exampleModal"
+															data-bs-whatever="upload/${img[2]}">
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
-								</div>
+								</c:if>
+
+								<c:if test="${fn:length(img)==4}">
+									<div class="container img-sm">
+										<div class="row">
+											<div class="col-md-auto">
+												<img src="upload/${img[0]}" class="rounded " alt="java18"
+													data-bs-toggle="modal" data-bs-target="#exampleModal"
+													data-bs-whatever="upload/${img[0]}">
+											</div>
+											<div class="col-md-auto">
+												<img src="upload/${img[1]}" class="rounded " alt="java18"
+													data-bs-toggle="modal" data-bs-target="#exampleModal"
+													data-bs-whatever="upload/${img[1]}">
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-md-auto">
+												<img src="upload/${img[2]}" class="rounded " alt="java18"
+													data-bs-toggle="modal" data-bs-target="#exampleModal"
+													data-bs-whatever="upload/${img[2]}">
+											</div>
+											<div class="col-md-auto">
+												<img src="upload/${img[3]}" class="rounded " alt="java18"
+													data-bs-toggle="modal" data-bs-target="#exampleModal"
+													data-bs-whatever="upload/${img[3]}">
+											</div>
+										</div>
+									</div>
+								</c:if>
+
+
+
+
 							</c:if>
-							
-						
-	
-						
-						</c:if>
-							
-							
-							
-							
-	
-							
-							
-							
-							
-							
-							
-		
+
+
+
+
+
+
+
+
+
+
+
+
 							<div class="post_footer">
-		
-								<span class="material-icons ms_icons chat" data-bs-toggle="modal"
-									data-bs-target="#writeModal">chat</span>
+
+								<span class="material-icons ms_icons chat"
+									data-bs-toggle="modal" data-bs-target="#writeModal" data-post_id="${plist[status.index].post_id}">chat</span>
 								<h3>100</h3>
 								<span class="material-icons ms_icons repeat">repeat</span>
 								<h3>100</h3>
@@ -275,38 +291,38 @@ pre {
 								<h3>100</h3>
 								<span class="material-icons ms_icons chart">bar_chart</span>
 								<h3>100</h3>
-		
-		
+
+
 							</div>
-		
+
 						</div>
-		
+
 					</div>
-				
+
 				</c:forEach>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
 				<div class="post" style="position: relative;">
-	
+
 					<div class="post_profile-image rounded-5">
 						<img class="" src="/images/profile01.jpg" alt="profile">
 						<div style="position: absolute; height: 100%; width: 80px;">
 							<div
 								style="width: 3px; height: 98%; top: -3px; background-color: var(--twitter-line-color); position: absolute; left: 25%;">
-	
+
 							</div>
 						</div>
 					</div>
-	
+
 					<div class="post_body">
 						<div class="post_header">
 							<div class="post_header-text">
@@ -319,23 +335,24 @@ pre {
 									<h3>24.01.01</h3>
 								</div>
 							</div>
-	
+
 							<div class="post_header-discription"
 								onclick="location.href='/viewContent'">
 								<p>동영상</p>
-	
+
 							</div>
-	
+
 						</div>
 						<div class="container video_contaner">
-							<video controls loop muted preload="auto" src="/video/video01.mp4">
-	
-	
+							<video controls loop muted preload="auto"
+								src="/video/video01.mp4">
+
+
 							</video>
 						</div>
-	
+
 						<div class="post_footer">
-	
+
 							<span class="material-icons ms_icons chat" data-bs-toggle="modal"
 								data-bs-target="#writeModal">chat</span>
 							<h3>100</h3>
@@ -345,22 +362,22 @@ pre {
 							<h3>100</h3>
 							<span class="material-icons ms_icons chart">bar_chart</span>
 							<h3>100</h3>
-	
-	
+
+
 						</div>
-	
+
 					</div>
-	
+
 				</div>
-	
-	
-	
+
+
+
 				<div class="post" style="position: relative;">
-	
+
 					<div class="post_profile-image rounded-5">
 						<img class="" src="/images/profile01.jpg" alt="profile">
 					</div>
-	
+
 					<div class="post_body">
 						<div class="post_header">
 							<div class="post_header-text">
@@ -371,21 +388,28 @@ pre {
 									<h3>24.01.01</h3>
 								</div>
 							</div>
-	
+
 							<div class="post_header-discription"
 								onclick="location.href='/viewContent'">
-	
+
 								<p>흠터레스팅</p>
-	
+
+								<div class="">
+									<div style="display: flex;">
+										<span class="material-icons">location_on</span>
+										<div>Location!!</div>
+									</div>
+								</div>
+
 							</div>
-	
+
 						</div>
 						<div class="container">
 							<div class="">
 								<div class="">
-	
+
 									<!--Renote Content -->
-	
+
 									<div class="rounded-4"
 										style="width: 450px; border: 1px solid var(--twitter-line-color); padding: 1rem;"
 										onclick="location.href='/viewContent'">
@@ -399,7 +423,7 @@ pre {
 												</div>
 											</div>
 										</div>
-	
+
 										<div class="post_header-renote" style="display: flex;">
 											<div class="container img-xs rounded" style="">
 												<img src="/images/post-image.jpeg">
@@ -408,17 +432,17 @@ pre {
 												<p>Text Only</p>
 											</div>
 										</div>
-	
-	
+
+
 									</div>
-	
+
 								</div>
-	
+
 							</div>
 						</div>
-	
+
 						<div class="post_footer">
-	
+
 							<span class="material-icons ms_icons" data-bs-toggle="modal"
 								data-bs-target="#writeModal">chat</span>
 							<h3>100</h3>
@@ -428,30 +452,30 @@ pre {
 							<h3>100</h3>
 							<span class="material-icons ms_icons">bar_chart</span>
 							<h3>100</h3>
-	
-	
+
+
 						</div>
-	
+
 					</div>
-	
+
 				</div>
-	
-	
-	
-	
-	
+
+
+
+
+
 				<div class="post" style="position: relative;">
-	
+
 					<div class="post_profile-image rounded-5">
 						<img class="" src="/images/profile01.jpg" alt="profile">
 						<div style="position: absolute; height: 100%; width: 80px;">
 							<div
 								style="width: 3px; height: 98%; top: -3px; background-color: var(--twitter-line-color); position: absolute; left: 25%;">
-	
+
 							</div>
 						</div>
 					</div>
-	
+
 					<div class="post_body">
 						<div class="post_header">
 							<div class="post_header-text">
@@ -464,7 +488,7 @@ pre {
 									<h3>24.01.01</h3>
 								</div>
 							</div>
-	
+
 							<div class="post_header-discription"
 								onclick="location.href='/viewContent'">
 								<p>Java 18 is now available! #Java18 #JDK18 #openjdk</p>
@@ -477,38 +501,42 @@ pre {
 									&nbsp; &nbsp;<br> 이게&nbsp; 맞나 ?&nbsp; &nbsp; &nbsp;<br>
 								</p>
 							</div>
-	
+
 						</div>
 						<div class="container img-sm">
 							<div class="row row-cols-auto">
 								<div class="col-md-auto">
-									<img src="/images/post-image.jpeg" class="rounded " alt="java18"
-										data-bs-toggle="modal" data-bs-target="#exampleModal"
+									<img src="/images/post-image.jpeg" class="rounded "
+										alt="java18" data-bs-toggle="modal"
+										data-bs-target="#exampleModal"
 										data-bs-whatever="images/post-image.jpeg">
 								</div>
 								<div class="col-md-auto">
-									<img src="/images/post-image.jpeg" class="rounded " alt="java18"
-										data-bs-toggle="modal" data-bs-target="#exampleModal"
+									<img src="/images/post-image.jpeg" class="rounded "
+										alt="java18" data-bs-toggle="modal"
+										data-bs-target="#exampleModal"
 										data-bs-whatever="images/post-image.jpeg">
 								</div>
 							</div>
-	
+
 							<div class="row row-cols-auto">
 								<div class="col-md-auto">
-									<img src="/images/post-image.jpeg" class="rounded " alt="java18"
-										data-bs-toggle="modal" data-bs-target="#exampleModal"
+									<img src="/images/post-image.jpeg" class="rounded "
+										alt="java18" data-bs-toggle="modal"
+										data-bs-target="#exampleModal"
 										data-bs-whatever="images/post-image.jpeg">
 								</div>
 								<div class="col-md-auto">
-									<img src="/images/post-image.jpeg" class="rounded " alt="java18"
-										data-bs-toggle="modal" data-bs-target="#exampleModal"
+									<img src="/images/post-image.jpeg" class="rounded "
+										alt="java18" data-bs-toggle="modal"
+										data-bs-target="#exampleModal"
 										data-bs-whatever="images/post-image.jpeg">
 								</div>
 							</div>
 						</div>
-	
+
 						<div class="post_footer">
-	
+
 							<span class="material-icons ms_icons" data-bs-toggle="modal"
 								data-bs-target="#writeModal">chat</span>
 							<h3>100</h3>
@@ -518,24 +546,24 @@ pre {
 							<h3>100</h3>
 							<span class="material-icons ms_icons">bar_chart</span>
 							<h3>100</h3>
-	
-	
+
+
 						</div>
-	
+
 					</div>
-	
+
 				</div>
-	
-	
-	
+
+
+
 				<div class="post" style="position: relative;">
-	
+
 					<div class="post_profile-image rounded-5">
 						<img class="" src="/images/profile01.jpg" alt="profile">
 						<div style="position: absolute; height: 100%; width: 80px;">
 						</div>
 					</div>
-	
+
 					<div class="post_body">
 						<div class="post_header">
 							<div class="post_header-text">
@@ -548,7 +576,7 @@ pre {
 									<h3>24.01.01</h3>
 								</div>
 							</div>
-	
+
 							<div class="post_header-discription"
 								onclick="location.href='/viewContent'">
 								<p>Java 18 is now available! #Java18 #JDK18 #openjdk</p>
@@ -560,14 +588,15 @@ pre {
 									https://social.ora.cl/6016KoqQ4 <br>
 								</p>
 							</div>
-	
+
 						</div>
-	
+
 						<div class="container">
 							<div class="row row-cols-auto">
 								<div class="col-md-auto img-md rounded-4">
-									<img src="/images/post-image.jpeg" class="rounded " alt="java18"
-										data-bs-toggle="modal" data-bs-target="#exampleModal"
+									<img src="/images/post-image.jpeg" class="rounded "
+										alt="java18" data-bs-toggle="modal"
+										data-bs-target="#exampleModal"
 										data-bs-whatever="images/post-image.jpeg">
 								</div>
 								<div class="col-md-auto">
@@ -590,10 +619,10 @@ pre {
 								</div>
 							</div>
 						</div>
-	
-	
+
+
 						<div class="post_footer">
-	
+
 							<span class="material-icons ms_icons" data-bs-toggle="modal"
 								data-bs-target="#writeModal">chat</span>
 							<h3>100</h3>
@@ -603,23 +632,23 @@ pre {
 							<h3>100</h3>
 							<span class="material-icons ms_icons">bar_chart</span>
 							<h3>100</h3>
-	
-	
+
+
 						</div>
-	
+
 					</div>
-	
+
 				</div>
-	
+
 				<div class="post" style="position: relative;">
-	
+
 					<div class="post_profile-image rounded-5">
 						<img class="" src="/images/profile01.jpg" alt="profile">
 						<div style="position: absolute; height: 100%; width: 80px;">
-	
+
 						</div>
 					</div>
-	
+
 					<div class="post_body">
 						<div class="post_header">
 							<div class="post_header-text">
@@ -632,7 +661,7 @@ pre {
 									<h3>24.01.01</h3>
 								</div>
 							</div>
-	
+
 							<div class="post_header-discription"
 								onclick="location.href='/viewContent'">
 								<p>Java 18 is now available! #Java18 #JDK18 #openjdk</p>
@@ -644,28 +673,30 @@ pre {
 									https://social.ora.cl/6016KoqQ4 <br>
 								</p>
 							</div>
-	
+
 						</div>
-	
-	
+
+
 						<div class="container">
 							<div class="row row-cols-auto ">
 								<div class="col-md-auto img-lg rounded-4">
-									<img src="/images/post-image.jpeg" class="rounded " alt="java18"
-										data-bs-toggle="modal" data-bs-target="#exampleModal"
+									<img src="/images/post-image.jpeg" class="rounded "
+										alt="java18" data-bs-toggle="modal"
+										data-bs-target="#exampleModal"
 										data-bs-whatever="images/post-image.jpeg">
 								</div>
 								<div class="col-md-auto img-lg rounded-4">
-									<img src="/images/post-image.jpeg" class="rounded " alt="java18"
-										data-bs-toggle="modal" data-bs-target="#exampleModal"
+									<img src="/images/post-image.jpeg" class="rounded "
+										alt="java18" data-bs-toggle="modal"
+										data-bs-target="#exampleModal"
 										data-bs-whatever="images/post-image.jpeg">
 								</div>
 							</div>
 						</div>
-	
-	
+
+
 						<div class="post_footer">
-	
+
 							<span class="material-icons ms_icons" data-bs-toggle="modal"
 								data-bs-target="#writeModal">chat</span>
 							<h3>100</h3>
@@ -675,24 +706,24 @@ pre {
 							<h3>100</h3>
 							<span class="material-icons ms_icons">bar_chart</span>
 							<h3>100</h3>
-	
-	
+
+
 						</div>
-	
+
 					</div>
-	
+
 				</div>
-	
-	
+
+
 				<div class="post" style="position: relative;">
-	
+
 					<div class="post_profile-image rounded-5">
 						<img class="" src="/images/profile01.jpg" alt="profile">
 						<div style="position: absolute; height: 100%; width: 80px;">
-	
+
 						</div>
 					</div>
-	
+
 					<div class="post_body">
 						<div class="post_header">
 							<div class="post_header-text">
@@ -705,7 +736,7 @@ pre {
 									<h3>24.01.01</h3>
 								</div>
 							</div>
-	
+
 							<div class="post_header-discription"
 								onclick="location.href='/viewContent'">
 								<p>Java 18 is now available! #Java18 #JDK18 #openjdk</p>
@@ -717,23 +748,24 @@ pre {
 									https://social.ora.cl/6016KoqQ4 <br>
 								</p>
 							</div>
-	
+
 						</div>
-	
+
 						<div class="container">
 							<div class="row row-cols-auto ">
 								<div class="col-md-auto img-xl rounded-4">
-									<img src="/images/post-image.jpeg" class="rounded " alt="java18"
-										data-bs-toggle="modal" data-bs-target="#exampleModal"
+									<img src="/images/post-image.jpeg" class="rounded "
+										alt="java18" data-bs-toggle="modal"
+										data-bs-target="#exampleModal"
 										data-bs-whatever="/images/post-image.jpeg">
 								</div>
-	
+
 							</div>
 						</div>
-	
-	
+
+
 						<div class="post_footer">
-	
+
 							<span class="material-icons ms_icons" data-bs-toggle="modal"
 								data-bs-target="#writeModal">chat</span>
 							<h3>100</h3>
@@ -743,12 +775,12 @@ pre {
 							<h3>100</h3>
 							<span class="material-icons ms_icons">bar_chart</span>
 							<h3>100</h3>
-	
-	
+
+
 						</div>
-	
+
 					</div>
-	
+
 				</div>
 
 			</div>
@@ -894,6 +926,7 @@ pre {
 	</div>
 
 
+<!-- Write Modal -->
 	<div class="modal" id="writeModal" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -902,7 +935,8 @@ pre {
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
-				<form>
+				<form id="modalForm" action="/modalSendPost" method="post" enctype="multipart/form-data">
+				<div id="modal_hidden"></div>
 					<div class="modal-body">
 						<div class="tweet_box">
 
@@ -910,7 +944,7 @@ pre {
 								<div id="modal_text-area" class="rounded"
 									style="position: relative;">
 
-									<textarea rows="" cols="" class="content" id="modal_write-box"
+									<textarea rows="" cols="" class="content" id="modal_write-box" name="pcontent"
 										style="outline: none; width: 380px; border: none; resize: none; overflow: hidden"></textarea>
 									<div id="modal_position_wrap" class="invis">
 										<div id="position-area" style="display: flex;">
@@ -935,13 +969,13 @@ pre {
 
 
 							<label for="modalFile" id="modalImgBtn"
-								class="btn btn-sm btn-dark">사진등록</label> <input type="file"
-								id="modalFile" multiple="multiple"> <label
-								for="modalRegPosition" id="modalregBtn"
+								class="btn btn-sm btn-dark">사진등록</label> 
+								<input type="file" name="files"	id="modalFile" multiple="multiple"> 
+								<label for="modalRegPosition" id="modalregBtn"
 								class="btn btn-sm btn-dark" data-bs-toggle="modal"
 								data-bs-target="#locationModal2" data-bs-whatever="Test">위치등록</label>
-							<input type="button" id="madalRegPosition">
-							<button class="modal_write-btn btn btn-sm btn-dark">게시하기</button>
+							<input type="hidden" class="btn btn-sm btn-dark" id="modalRegPosition" name="plocation">
+							<button id="modal_write-btn" class="modal_write-btn btn btn-sm btn-dark">게시하기</button>
 
 
 						</div>

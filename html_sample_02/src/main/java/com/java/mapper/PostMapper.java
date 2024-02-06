@@ -15,4 +15,8 @@ public interface PostMapper {
 
 	ArrayList<PostDto> getSelected(int post_id);
 
+	int sendModalPost(PostDto postDto);
+
+	PostDto getMaxStep(int post_id);
+
 }

@@ -18,4 +18,7 @@ public interface PostService {
 
 	Map<String, Object> getSelected(int post_id);
 
+
+	int sendModalPost(PostDto postDto);
+
 }

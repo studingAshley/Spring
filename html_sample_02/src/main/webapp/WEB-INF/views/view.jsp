@@ -56,11 +56,211 @@
 				<h2>게시글</h2>
 			</div>
 
+	<!-- Post -->
+			<div id="post_wrap">
+			
+				
+				<c:forEach var="pdto" items="${plist}" varStatus="status">
+					<div class="post" style="position: relative;">
+		
+						<div class="post_profile-image rounded-5">
+							<img class="" src="/upload/${ulist[status.index].profile_img}" alt="profile">
+							<div style="position: absolute; height: 100%; width: 80px;">
+							
+							
+							<c:if test="${plist[status.index].pgroup == plist[status.index+1].pgroup}">
+								<div
+									style="width: 3px; height: 98%; top: -3px; background-color: var(--twitter-line-color); position: absolute; left: 25%;">
+								</div>						
+							</c:if>
+	
+								
+								
+								
+							</div>
+						</div>
+		
+						<div class="post_body">
+							<div class="post_header">
+								<div class="post_header-text">
+									<h3>
+										${ulist[status.index].name}<span class="header-icon-section">@${ulist[status.index].user_id}
+										</span>
+									</h3>
+									<div style="margin-left: 1rem; text-align: center;">
+										<h3>${plist[status.index].created}</h3>
+									</div>
+									<div class="dropdown dropBtn">
+
+								<div class="dropdown-toggle" type="button"
+									data-bs-toggle="dropdown" aria-expanded="false">
+
+									<span class="material-icons mateBtn">more_horiz</span> <span
+										class="visually-hidden">Toggle Dropdown</span>
+								</div>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="#">Action</a></li>
+									<li><a class="dropdown-item" href="#">Action</a></li>
+									<li><a class="dropdown-item" href="#">Action</a></li>
+								</ul>
+							</div>
+								</div>
+		
+								<div class="post_header-discription"
+									onclick="location.href='/viewContent?${plist[status.index].post_id}'">
+									<p>${plist[status.index].pcontent}</p>
+									
+									
+									<c:if test="${plist[status.index].plocation!=null}">
+										<div class="" style="color:gray">
+											<div style="display: flex;">
+												<span class="material-icons">location_on</span>
+												<div>${plist[status.index].plocation}</div>
+											</div>
+										</div>
+									</c:if>
+									
+									
+								</div>
+							</div>
+							
+						<c:if test="${fn:contains(mlist[status.index].file_type,'video')}">
+							<div class="container video_contaner">
+								<video controls loop muted preload="auto" src="/upload/${mlist[status.index].file_name}">
+								</video>
+							</div>
+						</c:if>
+						
+						<c:if test="${fn:contains(mlist[status.index].file_type,'image')}">
+							<c:set var="img" value="${fn:split(mlist[status.index].file_name,',')}" />
+							<c:if test="${fn:length(img)==1}">
+								<div class="container">
+									<div class="row row-cols-auto ">
+										<div class="col-md-auto img-xl rounded-4">
+											<img src="/upload/${mlist[status.index].file_name}" class="rounded " alt="java18"
+												data-bs-toggle="modal" data-bs-target="#exampleModal"
+												data-bs-whatever="/upload/${mlist[status.index].file_name}">
+										</div>
+			
+									</div>
+								</div>
+							</c:if>
+							
+							<c:if test="${fn:length(img)==2}">
+								<div class="container">
+									<div class="row row-cols-auto ">
+										<div class="col-md-auto img-lg rounded-4">
+											<img src="/upload/${img[0]}" class="rounded " alt="java18"
+												data-bs-toggle="modal" data-bs-target="#exampleModal"
+												data-bs-whatever="upload/${img[0]}">
+										</div>
+										<div class="col-md-auto img-lg rounded-4">
+											<img src="/upload/${img[1]}" class="rounded " alt="java18"
+												data-bs-toggle="modal" data-bs-target="#exampleModal"
+												data-bs-whatever="/upload/${img[1]}">
+										</div>
+									</div>
+								</div>
+							</c:if>
+							
+							<c:if test="${fn:length(img)==3}">
+								<div class="container">
+									<div class="row row-cols-auto">
+										<div class="col-md-auto img-md rounded-4">
+											<img src="upload/${img[0]}" class="rounded " alt="java18"
+												data-bs-toggle="modal" data-bs-target="#exampleModal"
+												data-bs-whatever="upload/${img[0]}">
+										</div>
+										<div class="col-md-auto">
+											<div class="row row-cols-auto">
+												<div class="col-md-auto img-sm">
+													<img src="upload/${img[1]}" class="rounded "
+														alt="java18" data-bs-toggle="modal"
+														data-bs-target="#exampleModal"
+														data-bs-whatever="upload/${img[1]}">
+												</div>
+											</div>
+											<div class="row row-cols-auto">
+												<div class="col-md-auto img-sm">
+													<img src="upload/${img[2]}" class="rounded "
+														alt="java18" data-bs-toggle="modal"
+														data-bs-target="#exampleModal"
+														data-bs-whatever="upload/${img[2]}">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</c:if>
+							
+							<c:if test="${fn:length(img)==4}">
+								<div class="container img-sm">
+									<div class="row">
+										<div class="col-md-auto">
+											<img src="upload/${img[0]}" class="rounded " alt="java18"
+												data-bs-toggle="modal" data-bs-target="#exampleModal"
+												data-bs-whatever="upload/${img[0]}">
+										</div>
+										<div class="col-md-auto">
+											<img src="upload/${img[1]}" class="rounded " alt="java18"
+												data-bs-toggle="modal" data-bs-target="#exampleModal"
+												data-bs-whatever="upload/${img[1]}">
+										</div>
+									</div>
+			
+									<div class="row">
+										<div class="col-md-auto">
+											<img src="upload/${img[2]}" class="rounded " alt="java18"
+												data-bs-toggle="modal" data-bs-target="#exampleModal"
+												data-bs-whatever="upload/${img[2]}">
+										</div>
+										<div class="col-md-auto">
+											<img src="upload/${img[3]}" class="rounded " alt="java18"
+												data-bs-toggle="modal" data-bs-target="#exampleModal"
+												data-bs-whatever="upload/${img[3]}">
+										</div>
+									</div>
+								</div>
+							</c:if>
+							
+						
+	
+						
+						</c:if>
+							
+							
+		
+					<div class="post_footer">
+
+						<span class="material-icons ms_icons" data-bs-toggle="modal"
+							data-bs-target="#writeModal">chat</span>
+						<h3>100</h3>
+						<span class="material-icons ms_icons repeat ">repeat</span>
+						<h3>100</h3>
+						<span class="material-icons ms_icons favorite">favorite_border</span>
+						<h3>100</h3>
+						<span class="material-icons ms_icons bookmark">bookmark_border</span>
+						<h3>100</h3>
 
 
-			<c:
+					</div>
+		
+						</div>
+		
+					</div>
+				
+				</c:forEach>
+			</div>
+	
+		</main>
+		<!-- main section end -->
 
-			<div class="post" style="position: relative;">
+	</div>
+	
+
+			
+
+			<!-- <div class="post" style="position: relative;">
 
 				<div class="post_profile-image rounded-5">
 					<img class="" src="images/profile01.jpg" alt="profile">
@@ -418,12 +618,7 @@
 				</div>
 
 			</div>
-
-
-		</main>
-		<!-- main section end -->
-
-	</div>
+ -->
 
 
 	<!-- Modal -->

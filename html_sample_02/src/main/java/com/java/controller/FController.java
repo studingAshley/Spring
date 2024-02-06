@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UrlPathHelper;
 
 import com.java.dto.MediaDto;
 import com.java.dto.PostDto;
 import com.java.service.MediaService;
 import com.java.service.PostService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -66,9 +68,11 @@ public class FController {
 	@RequestMapping("/viewContent")
 	public String view(int post_id, Model model) {
 		
-		Map<String, Object> postDto = postService.getSelected(post_id);
+		Map<String, Object> postMap = postService.getSelected(post_id);
 
-		model.addAttribute("pdto",postDto);
+		model.addAttribute("plist",postMap.get("plist"));
+		model.addAttribute("mlist",postMap.get("mlist"));
+		model.addAttribute("ulist",postMap.get("ulist"));
 		
 		return "/view";
 	}
@@ -207,6 +211,100 @@ public class FController {
 		return jobj;
 	}
 	
+	
+	@PostMapping("modalSendPost")
+	@ResponseBody
+	public JSONObject modalSendPost(PostDto postDto, @RequestPart List<MultipartFile> files, Model model)
+	{
+		
+		JSONObject jobj = new JSONObject();
+		
+		MediaDto mediaDto = new MediaDto();
+		
+		String orgName ="";
+		String newName ="";
+		String MergeName="";
+		String types ="";
+		int totalsize=0;
+		
+		
+		
+
+		postDto.setUser_id(session.getAttribute("session_id").toString());
+		
+		System.out.println("ID : " + postDto.getUser_id());
+		System.out.println("postDto.content : "+postDto.getPcontent());
+		System.out.println("postDto.loc : "+postDto.getPlocation() );
+
+		
+		int numberOfFiles = 0 ;
+		for(MultipartFile file : files)
+		{
+			orgName = file.getOriginalFilename();
+			
+			System.out.println("Media Type : " + file.getContentType());
+			
+			if(file.getContentType().contains("application"))
+			{
+				break;
+			}
+			long time = System.currentTimeMillis();
+			newName = time+"_"+orgName;
+			
+			MergeName += newName+",";
+			types += file.getContentType()+",";
+			totalsize += file.getSize();
+			
+			String upload = "C:/upload/";
+			
+			File f = new File(upload+newName);
+			try {
+				
+				file.transferTo(f);
+				mediaDto.setFile_name(newName);
+				System.out.println("newName : " + newName);
+				numberOfFiles++;
+			} catch (IllegalStateException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		int result = postService.sendModalPost(postDto);
+		int post_id = postDto.getPost_id();
+		
+		if(totalsize>0)
+		{
+			MergeName = MergeName.substring(0, MergeName.length()-1);
+			mediaDto.setFile_name(MergeName);
+			
+			mediaDto.setPost_id(post_id);
+			types = types.substring(0, types.length()-1);
+			mediaDto.setFile_type(types);
+			mediaDto.setFile_size(totalsize);
+			
+			mediaService.sendPost(mediaDto);
+		}
+
+		System.out.println("MergeName : " + mediaDto.getFile_name());
+
+
+		System.out.println("return Post ID : " + post_id );
+		
+
+
+		
+		
+		 jobj.put("post", postDto); 
+		 jobj.put("files",MergeName); 
+		 jobj.put("type", types); 
+		 jobj.put("nof", numberOfFiles); 
+		 jobj.put("name", session.getAttribute("session_name"));
+		 jobj.put("profile",session.getAttribute("session_image"));
+		 
+		
+		return jobj;
+	}
 
 	
 	

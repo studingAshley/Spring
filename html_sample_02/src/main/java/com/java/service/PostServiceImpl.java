@@ -15,7 +15,7 @@ import com.java.mapper.MediaMapper;
 import com.java.mapper.PostMapper;
 
 @Service
-public class PostServiceImpl implements PostService {
+public  class PostServiceImpl implements PostService {
 
 	@Autowired
 	PostMapper postMapper;
@@ -76,7 +76,25 @@ public class PostServiceImpl implements PostService {
 			mlist.add(mediaMapper.getMedia(plist.get(i).getPost_id()));
 		}
 		
+		map.put("plist", plist);
+		map.put("ulist", ulist);
+		map.put("mlist", mlist);
+		
+		System.out.println("plist"+plist.get(0).getPcontent());
+		
 		return map;
+	}
+
+	@Override
+	public int sendModalPost(PostDto postDto) {
+		PostDto maxStep = postMapper.getMaxStep(postDto.getPost_id());
+		System.out.println("masStep : " + maxStep);
+		if(maxStep !=null)
+		{
+			postDto.setPstep(maxStep.getPstep()+1);
+		}
+		int result = postMapper.sendModalPost(postDto);
+		return result;
 	}
 
 }
