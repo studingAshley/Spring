@@ -87,7 +87,7 @@
  	<select id="getSelected" resultType="com.java.dto.PostDto">
  		select * from post where post_id = #{post_id}
  	</select>
- 	 <select id="getMaxStep" resultType="int">
+ 	 <select id="getMaxStep" resultType="com.java.dto.PostDto">
  		select MAX(pstep) from (select * from post where pgroup = #{post_id})
  	</select>
 </mapper>
