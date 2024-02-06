@@ -18,5 +18,7 @@ public interface PostMapper {
 	int sendModalPost(PostDto postDto);
 
 	PostDto getMaxStep(int post_id);
+	
+	int upStep(PostDto postDto);
 
 }

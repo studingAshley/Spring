@@ -283,7 +283,11 @@ pre {
 							<div class="post_footer">
 
 								<span class="material-icons ms_icons chat"
-									data-bs-toggle="modal" data-bs-target="#writeModal" data-post_id="${plist[status.index].post_id}">chat</span>
+									data-bs-toggle="modal" data-bs-target="#writeModal" 
+									data-post_id="${plist[status.index].post_id}" 
+									data-group="${plist[status.index].pgroup}" 
+									data-step="${plist[status.index].pstep}" 
+									data-indent="${plist[status.index].pindent}">chat</span>
 								<h3>100</h3>
 								<span class="material-icons ms_icons repeat">repeat</span>
 								<h3>100</h3>

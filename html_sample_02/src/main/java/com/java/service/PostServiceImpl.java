@@ -87,12 +87,10 @@ public  class PostServiceImpl implements PostService {
 
 	@Override
 	public int sendModalPost(PostDto postDto) {
-		PostDto maxStep = postMapper.getMaxStep(postDto.getPost_id());
-		System.out.println("masStep : " + maxStep);
-		if(maxStep !=null)
-		{
-			postDto.setPstep(maxStep.getPstep()+1);
-		}
+		
+		postMapper.upStep(postDto);
+		
+		
 		int result = postMapper.sendModalPost(postDto);
 		return result;
 	}

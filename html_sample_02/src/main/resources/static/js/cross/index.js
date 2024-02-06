@@ -613,16 +613,41 @@ $(function() {
 		// Button that triggered the modal
 		var button = event.relatedTarget;
 		// Extract info from data-bs-* attributes
-		var recipient = button.getAttribute('data-post_id');
+		var postId = button.getAttribute('data-post_id');
+		var group = button.getAttribute('data-group');
+		var step = button.getAttribute('data-step');
+		var indent = button.getAttribute('data-indent');
 		
-		console.log("modal post id : " + recipient);
 		
-		var ip = document.createElement("input");
-		ip.setAttribute("type", "hidden");
-		ip.setAttribute("value", recipient );
-		ip.setAttribute("name", "post_id");
 		
-		$("#modal_hidden").append(ip);
+		console.log("modal post id : " + postId);
+		
+		var ip1 = document.createElement("input");
+		ip1.setAttribute("type", "hidden");
+		ip1.setAttribute("value", postId );
+		ip1.setAttribute("name", "post_id");
+
+		var ip2 = document.createElement("input");
+		ip2.setAttribute("type", "hidden");
+		ip2.setAttribute("value", group );
+		ip2.setAttribute("name", "pgroup");
+
+		var ip3 = document.createElement("input");
+		ip3.setAttribute("type", "hidden");
+		ip3.setAttribute("value", step );
+		ip3.setAttribute("name", "pstep");
+
+		var ip4 = document.createElement("input");
+		ip4.setAttribute("type", "hidden");
+		ip4.setAttribute("value", indent );
+		ip4.setAttribute("name", "pindent");		
+		
+		$("#modal_hidden").html("");
+		
+		$("#modal_hidden").append(ip1);
+		$("#modal_hidden").append(ip2);
+		$("#modal_hidden").append(ip3);
+		$("#modal_hidden").append(ip4);
 
 		
 	})
