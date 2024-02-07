@@ -122,7 +122,7 @@ pre {
 
 
 								<c:if
-									test="${plist[status.index].pgroup == plist[status.index+1].pgroup}">
+									test="${plist[status.index].post_id == plist[status.index+1].pindent}">
 									<div
 										style="width: 3px; height: 98%; top: -3px; background-color: var(--twitter-line-color); position: absolute; left: 25%;">
 									</div>
@@ -288,13 +288,42 @@ pre {
 									data-group="${plist[status.index].pgroup}" 
 									data-step="${plist[status.index].pstep}" 
 									data-indent="${plist[status.index].pindent}">chat</span>
-								<h3>100</h3>
-								<span class="material-icons ms_icons repeat">repeat</span>
-								<h3>100</h3>
-								<span class="material-icons ms_icons favorite">favorite_border</span>
-								<h3>100</h3>
-								<span class="material-icons ms_icons chart">bar_chart</span>
-								<h3>100</h3>
+								<h3>${replycount[status.index]}</h3>
+									
+								<c:if test="${renoted[status.index]<1}">
+									<span class="material-icons ms_icons repeat"
+									data-post_id="${plist[status.index].post_id}">repeat</span>
+							
+								</c:if>
+								<c:if test="${renoted[status.index]>=1}">
+									<span class="material-icons ms_icons repeat toggle"
+									data-post_id="${plist[status.index].post_id}">repeat</span>
+							
+								</c:if>
+							
+							
+								<h3>${recount[status.index]}</h3>
+								
+								
+								
+								<c:if test="${favorited[status.index]<1}">
+									<span class="material-icons ms_icons favorite"
+									data-post_id="${plist[status.index].post_id}">favorite_border</span>
+							
+								</c:if>
+								<c:if test="${favorited[status.index]>=1}">
+									<span class="material-icons ms_icons favorite toggle"
+									data-post_id="${plist[status.index].post_id}">favorite</span>
+							
+								</c:if>
+									
+								<h3>${facount[status.index]}</h3>
+								
+								
+								
+								<span class="material-icons ms_icons chart"
+								data-post_id="${plist[status.index].post_id}">bar_chart</span>
+								<h3>${plist[status.index].hit+1}</h3>
 
 
 							</div>
@@ -450,7 +479,11 @@ pre {
 							<span class="material-icons ms_icons" data-bs-toggle="modal"
 								data-bs-target="#writeModal">chat</span>
 							<h3>100</h3>
-							<span class="material-icons ms_icons repeat">repeat</span>
+							
+							<span class="material-icons ms_icons repeat">
+							
+							
+							repeat</span>
 							<h3>100</h3>
 							<span class="material-icons ms_icons favorite">favorite_border</span>
 							<h3>100</h3>
@@ -773,7 +806,7 @@ pre {
 							<span class="material-icons ms_icons" data-bs-toggle="modal"
 								data-bs-target="#writeModal">chat</span>
 							<h3>100</h3>
-							<span class="material-icons ms_icons repeat">repeat</span>
+							<span class="material-icons ms_icons repeat toggle">repeat</span>
 							<h3>100</h3>
 							<span class="material-icons ms_icons favorite">favorite_border</span>
 							<h3>100</h3>

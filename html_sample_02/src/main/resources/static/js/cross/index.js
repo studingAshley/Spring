@@ -323,11 +323,20 @@ $(function() {
 	});
 	
 	$(document).on("click", ".chart", function(e) {
-		location.href='/analystic';
+		let post_id = $(e.target).attr("data-post_id");
+		console.log(post_id);
+		
+		location.href='/analystic?post_id='+post_id;
+		
+		
+		
 	});	
 	
 
 	$(document).on("click",".repeat", function(e) {
+				
+		let postId = $(e.target).attr("data-post_id");
+		
 		if ($(e.target).hasClass("toggle") == false) {
 			$(e.target).addClass("toggle");
 
@@ -340,11 +349,17 @@ $(function() {
 
 	$(document).on("click",".favorite", function(e) {
 
+		let postId = $(e.target).attr("data-post_id");
+		
 		if ($(e.target).hasClass("toggle") == false) {
+			
+			
 			$(e.target).addClass("toggle");
 			$(e.target).text("favorite");
 
 		} else {
+			
+			
 			$(e.target).removeClass("toggle");
 			$(e.target).text("favorite_border");
 
@@ -366,6 +381,40 @@ $(function() {
 
 	})
 	
+	
+	function repeatOn(post_id)
+	{
+		  $.ajax({
+          url: url,
+          type: 'POST',
+          data: {"post_id":post_id},
+          dataType:"text",
+          success: function (data) {
+
+          },
+          error: function (data) {
+            alert(data);
+          }
+
+        });
+	}
+	
+	function repeatOff(post_id)
+	{
+		
+	}
+	
+	function favoriteOn(post_id)
+	{
+		
+	}
+
+	function favoriteOff(post_id)
+	{
+		
+	}
+
+
 
 
 /* ---------------------------------------------------------------------------------------------*/
@@ -592,7 +641,12 @@ $(function() {
 		{
 			var phtml = '<div class="post_footer">';
 		 	phtml += '<span class="material-icons ms_icons chat" data-bs-toggle="modal"';
-			phtml += 'data-bs-target="#writeModal" data-post_id="'+post.post_id+'">chat</span>';
+			phtml += 'data-bs-target="#writeModal" data-post_id="'+post.post_id+'"';
+			phtml += 'data-group="'+post.pgroup+'" ';
+			phtml += 'data-step="'+post.pstep+'" ';
+			phtml += 'data-indent="'+post.pindent+'">chat</span>';
+
+			
 			phtml += '<h3>100</h3>';
 			phtml += '<span class="material-icons ms_icons repeat">repeat</span>';
 			phtml += '<h3>100</h3>';
@@ -726,7 +780,29 @@ $(function() {
 
 
 
+	$(document).on("click",".deleteOne",function(e){
+		
+		var element = e.target;
+		console.log(element);
 
+		var postId = element.getAttribute('data-post_id');
+		console.log(postId);
+		 $.ajax({
+          url: "/deleteOne",
+          type: 'POST',
+          data: {"post_id":postId},
+          dataType:"text",
+          success: function (data) {
+
+				alert("삭제되었습니다.");
+				location.reload(true);
+          },
+          error: function (data) {
+            alert(data);
+          }
+        });
+		
+	})
 
 
 

@@ -21,4 +21,22 @@ public interface PostService {
 
 	int sendModalPost(PostDto postDto);
 
+
+	void deleteOne(int post_id);
+
+
+	PostDto getSeletedHit(int post_id);
+
+
+	void repeatOn(int post_id);
+
+
+	void repeatOff(int post_id);
+
+
+	void favoriteOn(int post_id);
+
+
+	void favoriteOff(int post_id);
+
 }

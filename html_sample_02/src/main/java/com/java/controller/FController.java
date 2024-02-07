@@ -52,9 +52,11 @@ public class FController {
 			model.addAttribute("plist", map.get("plist"));
 			model.addAttribute("ulist", map.get("ulist"));
 			model.addAttribute("mlist", map.get("mlist")); 
-			
-
-			
+			model.addAttribute("recount", map.get("recount")); 
+			model.addAttribute("renoted", map.get("renoted"));
+			model.addAttribute("facount", map.get("facount")); 
+			model.addAttribute("favorited", map.get("favorited"));
+			model.addAttribute("replycount", map.get("replycount"));
 			
 			model.addAttribute("user_id",session.getAttribute("session_id").toString());
 			model.addAttribute("user_profile",session.getAttribute("session_image").toString());
@@ -73,6 +75,11 @@ public class FController {
 		model.addAttribute("plist",postMap.get("plist"));
 		model.addAttribute("mlist",postMap.get("mlist"));
 		model.addAttribute("ulist",postMap.get("ulist"));
+		model.addAttribute("recount",postMap.get("recount"));
+		model.addAttribute("renoted", postMap.get("renoted"));
+		model.addAttribute("facount", postMap.get("facount")); 
+		model.addAttribute("favorited", postMap.get("favorited"));
+		model.addAttribute("replycount", postMap.get("replycount"));
 		
 		return "/view";
 	}
@@ -107,12 +114,17 @@ public class FController {
 	public JSONObject selectedAnalysis(int post_id)
 	{
 		JSONObject jobj = new JSONObject();
+		
+		PostDto pdto = postService.getSeletedHit(post_id);
+		
+		
 
-		jobj.put("viewhit0", "10");
-		jobj.put("viewhit6", "25");
-		jobj.put("viewhit12", "30");
-		jobj.put("viewhit18", "35");
+		jobj.put("viewhit0", pdto.getViewhit0());
+		jobj.put("viewhit6", pdto.getViewhit6());
+		jobj.put("viewhit12", pdto.getViewhit12());
+		jobj.put("viewhit18", pdto.getViewhit18());
 
+		jobj.put("hit", pdto.getHit());
 		
 		return jobj;
 	}
@@ -307,9 +319,46 @@ public class FController {
 	}
 
 	
+	@PostMapping("deleteOne")
+	@ResponseBody
+	public int deleteOne(int post_id)
+	{
+		
+		postService.deleteOne(post_id);
+		return 0;
+	}
 	
+	@PostMapping("repeatOn")
+	@ResponseBody
+	public int repeatOn(int post_id)
+	{
+		postService.repeatOn(post_id);
+		return 0;
+	}
 	
+	@PostMapping("repeatOff")
+	@ResponseBody
+	public int repeatOff(int post_id)
+	{
+		postService.repeatOff(post_id);
+		return 0;
+	}
 	
+	@PostMapping("favoriteOn")
+	@ResponseBody
+	public int favoriteOn(int post_id)
+	{
+		postService.favoriteOn(post_id);
+		return 0;
+	}
+	
+	@PostMapping("favoriteOff")
+	@ResponseBody
+	public int favoriteOff(int post_id)
+	{
+		postService.favoriteOff(post_id);
+		return 0;
+	}
 	
 	
 	

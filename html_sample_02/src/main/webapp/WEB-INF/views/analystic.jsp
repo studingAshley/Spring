@@ -43,11 +43,11 @@
 		<span class="material-icons arrow_back">arrow_back</span>
 		<h2>게시활동</h2>
 	</div>
-	
+	<input id="hiddenPostId" type="hidden" value="${param.post_id}">
 	<div class="analystic_wrab" style="padding:2rem;">
 		<div class="hitCounters" style="margin-bottom:2rem; padding-bottom :2rem;">
-			<span>노출수 : 100 </span><br><br>
-			<span>조회수 : 100 </span>
+			<span>노출수 : </span><br><br>
+			<span>조회수 : </span>
 		</div>
 	
 		<div class="hitChart">
@@ -58,74 +58,7 @@
 			$(document).ready(function() {
 
 
-				const ctx = $('#analysisChart');
-
-				let chartStatus = Chart.getChart("analysisChart");
 				
-/* 				if(chartStatus != undefined)
-				{
-					chartStatus.destroy();
-					console.log("차트리셋");
-				}
-				 */
-				let postid = 0;
-				$.ajax({
-					
-					url:"selectedAnalysis",
-					data:{"post_id":postid},
-					dataType:"json",
-					type:"post",
-					success:function(data)
-					{
-			
-						//console.log(data);
-						
-											
-						
-					 	let chartLabels=['0시', '6시', '12시', '18시'];
-						let chartData2 = data;
-						console.log(data)
-						console.log(chartData2);
-						  new Chart(ctx, {
-						    type: 'bar',
-						    data: {
-						      labels: chartLabels,
-						      datasets: [{
-						        label: '시간대 조회수',
-						        data: Object.values(chartData2) ,
-						        parsing: {
-						        	xAxisKey: 'viewhit',
-						            yAxisKey: 'time'
-						         },
-						         backgroundColor: [
-						             'rgb(255, 99, 132)',
-						             'rgb(54, 162, 235)',
-						             'rgb(255, 205, 86)',
-						             'rgb(255, 99, 132)'
-						           ],
-						        borderWidth: 1
-						      },
-						      
-							  ]
-						    },
-						    options: {
-						      scales: {
-						        y: {
-						          beginAtZero: true
-						        }
-						      }
-						    }
-						  });
-						  
-						   
-						
-					},
-					error:function()
-					{
-						alert("실패");
-					}
-					
-				});
 			
 		})
 		

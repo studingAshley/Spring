@@ -85,13 +85,90 @@
  	</select>
  	
  	<select id="getSelected" resultType="com.java.dto.PostDto">
- 		select * from post where post_id = #{post_id}
+
+ 		select ROW_NUMBER() OVER (ORDER BY pgroup desc, pstep asc, created desc) rnum, a.* from  (select * from post where post_id = #{post_id} or pindent = #{post_id})a
  	</select>
+ 	
+ 	<select id="getSeletedHit" resultType="com.java.dto.PostDto">
+
+ 		select * from post where post_id=#{post_id}
+ 	
+ 	</select>
+ 	
+ 	
+ 	
  	 <select id="getMaxStep" resultType="com.java.dto.PostDto">
  		select MAX(pstep) from (select * from post where pgroup = #{post_id})
  	</select>
  	
+ 	<select id="getRenoteCounter" resultType="int">
+ 		select count(*) from renote where post_id = #{post_id}
+ 	</select>
+ 	
+ 	 <select id="getRenote" resultType="com.java.dto.RenoteDto">
+ 		select * from renote where post_id = #{post_id}
+ 	</select>
+ 	
+ 	 <select id="myRenoteCounter" resultType="int">
+ 		select count(*) from renote where user_id = #{user_id} and post_id= #{post_id}
+ 	</select>
+ 	
+ 	 <select id="getFavorCounter" resultType="int">
+ 		select count(*) from post_like where post_id = #{post_id}
+ 	</select>
+ 	
+ 	 <select id="getfavor" resultType="com.java.dto.RenoteDto">
+ 		select * from post_like where post_id = #{post_id}
+ 	</select>
+ 	
+ 	 <select id="myFavorCounter" resultType="int">
+ 		select count(*) from post_like where user_id = #{user_id} and post_id= #{post_id}
+ 	</select>
+ 	
+ 	 <select id="getReplyCounter" resultType="int">
+ 		select count(*) from post where pindent=#{post_id}
+ 	</select>
+ 	
+ 	 <select id="getReply" resultType="com.java.dto.RenoteDto">
+ 		select * from post where pindent=#{post_id}
+ 	</select>
+ 	
+
+ 	
+ 	
  	<update id="upStep">
  		update post set pstep=pstep+1 where pgroup=#{pgroup} and pstep>#{pstep}
  	</update>
+ 	
+ 	<update id="updateHit">
+		UPDATE post  SET hit = hit+1 where post_id=${post_id}
+	</update>
+	
+	
+	
+ 	<update id="repeatOn">
+		UPDATE post  SET renote = renote+1 where post_id=${post_id}
+	</update>
+	
+	 <update id="repeatOff">
+		UPDATE post  SET renote = renote-1 where post_id=${post_id}
+	</update>
+	
+	 <update id="favoriteOn">
+		UPDATE post  SET plike = plike+1 where post_id=${post_id}
+	</update>
+	
+	 	<update id="favoriteOff">
+		UPDATE post  SET plike = plike-1 where post_id=${post_id}
+	</update>
+	
+	
+	
+ 	
+ 	<delete id="deleteOne">
+		delete from post where post_id=#{post_id}
+	</delete>
+	
+	
+	
 </mapper>
