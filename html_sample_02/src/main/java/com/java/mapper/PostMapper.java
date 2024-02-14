@@ -48,4 +48,18 @@ public interface PostMapper {
 
 	void favoriteOff(int post_id);
 
+	int getPostRenote(int post_id);
+
+	int getPostFavor(int post_id);
+	
+	int addRenote(int post_id, String user_id);
+	int delRenote(int post_id, String user_id);
+	int addLike(int post_id, String user_id);
+	int delLike(int post_id, String user_id);
+	
+	int hitViewhit0(int post_id);
+	int hitViewhit6(int post_id);
+	int hitViewhit12(int post_id);
+	int hitViewhit18(int post_id);
+
 }

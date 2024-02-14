@@ -1,5 +1,6 @@
 package com.java.service;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -92,9 +93,11 @@ public  class PostServiceImpl implements PostService {
 		ArrayList<PostDto> plist = postMapper.getSelected(post_id);
 		
 
+		
+
 		if(plist.size() >0)
 		{
-			
+			setAnalisticTime(post_id);
 			for(int i = 0 ; i < plist.size() ; i++)
 			{
 				ulist.add(cUserMapper.getUserProfile(plist.get(i).getUser_id()));
@@ -146,30 +149,65 @@ public  class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public void repeatOn(int post_id) {
+	public int repeatOn(int post_id) {
 		postMapper.repeatOn(post_id);
+		postMapper.addRenote(post_id,session.getAttribute("session_id").toString());
+		
+		return postMapper.getPostRenote(post_id);
 		
 	}
 
 	@Override
-	public void repeatOff(int post_id) {
+	public int repeatOff(int post_id) {
 		// TODO Auto-generated method stub
 		postMapper.repeatOff(post_id);
+		postMapper.delRenote(post_id, session.getAttribute("session_id").toString());
+		return postMapper.getPostRenote(post_id);
 		
 	}
 
 	@Override
-	public void favoriteOn(int post_id) {
+	public int favoriteOn(int post_id) {
 		// TODO Auto-generated method stub
 		postMapper.favoriteOn(post_id);
 		
+		postMapper.addLike(post_id, session.getAttribute("session_id").toString());
+		return postMapper.getPostFavor(post_id);
+		
 	}
 
 	@Override
-	public void favoriteOff(int post_id) {
+	public int favoriteOff(int post_id) {
 		// TODO Auto-generated method stub
 		postMapper.favoriteOff(post_id);
 		
+		postMapper.delLike(post_id, session.getAttribute("session_id").toString());
+		return postMapper.getPostFavor(post_id);
+	}
+	
+	
+	
+
+	/* --------------------------private method--------------------------------------*/
+	
+	private void setAnalisticTime(int post_id)	{
+
+		LocalTime now = LocalTime.now();
+		int hour = now.getHour();
+		System.out.println("현재 시 : " + now.getHour());
+			
+		if(hour>=0 && hour <6)
+		{
+			postMapper.hitViewhit0(post_id);
+		}else if(hour>=6 && hour<12)
+		{
+			postMapper.hitViewhit6(post_id);
+		}else if(hour>=12 && hour<18) {
+			postMapper.hitViewhit12(post_id);
+		}else{
+			postMapper.hitViewhit18(post_id);
+		}
+
 	}
 
 }

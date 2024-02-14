@@ -28,15 +28,15 @@ public interface PostService {
 	PostDto getSeletedHit(int post_id);
 
 
-	void repeatOn(int post_id);
+	int repeatOn(int post_id);
 
 
-	void repeatOff(int post_id);
+	int repeatOff(int post_id);
 
 
-	void favoriteOn(int post_id);
+	int favoriteOn(int post_id);
 
 
-	void favoriteOff(int post_id);
+	int favoriteOff(int post_id);
 
 }

@@ -332,32 +332,32 @@ public class FController {
 	@ResponseBody
 	public int repeatOn(int post_id)
 	{
-		postService.repeatOn(post_id);
-		return 0;
+		int count = postService.repeatOn(post_id);
+		return count;
 	}
 	
 	@PostMapping("repeatOff")
 	@ResponseBody
 	public int repeatOff(int post_id)
 	{
-		postService.repeatOff(post_id);
-		return 0;
+		int count = postService.repeatOff(post_id);
+		return count;
 	}
 	
 	@PostMapping("favoriteOn")
 	@ResponseBody
 	public int favoriteOn(int post_id)
 	{
-		postService.favoriteOn(post_id);
-		return 0;
+		int count = postService.favoriteOn(post_id);
+		return count;
 	}
 	
 	@PostMapping("favoriteOff")
 	@ResponseBody
 	public int favoriteOff(int post_id)
 	{
-		postService.favoriteOff(post_id);
-		return 0;
+		int count = postService.favoriteOff(post_id);
+		return count;
 	}
 	
 	

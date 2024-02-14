@@ -4,6 +4,9 @@
 
  $(function(){
 	 
+	// $("#sideProfile").css("background-image","/upload/"+sessionStorage.getItem("session_image"));
+	 
+
 	 $(".side_home").on("click",function(){
 		 location.href="/";
 	 })

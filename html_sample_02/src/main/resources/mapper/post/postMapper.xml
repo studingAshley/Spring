@@ -133,6 +133,14 @@
  		select * from post where pindent=#{post_id}
  	</select>
  	
+ 	 <select id="getPostRenote" resultType="int">
+ 		select renote from post where post_id = #{post_id}
+ 	</select>
+ 	
+ 	<select id="getPostFavor" resultType="int">
+ 		select plike from post where post_id = #{post_id}
+ 	</select>
+ 	
 
  	
  	
@@ -171,4 +179,38 @@
 	
 	
 	
+	<insert id="addRenote">
+		insert into renote values(renote_seq.nextval, #{post_id}, #{user_id},sysdate)
+	</insert>
+	
+	<delete id="delRenote">
+		delete from renote where user_id=#{user_id} and post_id=#{post_id}
+	</delete>
+	
+	
+	<insert id="addLike">
+		insert into post_like values(renote_seq.nextval, #{post_id}, #{user_id},sysdate)
+	</insert>
+	
+	<delete id="delLike">
+		delete from post_like where user_id=#{user_id} and post_id=#{post_id}
+	</delete>
+	
+	
+	
+	<update id="hitViewhit0">
+		UPDATE post  SET viewhit0 = viewhit0+1 where post_id=${post_id}
+	</update>
+	
+	<update id="hitViewhit6">
+		UPDATE post  SET viewhit6 = viewhit6+1 where post_id=${post_id}
+	</update>
+	
+	<update id="hitViewhit12">
+		UPDATE post  SET viewhit12 = viewhit12+1 where post_id=${post_id}
+	</update>
+	
+	<update id="hitViewhit18">
+		UPDATE post  SET viewhit18 = viewhit18+1 where post_id=${post_id}
+	</update>
 </mapper>
