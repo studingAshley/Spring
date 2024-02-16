@@ -3,6 +3,8 @@
  */
 var fileCount = 0;
 $(function() {
+
+
 	var exampleModal = document.getElementById('exampleModal')
 	exampleModal.addEventListener('show.bs.modal', function(event) {
 		// Button that triggered the modal
@@ -24,7 +26,7 @@ $(function() {
 	$("#currLocation").on("click", function() {
 		$("#locationModal").modal("show");
 	})
-	
+
 	$("#modal_currLocation").on("click", function() {
 		$("#locationModal2").modal("show");
 	})
@@ -44,7 +46,7 @@ $(function() {
 
 
 	})
-	
+
 	$("#modal_write-box").on("keydown", function(e) {
 		console.log($(e.target).val());
 		//	  console.log(e.target.style);
@@ -60,16 +62,16 @@ $(function() {
 
 
 	})
-	
+
 
 	$("#text-area").click(function() {
 		$("#write-box").focus();
 	})
-	
+
 	$("#modal_text-area").click(function() {
 		$("#modal_write-box").focus();
 	})
-	
+
 
 	$("#file").on("change", function(e) {
 		//  console.log(e);
@@ -106,16 +108,16 @@ $(function() {
 
 				}
 				reader.readAsDataURL(file);
-			}else if(isVideoFile(file)){
+			} else if (isVideoFile(file)) {
 				if (fileCount > 0) {
 					alert("영상 파일은 최대 하나까지만 첨부가능합니다.");
 					break;
 				}
-				
+
 				var reader = new FileReader();
 				reader.onload = function(e) {
 					var video = document.createElement("video");
-					console.log("isVideoFile",e.target);
+					console.log("isVideoFile", e.target);
 					video.setAttribute("src", e.target.result);
 					video.setAttribute("controls", "controls");
 					video.setAttribute("loop", "loop");
@@ -125,7 +127,7 @@ $(function() {
 
 
 				}
-				
+
 				reader.readAsDataURL(file);
 			}
 			fileCount++;
@@ -168,18 +170,18 @@ $(function() {
 
 
 				}
-				
+
 				reader.readAsDataURL(file);
-			}else if(isVideoFile(file)){
+			} else if (isVideoFile(file)) {
 				if (fileCount > 0) {
 					alert("영상 파일은 최대 하나까지만 첨부가능합니다.");
 					break;
 				}
-				
+
 				var reader = new FileReader();
 				reader.onload = function(e) {
 					var video = document.createElement("video");
-					console.log("isVideoFile",e.target);
+					console.log("isVideoFile", e.target);
 					video.setAttribute("src", e.target.result);
 					video.setAttribute("controls", "controls");
 					video.setAttribute("loop", "loop");
@@ -189,17 +191,17 @@ $(function() {
 
 
 				}
-				
+
 				reader.readAsDataURL(file);
 			}
 			fileCount++;
 
 		}
 	})
-	
-	function isVideoFile(file){
+
+	function isVideoFile(file) {
 		var ext = file.name.split(".").pop().toLowerCase();
-		return ($.inArray(ext, ["mpg", "mpeg", "mp4", "ogg", "webm","avi","wmv"]) === -1) ? false : true;
+		return ($.inArray(ext, ["mpg", "mpeg", "mp4", "ogg", "webm", "avi", "wmv"]) === -1) ? false : true;
 	}
 
 	function isImageFile(file) {
@@ -227,7 +229,7 @@ $(function() {
 		$(e.target).remove();
 		console.log($("#file")[0].files);
 	});
-	
+
 	$(document).on("click", ".modal_userfile", function(e) {
 
 		const files = $("#modalFile")[0].files;
@@ -248,31 +250,12 @@ $(function() {
 		console.log($("#modalFile")[0].files);
 	});
 
-	$("#locSearch").on("keyup", function(e) {
-
-		if (e.keyCode == 13) {
-			$.ajax({
-				type: "GET",
-				url: "/location",
-				dataType: "text",
-				error: function() {
-					alert('통신실패!!');
-				},
-				success: function(data) {
-					alert("Success");
-					
-					
 
 
 
-				}
 
-			});
-		}
 
-	});
-
-	$(".selAddr").on("click", function(e) {
+	$(document).on("click",".selAddr",function(e) {
 
 		let element = $(e.currentTarget).attr("data-location");
 		$(".locSelected").remove();
@@ -281,14 +264,15 @@ $(function() {
 		$("#position_wrap").removeClass("invis");
 		$("#currLocation").html(element);
 		$("#regPosition").val(element);
-
+		
 		$("#locationModal").modal("hide");
 		$(".modal-backdrop").modal("hide");
 
 
 	});
-	
-	$(".selAddr2").on("click", function(e) {
+
+	$(document).on("click",".selAddr2",function(e) {
+
 
 		let element = $(e.currentTarget).attr("data-location");
 		$(".locSelectedM").remove();
@@ -297,7 +281,7 @@ $(function() {
 		$("#modal_position_wrap").removeClass("invis");
 		$("#modal_currLocation").html(element);
 		$("#modalRegPosition").val(element);
-	
+
 
 		$("#locationModal2").modal("hide");
 		$("#writeModal").modal("show");
@@ -305,78 +289,88 @@ $(function() {
 
 
 	});
-	
-	
+
+
 
 	$(document).on("click", ".locSelected", function(e) {
+		e.stopPropagation();
 		$("#position_wrap").addClass("invis");
 		$("#currLocation").html("");
+		$("#currLocation").text("");
+		
+		e.currentTarget.remove();
+		console.log("locSelected");
+		$("#locationModal").modal("hide");
+		$(".modal-backdrop").modal("hide");
+		
 	});
 
 	$(document).on("click", ".locSelectedM", function(e) {
+		e.stopPropagation();
 		$("#modal_position_wrap").addClass("invis");
 		$("#modal_currLocation").html("");
+		$("#locationModal2").modal("hide");
 	});
 
 
 
 
 	$(document).on("click", ".chat", function(e) {
-	//	alert("chat");
+		//	alert("chat");
 	});
-	
+
 	$(document).on("click", ".chart", function(e) {
 		let post_id = $(e.target).attr("data-post_id");
 		console.log(post_id);
-		
-		location.href='/analystic?post_id='+post_id;
-		
-		
-		
-	});	
-	
 
-	$(document).on("click",".repeat", function(e) {
-				
+		location.href = '/analystic?post_id=' + post_id;
+
+
+
+	});
+
+
+	$(document).on("click", ".repeat", function(e) {
+
 		let postId = $(e.target).attr("data-post_id");
 
-		
-			console.log("post ID : " + postId);
+
+		console.log("post ID : " + postId);
 		if ($(e.target).hasClass("toggle") == false) {
 			$(e.target).addClass("toggle");
-			repeatOn(postId,e);
+			repeatOn(postId, e);
 
 		} else {
 			$(e.target).removeClass("toggle");
-			repeatOff(postId,e);
+			repeatOff(postId, e);
 
 		}
 
 	});
 
-	$(document).on("click",".favorite", function(e) {
+	$(document).on("click", ".favorite", function(e) {
 
 		let postId = $(e.target).attr("data-post_id");
-		
-			
+
+
 		if ($(e.target).hasClass("toggle") == false) {
-			
-			
+
+
 			$(e.target).addClass("toggle");
 			$(e.target).text("favorite");
-			favoriteOn(postId,e);
+			favoriteOn(postId, e);
 		} else {
-			
-			
+
+
 			$(e.target).removeClass("toggle");
 			$(e.target).text("favorite_border");
-			favoriteOff(postId,e);
+			favoriteOff(postId, e);
 
 		}
 
 	})
 
-	$(document).on("click",".bookmark", function(e) {
+	$(document).on("click", ".bookmark", function(e) {
 
 		if ($(e.target).hasClass("toggle") == false) {
 			$(e.target).addClass("toggle");
@@ -389,325 +383,319 @@ $(function() {
 		}
 
 	})
-	
+
 	//아래 4개 함수 추가
-	function repeatOn(post_id,e)
-	{
-		  $.ajax({
-          url: "/repeatOn",
-          type: 'POST',
-          data: {"post_id":post_id},
-          dataType:"text",
-          success: function (data) {
-			console.log("repeatOn : " + data);
-			$(e.target).next().text(data);
-          },
-          error: function (data) {
-            alert(data);
-          }
-
-        });
-	}
-	
-	function repeatOff(post_id,e)
-	{
-		 $.ajax({
-          url: "/repeatOff",
-          type: 'POST',
-          data: {"post_id":post_id},
-          dataType:"text",
-          success: function (data) {
-			console.log("repeatOff : " + data);
-			$(e.target).next().text(data);
-          },
-          error: function (data) {
-            alert(data);
-          }
-
-        });
-	}
-	
-	function favoriteOn(post_id,e)
-	{
+	function repeatOn(post_id, e) {
 		$.ajax({
-          url: "/favoriteOn",
-          type: 'POST',
-          data: {"post_id":post_id},
-          dataType:"text",
-          success: function (data) {
-			console.log("favoriteOn : " + data);
-			$(e.target).next().text(data);
-          },
-          error: function (data) {
-            alert(data);
-          }
-
-        });
-	}
-
-	function favoriteOff(post_id,e)
-	{
-		$.ajax({
-          url: "/favoriteOff",
-          type: 'POST',
-          data: {"post_id":post_id},
-          dataType:"text",
-          success: function (data) {
-			console.log("favoriteOff : " + data);
-			$(e.target).next().text(data);
-          },
-          error: function (data) {
-            alert(data);
-          }
-
-        });
-	}
-
-
-
-
-/* ---------------------------------------------------------------------------------------------*/
-
-	$("#writeBtn").on("click",function(e){
-		e.preventDefault();
-		
-        var url = $("#writeForm").attr("action");
-        var form = $('#writeForm')[0];
-        var formData = new FormData(form);
-        
-        $.ajax({
-          url: url,
-          type: 'POST',
-          data: formData,
-          dataType:"json",
-          success: function (data) {
-          	console.log(data);
-          	console.log("number of files : " + data.nof);
-          	console.log("profile : " + data.profile);
-          	console.log("files : " + data.files);
-          	console.log("type : " + data.type);
-          	if(data.nof==0){
-				  console.log(makePostHtml0(data.name,data.profile,data.post));
-			    $("#post_wrap").prepend(makePostHtml0(data.name,data.profile,data.post)+ makePostHtmlFooter(data.post));
-			}else if(data.nof==1){
-				console.log("왜 안 됨 ? ");
-				if((data.type).includes("image")){
-					 $("#post_wrap").prepend(makePostHtml1(data.name,data.profile,data.post,data.files));	
-					console.log("이미지")	;			
-				}else if((data.type).includes("video")){
-					 $("#post_wrap").prepend(makePostHtmlv(data.name,data.profile,data.post,data.files));
-					console.log("비디오");	
-				}
-			}else if(data.nof==2){
-				 $("#post_wrap").prepend(makePostHtml2(data.name,data.profile,data.post,data.files));
-			}else if(data.nof==3){
-				 $("#post_wrap").prepend(makePostHtml3(data.name,data.profile,data.post,data.files));
-			}else if(data.nof==4){
-				 $("#post_wrap").prepend(makePostHtml4(data.name,data.profile,data.post,data.files));
+			url: "/repeatOn",
+			type: 'POST',
+			data: { "post_id": post_id },
+			dataType: "text",
+			success: function(data) {
+				console.log("repeatOn : " + data);
+				$(e.target).next().text(data);
+			},
+			error: function(data) {
+				alert(data);
 			}
-          	
-          	$("#write-box").val("");
-          	$("#regPosition").val("");
-          	$("#currLocation").html("");
-          	$("#position_wrap").addClass("invis");
-			$(".userfile").remove();
-			$("#image-area").html("");
-			const dataTranster = new DataTransfer();
-		
-			$("#file")[0].files = dataTranster.files;
-          },
-          error: function (data) {
-            alert(data);
-          },
-          cache: false,
-          contentType: false,
-          processData: false
-        });
 
-		
+		});
+	}
+
+	function repeatOff(post_id, e) {
+		$.ajax({
+			url: "/repeatOff",
+			type: 'POST',
+			data: { "post_id": post_id },
+			dataType: "text",
+			success: function(data) {
+				console.log("repeatOff : " + data);
+				$(e.target).next().text(data);
+			},
+			error: function(data) {
+				alert(data);
+			}
+
+		});
+	}
+
+	function favoriteOn(post_id, e) {
+		$.ajax({
+			url: "/favoriteOn",
+			type: 'POST',
+			data: { "post_id": post_id },
+			dataType: "text",
+			success: function(data) {
+				console.log("favoriteOn : " + data);
+				$(e.target).next().text(data);
+			},
+			error: function(data) {
+				alert(data);
+			}
+
+		});
+	}
+
+	function favoriteOff(post_id, e) {
+		$.ajax({
+			url: "/favoriteOff",
+			type: 'POST',
+			data: { "post_id": post_id },
+			dataType: "text",
+			success: function(data) {
+				console.log("favoriteOff : " + data);
+				$(e.target).next().text(data);
+			},
+			error: function(data) {
+				alert(data);
+			}
+
+		});
+	}
+
+
+
+
+	/* ---------------------------------------------------------------------------------------------*/
+
+	$("#writeBtn").on("click", function(e) {
+		e.preventDefault();
+
+		var url = $("#writeForm").attr("action");
+		var form = $('#writeForm')[0];
+		var formData = new FormData(form);
+
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data: formData,
+			dataType: "json",
+			success: function(data) {
+				console.log(data);
+				console.log("number of files : " + data.nof);
+				console.log("profile : " + data.profile);
+				console.log("files : " + data.files);
+				console.log("type : " + data.type);
+				if (data.nof == 0) {
+					console.log(makePostHtml0(data.name, data.profile, data.post));
+					$("#post_wrap").prepend(makePostHtml0(data.name, data.profile, data.post) + makePostHtmlFooter(data.post));
+				} else if (data.nof == 1) {
+					console.log("왜 안 됨 ? ");
+					if ((data.type).includes("image")) {
+						$("#post_wrap").prepend(makePostHtml1(data.name, data.profile, data.post, data.files));
+						console.log("이미지");
+					} else if ((data.type).includes("video")) {
+						$("#post_wrap").prepend(makePostHtmlv(data.name, data.profile, data.post, data.files));
+						console.log("비디오");
+					}
+				} else if (data.nof == 2) {
+					$("#post_wrap").prepend(makePostHtml2(data.name, data.profile, data.post, data.files));
+				} else if (data.nof == 3) {
+					$("#post_wrap").prepend(makePostHtml3(data.name, data.profile, data.post, data.files));
+				} else if (data.nof == 4) {
+					$("#post_wrap").prepend(makePostHtml4(data.name, data.profile, data.post, data.files));
+				}
+
+				$("#write-box").val("");
+				$("#regPosition").val("");
+				$("#currLocation").html("");
+				$("#position_wrap").addClass("invis");
+				$(".userfile").remove();
+				$("#image-area").html("");
+				const dataTranster = new DataTransfer();
+
+				$("#file")[0].files = dataTranster.files;
+			},
+			error: function(data) {
+				alert(data);
+			},
+			cache: false,
+			contentType: false,
+			processData: false
+		});
+
+
 	})
 
-        
-        
-        function makePostHtml0(name,image,post){
-			
-			var phtml = '<div class="post" style="position: relative;">';
-			phtml += '<div class="post_profile-image rounded-5">';
-			phtml += '<img class="" src="/upload/'+image+'" alt="profile">';
-			phtml += '<div style="position: absolute; height: 100%; width: 80px;"></div></div>';
-			phtml += '<div class="post_body">';
-			phtml +='<div class="post_header">'
-			phtml +='<div class="post_header-text">';
-			phtml +='<h3>';
-			phtml += name+'<span class="header-icon-section">@'+post.user_id;
-			phtml += '</span>';
-			phtml += '</h3>';
-			phtml += '<div style="margin-left: 1rem; text-align: center;">';
-			phtml += '<h3>방금 전</h3>';
-			phtml += '</div></div>';
-			phtml += '<div class="post_header-discription"';
-			phtml += 'onclick="location.href='+"'/viewContent?post_id="+post.post_id+"'"+'">';
-			phtml += '<p>'+post.pcontent+'</p>';
-			
-			
-			if(post.plocation!=null)
-			{
-				phtml += '<div class="" style="color:gray">';
-				phtml += '<div style="display: flex;">';
-				phtml += '<span class="material-icons">location_on</span>';
-				phtml += '<div>'+post.plocation+'</div>';
-				phtml += '</div></div>';
-			}							
-										
-										
-			phtml += '</div></div>';
-			
-			//phtml += makePostHtmlFooter();
-			
-			
-			return phtml;
-		}
-		
-		function makePostHtmlv(name,image,post,files){
-			
-			var phtml = makePostHtml0(name,image,post);
-			phtml += '<div class="container video_contaner">';
-			phtml += '<video controls loop muted preload="auto" src="/upload/'+files+'">';
-			phtml += '</video></div>';
-			
-			phtml += makePostHtmlFooter(post);
-			
-			return phtml;
-		}
-		
-		function makePostHtml1(name,image,post,files){
-			//var file = files.split(",");
-			var phtml = makePostHtml0(name,image,post);
-			
-			phtml += '<div class="container">';
-			phtml += '<div class="row row-cols-auto ">';
-			phtml += '<div class="col-md-auto img-xl rounded-4">';
-			phtml += '<img src="/upload/'+files+'" class="rounded " alt="java18"';
-			phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
-			phtml += 'data-bs-whatever="/upload/'+files+'">';
-			phtml += '</div></div></div>';
-			
-			phtml += makePostHtmlFooter(post);
-			
-			return phtml;
-		}
-		
-		function makePostHtml2(name,image,post,files){
-			var file = files.split(",");
-			var phtml = makePostHtml0(name,image,post);
-			
-			phtml += '<div class="container">';
-			phtml += '<div class="row row-cols-auto ">';
-			phtml += '<div class="col-md-auto img-lg rounded-4">';
-			phtml += '<img src="/upload/'+file[0]+'" class="rounded " alt="java18"';
-			phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
-			phtml += 'data-bs-whatever="upload/'+file[0]+'">';
-			phtml += '</div>';
-			phtml += '<div class="col-md-auto img-lg rounded-4">';
-			phtml += '<img src="/upload/'+file[1]+'" class="rounded " alt="java18"';
-			phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
-			phtml += 'data-bs-whatever="/upload/'+file[1]+'">';
-			phtml += '</div></div></div>';
-			
-			phtml += makePostHtmlFooter(post);
-			
-			return phtml;
-		}
-		
-		function makePostHtml3(name,image,post,files){
-			var file = files.split(",");
-			var phtml = makePostHtml0(name,image,post);
-			
-			phtml += '<div class="container">';
-			phtml += '<div class="row row-cols-auto">';
-			phtml += '<div class="col-md-auto img-md rounded-4">';
-			phtml += '<img src="upload/'+file[0]+'" class="rounded " alt="java18"';
-			phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
-			phtml += 'data-bs-whatever="upload/'+file[0]+'">';
-			phtml += '</div>';
-			phtml += '<div class="col-md-auto">';
-			phtml += '<div class="row row-cols-auto">';
-			phtml += '<div class="col-md-auto img-sm">';
-			phtml += '<img src="upload/'+file[1]+'" class="rounded "';
-			phtml += 'alt="java18" data-bs-toggle="modal"';
-			phtml += 'data-bs-target="#exampleModal"';
-			phtml += 'data-bs-whatever="upload/'+file[1]+'">';
-			phtml += '</div>';
-			phtml += '</div>';
-			phtml += '<div class="row row-cols-auto">';
-			phtml += '<div class="col-md-auto img-sm">';
-			phtml += '<img src="upload/'+file[2]+'" class="rounded "';
-			phtml += 'alt="java18" data-bs-toggle="modal"';
-			phtml += 'data-bs-target="#exampleModal"';
-			phtml += 'data-bs-whatever="upload/'+file[2]+'">';
-			phtml += '</div></div></div></div></div>';
-			
-			phtml += makePostHtmlFooter(post);
-			
-			return phtml;
-		}
-		
-		function makePostHtml4(name,image,post,files){
-			var file = files.split(",");
-			var phtml = makePostHtml0(name,image,post);
-			
-			phtml += '<div class="container img-sm">';
-			phtml += '<div class="row">';
-			phtml += '<div class="col-md-auto">';
-			phtml += '<img src="upload/'+file[0]+'" class="rounded " alt="java18"';
-			phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
-			phtml += 'data-bs-whatever="upload/'+file[0]+'">';
-			phtml += '</div>';
-			phtml += '<div class="col-md-auto">';
-			phtml += '<img src="upload/'+file[1]+'" class="rounded " alt="java18"';
-			phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
-			phtml += 'data-bs-whatever="upload/'+file[1]+'">';
-			phtml += '</div>';
-			phtml += '</div>';
-			phtml += '<div class="row">';
-			phtml += '<div class="col-md-auto">';
-			phtml += '<img src="upload/'+file[2]+'" class="rounded " alt="java18"';
-			phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
-			phtml += 'data-bs-whatever="upload/'+file[2]+'">';
-			phtml += '</div>';
-			phtml += '<div class="col-md-auto">';
-			phtml += '<img src="upload/'+file[3]+'" class="rounded " alt="java18"';
-			phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
-			phtml += 'data-bs-whatever="upload/'+file[3]+'">';
-			phtml += '</div></div></div>';
-			
-			phtml += makePostHtmlFooter(post);
-			
-			return phtml;
-		}
-		
-		function makePostHtmlFooter(post)
-		{
-			var phtml = '<div class="post_footer">';
-		 	phtml += '<span class="material-icons ms_icons chat" data-bs-toggle="modal"';
-			phtml += 'data-bs-target="#writeModal" data-post_id="'+post.post_id+'"';
-			phtml += 'data-group="'+post.pgroup+'" ';
-			phtml += 'data-step="'+post.pstep+'" ';
-			phtml += 'data-indent="'+post.pindent+'">chat</span>';
 
-			
-			phtml += '<h3>100</h3>';
-			phtml += '<span class="material-icons ms_icons repeat">repeat</span>';
-			phtml += '<h3>100</h3>';
-			phtml += '<span class="material-icons ms_icons favorite">favorite_border</span>';
-			phtml += '<h3>100</h3>';
-			phtml += '<span class="material-icons ms_icons chart">bar_chart</span>';
-			phtml += '<h3>100</h3>';
-			phtml += '</div></div></div>';
-			
-			return phtml;
-			
+
+	function makePostHtml0(name, image, post) {
+
+		var phtml = '<div class="post" style="position: relative;">';
+		phtml += '<div class="post_profile-image rounded-5">';
+		phtml += '<img class="" src="/upload/' + image + '" alt="profile">';
+		phtml += '<div style="position: absolute; height: 100%; width: 80px;"></div></div>';
+		phtml += '<div class="post_body">';
+		phtml += '<div class="post_header">'
+		phtml += '<div class="post_header-text">';
+		phtml += '<h3>';
+		phtml += name + '<span class="header-icon-section">@' + post.user_id;
+		phtml += '</span>';
+		phtml += '</h3>';
+		phtml += '<div style="margin-left: 1rem; text-align: center;">';
+		phtml += '<h3>방금 전</h3>';
+		phtml += '</div></div>';
+		phtml += '<div class="post_header-discription"';
+		phtml += 'onclick="location.href=' + "'/viewContent?post_id=" + post.post_id + "'" + '">';
+		phtml += '<p>' + post.pcontent + '</p>';
+
+
+		if (post.plocation != null) {
+			phtml += '<div class="" style="color:gray">';
+			phtml += '<div style="display: flex;">';
+			phtml += '<span class="material-icons">location_on</span>';
+			phtml += '<div>' + post.plocation + '</div>';
+			phtml += '</div></div>';
 		}
+
+
+		phtml += '</div></div>';
+
+		//phtml += makePostHtmlFooter();
+
+
+		return phtml;
+	}
+
+	function makePostHtmlv(name, image, post, files) {
+
+		var phtml = makePostHtml0(name, image, post);
+		phtml += '<div class="container video_contaner">';
+		phtml += '<video controls loop muted preload="auto" src="/upload/' + files + '">';
+		phtml += '</video></div>';
+
+		phtml += makePostHtmlFooter(post);
+
+		return phtml;
+	}
+
+	function makePostHtml1(name, image, post, files) {
+		//var file = files.split(",");
+		var phtml = makePostHtml0(name, image, post);
+
+		phtml += '<div class="container">';
+		phtml += '<div class="row row-cols-auto ">';
+		phtml += '<div class="col-md-auto img-xl rounded-4">';
+		phtml += '<img src="/upload/' + files + '" class="rounded " alt="java18"';
+		phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
+		phtml += 'data-bs-whatever="/upload/' + files + '">';
+		phtml += '</div></div></div>';
+
+		phtml += makePostHtmlFooter(post);
+
+		return phtml;
+	}
+
+	function makePostHtml2(name, image, post, files) {
+		var file = files.split(",");
+		var phtml = makePostHtml0(name, image, post);
+
+		phtml += '<div class="container">';
+		phtml += '<div class="row row-cols-auto ">';
+		phtml += '<div class="col-md-auto img-lg rounded-4">';
+		phtml += '<img src="/upload/' + file[0] + '" class="rounded " alt="java18"';
+		phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
+		phtml += 'data-bs-whatever="upload/' + file[0] + '">';
+		phtml += '</div>';
+		phtml += '<div class="col-md-auto img-lg rounded-4">';
+		phtml += '<img src="/upload/' + file[1] + '" class="rounded " alt="java18"';
+		phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
+		phtml += 'data-bs-whatever="/upload/' + file[1] + '">';
+		phtml += '</div></div></div>';
+
+		phtml += makePostHtmlFooter(post);
+
+		return phtml;
+	}
+
+	function makePostHtml3(name, image, post, files) {
+		var file = files.split(",");
+		var phtml = makePostHtml0(name, image, post);
+
+		phtml += '<div class="container">';
+		phtml += '<div class="row row-cols-auto">';
+		phtml += '<div class="col-md-auto img-md rounded-4">';
+		phtml += '<img src="upload/' + file[0] + '" class="rounded " alt="java18"';
+		phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
+		phtml += 'data-bs-whatever="upload/' + file[0] + '">';
+		phtml += '</div>';
+		phtml += '<div class="col-md-auto">';
+		phtml += '<div class="row row-cols-auto">';
+		phtml += '<div class="col-md-auto img-sm">';
+		phtml += '<img src="upload/' + file[1] + '" class="rounded "';
+		phtml += 'alt="java18" data-bs-toggle="modal"';
+		phtml += 'data-bs-target="#exampleModal"';
+		phtml += 'data-bs-whatever="upload/' + file[1] + '">';
+		phtml += '</div>';
+		phtml += '</div>';
+		phtml += '<div class="row row-cols-auto">';
+		phtml += '<div class="col-md-auto img-sm">';
+		phtml += '<img src="upload/' + file[2] + '" class="rounded "';
+		phtml += 'alt="java18" data-bs-toggle="modal"';
+		phtml += 'data-bs-target="#exampleModal"';
+		phtml += 'data-bs-whatever="upload/' + file[2] + '">';
+		phtml += '</div></div></div></div></div>';
+
+		phtml += makePostHtmlFooter(post);
+
+		return phtml;
+	}
+
+	function makePostHtml4(name, image, post, files) {
+		var file = files.split(",");
+		var phtml = makePostHtml0(name, image, post);
+
+		phtml += '<div class="container img-sm">';
+		phtml += '<div class="row">';
+		phtml += '<div class="col-md-auto">';
+		phtml += '<img src="upload/' + file[0] + '" class="rounded " alt="java18"';
+		phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
+		phtml += 'data-bs-whatever="upload/' + file[0] + '">';
+		phtml += '</div>';
+		phtml += '<div class="col-md-auto">';
+		phtml += '<img src="upload/' + file[1] + '" class="rounded " alt="java18"';
+		phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
+		phtml += 'data-bs-whatever="upload/' + file[1] + '">';
+		phtml += '</div>';
+		phtml += '</div>';
+		phtml += '<div class="row">';
+		phtml += '<div class="col-md-auto">';
+		phtml += '<img src="upload/' + file[2] + '" class="rounded " alt="java18"';
+		phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
+		phtml += 'data-bs-whatever="upload/' + file[2] + '">';
+		phtml += '</div>';
+		phtml += '<div class="col-md-auto">';
+		phtml += '<img src="upload/' + file[3] + '" class="rounded " alt="java18"';
+		phtml += 'data-bs-toggle="modal" data-bs-target="#exampleModal"';
+		phtml += 'data-bs-whatever="upload/' + file[3] + '">';
+		phtml += '</div></div></div>';
+
+		phtml += makePostHtmlFooter(post);
+
+		return phtml;
+	}
+
+	function makePostHtmlFooter(post) {
+		var phtml = '<div class="post_footer">';
+		phtml += '<span class="material-icons ms_icons chat" data-bs-toggle="modal"';
+		phtml += 'data-bs-target="#writeModal" data-post_id="' + post.post_id + '"';
+		phtml += 'data-group="' + post.pgroup + '" ';
+		phtml += 'data-step="' + post.pstep + '" ';
+		phtml += 'data-indent="' + post.pindent + '">chat</span>';
+
+
+		phtml += '<h3>100</h3>';
+		phtml += '<span class="material-icons ms_icons repeat">repeat</span>';
+		phtml += '<h3>100</h3>';
+		phtml += '<span class="material-icons ms_icons favorite">favorite_border</span>';
+		phtml += '<h3>100</h3>';
+		phtml += '<span class="material-icons ms_icons chart">bar_chart</span>';
+		phtml += '<h3>100</h3>';
+		phtml += '</div></div></div>';
+
+		return phtml;
+
+	}
 
 
 	var writeModal = document.getElementById('writeModal')
@@ -720,319 +708,379 @@ $(function() {
 		var group = button.getAttribute('data-group');
 		var step = button.getAttribute('data-step');
 		var indent = button.getAttribute('data-indent');
-		
-		
-		
+
+
+
 		console.log("modal post id : " + postId);
-		
+
 		var ip1 = document.createElement("input");
 		ip1.setAttribute("type", "hidden");
-		ip1.setAttribute("value", postId );
+		ip1.setAttribute("value", postId);
 		ip1.setAttribute("name", "post_id");
 
 		var ip2 = document.createElement("input");
 		ip2.setAttribute("type", "hidden");
-		ip2.setAttribute("value", group );
+		ip2.setAttribute("value", group);
 		ip2.setAttribute("name", "pgroup");
 
 		var ip3 = document.createElement("input");
 		ip3.setAttribute("type", "hidden");
-		ip3.setAttribute("value", step );
+		ip3.setAttribute("value", step);
 		ip3.setAttribute("name", "pstep");
 
 		var ip4 = document.createElement("input");
 		ip4.setAttribute("type", "hidden");
-		ip4.setAttribute("value", indent );
-		ip4.setAttribute("name", "pindent");		
-		
+		ip4.setAttribute("value", indent);
+		ip4.setAttribute("name", "pindent");
+
 		$("#modal_hidden").html("");
-		
+
 		$("#modal_hidden").append(ip1);
 		$("#modal_hidden").append(ip2);
 		$("#modal_hidden").append(ip3);
 		$("#modal_hidden").append(ip4);
 
-		
+
 	})
 
 
 
 
-	$("#modal_write-btn").on("click",function(e){
+	$("#modal_write-btn").on("click", function(e) {
 
 		e.preventDefault();
-		
-        var url = $("#modalForm").attr("action");
-        var form = $('#modalForm')[0];
-        var formData = new FormData(form);
-        
-        $.ajax({
-          url: url,
-          type: 'POST',
-          data: formData,
-          dataType:"json",
-          success: function (data) {
-          	console.log(data);
-          	console.log("number of files : " + data.nof);
-          	console.log("profile : " + data.profile);
-          	console.log("files : " + data.files);
-          	console.log("type : " + data.type);
-          /*	if(data.nof==0){
-				  console.log(makePostHtml0(data.name,data.profile,data.post));
-			    $("#post_wrap").prepend(makePostHtml0(data.name,data.profile,data.post)+ makePostHtmlFooter(data.post));
-			}else if(data.nof==1){
-				console.log("왜 안 됨 ? ");
-				if((data.type).includes("image")){
-					 $("#post_wrap").prepend(makePostHtml1(data.name,data.profile,data.post,data.files));	
-					console.log("이미지")	;			
-				}else if((data.type).includes("video")){
-					 $("#post_wrap").prepend(makePostHtmlv(data.name,data.profile,data.post,data.files));
-					console.log("비디오");	
-				}
-			}else if(data.nof==2){
-				 $("#post_wrap").prepend(makePostHtml2(data.name,data.profile,data.post,data.files));
-			}else if(data.nof==3){
-				 $("#post_wrap").prepend(makePostHtml3(data.name,data.profile,data.post,data.files));
-			}else if(data.nof==4){
-				 $("#post_wrap").prepend(makePostHtml4(data.name,data.profile,data.post,data.files));
-			}*/
-          		$("#modal_write-box").val("");
-		      	$("#modalRegPosition").val("");
-		      	$("#modal_currLocation").html("");
-		      	$("#modal_position_wrap").addClass("invis");
+
+		var url = $("#modalForm").attr("action");
+		var form = $('#modalForm')[0];
+		var formData = new FormData(form);
+
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data: formData,
+			dataType: "json",
+			success: function(data) {
+				console.log(data);
+				console.log("number of files : " + data.nof);
+				console.log("profile : " + data.profile);
+				console.log("files : " + data.files);
+				console.log("type : " + data.type);
+				/*	if(data.nof==0){
+						console.log(makePostHtml0(data.name,data.profile,data.post));
+					  $("#post_wrap").prepend(makePostHtml0(data.name,data.profile,data.post)+ makePostHtmlFooter(data.post));
+				  }else if(data.nof==1){
+					  console.log("왜 안 됨 ? ");
+					  if((data.type).includes("image")){
+						   $("#post_wrap").prepend(makePostHtml1(data.name,data.profile,data.post,data.files));	
+						  console.log("이미지")	;			
+					  }else if((data.type).includes("video")){
+						   $("#post_wrap").prepend(makePostHtmlv(data.name,data.profile,data.post,data.files));
+						  console.log("비디오");	
+					  }
+				  }else if(data.nof==2){
+					   $("#post_wrap").prepend(makePostHtml2(data.name,data.profile,data.post,data.files));
+				  }else if(data.nof==3){
+					   $("#post_wrap").prepend(makePostHtml3(data.name,data.profile,data.post,data.files));
+				  }else if(data.nof==4){
+					   $("#post_wrap").prepend(makePostHtml4(data.name,data.profile,data.post,data.files));
+				  }*/
+				$("#modal_write-box").val("");
+				$("#modalRegPosition").val("");
+				$("#modal_currLocation").html("");
+				$("#modal_position_wrap").addClass("invis");
 				$(".modal_userfile").remove();
 				$("#modal_image-area").html("");
 				const dataTranster = new DataTransfer();
-			
+
 				$("#modalFile")[0].files = dataTranster.files;
-				
+
 				location.reload(true);
-          },
-          error: function (data) {
-            alert(data);
-          },
-          cache: false,
-          contentType: false,
-          processData: false
-        });
+			},
+			error: function(data) {
+				alert(data);
+			},
+			cache: false,
+			contentType: false,
+			processData: false
+		});
 
 
 
 
 
-		
+
 
 
 	})
-	
 
 
 
 
-	$(document).on("click",".deleteOne",function(e){
-		
+
+	$(document).on("click", ".deleteOne", function(e) {
+
 		var element = e.target;
 		console.log(element);
 
 		var postId = element.getAttribute('data-post_id');
 		console.log(postId);
-		 $.ajax({
-          url: "/deleteOne",
-          type: 'POST',
-          data: {"post_id":postId},
-          dataType:"text",
-          success: function (data) {
+		$.ajax({
+			url: "/deleteOne",
+			type: 'POST',
+			data: { "post_id": postId },
+			dataType: "text",
+			success: function(data) {
 
 				alert("삭제되었습니다.");
 				location.reload(true);
-          },
-          error: function (data) {
-            alert(data);
-          }
-        });
-		
+			},
+			error: function(data) {
+				alert(data);
+			}
+		});
+
 	})
 
 
 
 
-//////////////위치 검색 함수/////////////////////////////
+	//////////////위치 검색 함수/////////////////////////////
 
+	$("#locSearch").on("keyup", function(e) {
 
-// 장소 검색 객체를 생성합니다
-var ps = new kakao.maps.services.Places();  
+		if (e.keyCode == 13) {
+
+			searchPlaces();
+			$("#locSearch").val("");
+
+		}
+
+	});
 	
+	$("#locSearch2").on("keyup", function(e) {
 
-function findLocation()
-{
+		if (e.keyCode == 13) {
 
-	// 키워드로 장소를 검색합니다
-	searchPlaces();
+			searchPlaces2();
+			$("#locSearch2").val("");
 
-}
+		}
 
-
-
-// 키워드 검색을 요청하는 함수입니다
-function searchPlaces() {
-
-    var keyword = document.getElementById('keyword').value;
-
-    if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        alert('키워드를 입력해주세요!');
-        return false;
-    }
-
-    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-    ps.keywordSearch( keyword, placesSearchCB); 
-}
+	});
 
 
-// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
-function placesSearchCB(data, status, pagination) {
-    if (status === kakao.maps.services.Status.OK) {
-
-        // 정상적으로 검색이 완료됐으면
-        // 검색 목록과 마커를 표출합니다
-        displayPlaces(data);
-
-        // 페이지 번호를 표출합니다
-        displayPagination(pagination);
-
-    } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-
-        alert('검색 결과가 존재하지 않습니다.');
-        return;
-
-    } else if (status === kakao.maps.services.Status.ERROR) {
-
-        alert('검색 결과 중 오류가 발생했습니다.');
-        return;
-
-    }
-}
-
-// 검색 결과 목록과 마커를 표출하는 함수입니다
-function displayPlaces(places) {
-
-    var listEl = document.getElementById('placesList'), 
-    menuEl = document.getElementById('menu_wrap'),
-    fragment = document.createDocumentFragment(), 
-    bounds = new kakao.maps.LatLngBounds(), 
-    listStr = '';
-    
-    // 검색 결과 목록에 추가된 항목들을 제거합니다
-    removeAllChildNods(listEl);
-
-    // 지도에 표시되고 있는 마커를 제거합니다
-    removeMarker();
-    
-    for ( var i=0; i<places.length; i++ ) {
-
-        // 마커를 생성하고 지도에 표시합니다
-        var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
-         //   marker = addMarker(placePosition, i), 
-            itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
-
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-        // LatLngBounds 객체에 좌표를 추가합니다
-        bounds.extend(placePosition);
-
-        // 마커와 검색결과 항목에 mouseover 했을때
-        // 해당 장소에 인포윈도우에 장소명을 표시합니다
-        // mouseout 했을 때는 인포윈도우를 닫습니다
-        (function(marker, title) {
-            kakao.maps.event.addListener(marker, 'mouseover', function() {
-                displayInfowindow(marker, title);
-            });
-
-            kakao.maps.event.addListener(marker, 'mouseout', function() {
-                infowindow.close();
-            });
-
-            itemEl.onmouseover =  function () {
-                displayInfowindow(marker, title);
-            };
-
-            itemEl.onmouseout =  function () {
-                infowindow.close();
-            };
-        })(marker, places[i].place_name);
-
-        fragment.appendChild(itemEl);
-    }
-
-    // 검색결과 항목들을 검색결과 목록 Element에 추가합니다
-    listEl.appendChild(fragment);
-    menuEl.scrollTop = 0;
-
-    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-    map.setBounds(bounds);
-}
-
-// 검색결과 항목을 Element로 반환하는 함수입니다
-function getListItem(places) {
-
-    var el = document.createElement('li'),
-    itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-                '<div class="info">' +
-                '   <h5>' + places.place_name + '</h5>';
-
-    if (places.road_address_name) {
-        itemStr += '    <span>' + places.road_address_name + '</span>' +
-                    '   <span class="jibun gray">' +  places.address_name  + '</span>';
-    } else {
-        itemStr += '    <span>' +  places.address_name  + '</span>'; 
-    }
-                 
-      itemStr += '  <span class="tel">' + places.phone  + '</span>' +
-                '</div>';           
-
-    el.innerHTML = itemStr;
-    el.className = 'item';
-
-    return el;
-}
-
- // 검색결과 목록의 자식 Element를 제거하는 함수입니다
-function removeAllChildNods(el) {   
-    while (el.hasChildNodes()) {
-        el.removeChild (el.lastChild);
-    }
-}
+	//장소 검색 객체를 생성합니다
+	var ps = new kakao.maps.services.Places();
 
 
-function makeListItem(places){
+	function findLocation() {
+
+		// 키워드로 장소를 검색합니다
+		searchPlaces();
+
+	}
+
+
+
+	//키워드 검색을 요청하는 함수입니다
+	function searchPlaces() {
+
+		var keyword = $("#locSearch").val();
+
+		if (!keyword.replace(/^\s+|\s+$/g, '')) {
+			alert('키워드를 입력해주세요!');
+			return false;
+		}
+
+		// 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+		ps.keywordSearch(keyword, placesSearchCB);
+	}
+
+
+	//장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+	function placesSearchCB(data, status, pagination) {
+		if (status === kakao.maps.services.Status.OK) {
+
+			// 정상적으로 검색이 완료됐으면
+			// 검색 목록과 마커를 표출합니다
+			displayPlaces(data);
+
+			// 페이지 번호를 표출합니다
+	//		displayPagination(pagination);
+
+		} else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+
+			alert('검색 결과가 존재하지 않습니다.');
+			return;
+
+		} else if (status === kakao.maps.services.Status.ERROR) {
+
+			alert('검색 결과 중 오류가 발생했습니다.');
+			return;
+
+		}
+	}
+
+	//검색 결과 목록과 마커를 표출하는 함수입니다
+	function displayPlaces(places) {
+
+		var listEl = document.getElementById('placesList');
+	//	var menuEl = document.getElementById('menu_wrap');
+		var fragment = document.createDocumentFragment();
+	//	var bounds = new kakao.maps.LatLngBounds();
+
+		// 검색 결과 목록에 추가된 항목들을 제거합니다
+		removeAllChildNods(listEl);
+
+		for (var i = 0; i < places.length; i++) {
+			var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x);
+
+			var itemEl = makeListItem(places[i]);
+			
+
+			fragment.append(itemEl);
+		}
+
+		// 검색결과 항목들을 검색결과 목록 Element에 추가합니다
+		listEl.appendChild(fragment);
+
+	}
+
+
+
+	// 검색결과 목록의 자식 Element를 제거하는 함수입니다
+	function removeAllChildNods(el) {
+		while (el.hasChildNodes()) {
+			el.removeChild(el.lastChild);
+		}
+	}
+
+
+	function makeListItem(places) {
+
+		var el = document.createElement('div');
+		
+		let addrHtml = '<div class="row  align-items-start selAddr"';
+		addrHtml += 'data-location="'+places.place_name	+'">';
+		
+		addrHtml += '<div class="col col-2 border-end border-secondary mt-1 addrHead">';
+		addrHtml += places.place_name;
+		addrHtml += '</div>';
+
+		addrHtml += '<div class="col col-5 mt-1 addrbody">';
+		addrHtml += places.road_address_name;
+		addrHtml += '</div></div>';
+
+		addrHtml += '<div class="w-100"></div>';
+
+
+
+
+		el.innerHTML = addrHtml;
+		el.className = 'item';
+
+		console.log(el);
+
+		return el;
+	}
+
+
+
+
+
+
+
+
+
+	//키워드 검색을 요청하는 함수입니다
+	function searchPlaces2() {
+
+		var keyword = $("#locSearch2").val();
+
+		if (!keyword.replace(/^\s+|\s+$/g, '')) {
+			alert('키워드를 입력해주세요!');
+			return false;
+		}
+
+		// 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+		ps.keywordSearch(keyword, placesSearchCB2);
+	}
 	
-	let addrHtml ='<div class="row  align-items-start selAddr"';
+	//장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+	function placesSearchCB2(data, status, pagination) {
+		if (status === kakao.maps.services.Status.OK) {
+
+			// 정상적으로 검색이 완료됐으면
+			// 검색 목록과 마커를 표출합니다
+			displayPlaces2(data);
+
+			// 페이지 번호를 표출합니다
+	//		displayPagination(pagination);
+
+		} else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+
+			alert('검색 결과가 존재하지 않습니다.');
+			return;
+
+		} else if (status === kakao.maps.services.Status.ERROR) {
+
+			alert('검색 결과 중 오류가 발생했습니다.');
+			return;
+
+		}
+	}
+	//검색 결과 목록과 마커를 표출하는 함수입니다
+	function displayPlaces2(places) {
+
+		var listEl = document.getElementById('placesList2	');
+		var menuEl = document.getElementById('menu_wrap');
+		var fragment = document.createDocumentFragment();
+		var bounds = new kakao.maps.LatLngBounds();
+
+		// 검색 결과 목록에 추가된 항목들을 제거합니다
+		removeAllChildNods(listEl);
+
+		for (var i = 0; i < places.length; i++) {
+			var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x);
+
+			var itemEl = makeListItem2(places[i]);
+			
+
+			fragment.append(itemEl);
+		}
+
+		// 검색결과 항목들을 검색결과 목록 Element에 추가합니다
+		listEl.appendChild(fragment);
+
+	}
 	
-	addrHtml += 'data-location="'+places.place_name+'">';
-	addrHtml += '<div class="col col-2 border-end border-secondary mt-1">';
-	
-	
-}
+	function makeListItem2(places) {
+
+		var el = document.createElement('div');
+		
+		let addrHtml = '<div class="row  align-items-start selAddr2"';
+		addrHtml += 'data-location="'+places.place_name	+'">';
+		
+		addrHtml += '<div class="col col-2 border-end border-secondary mt-1 addrHead">';
+		addrHtml += places.place_name;
+		addrHtml += '</div>';
+
+		addrHtml += '<div class="col col-5 mt-1 addrbody">';
+		addrHtml += places.road_address_name;
+		addrHtml += '</div></div>';
+
+		addrHtml += '<div class="w-100"></div>';
 
 
 
 
+		el.innerHTML = addrHtml;
+		el.className = 'item';
+
+		console.log(el);
+
+		return el;
+	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-})
+});

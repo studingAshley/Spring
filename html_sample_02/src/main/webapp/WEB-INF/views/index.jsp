@@ -23,7 +23,7 @@
 
 
 
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b32a90eb17eb21978aacd0882239ee95&libraries=services"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
@@ -494,80 +494,11 @@ pre {
 						<label for="message-text" class="col-form-label  ">검색 결과:</label>
 						<div style="">
 
-							<div class="container text-center locArray"
+							<div id="placesList" class="container text-center locArray"
 								style="overflow-y: scroll; height: 100px;">
 
-								<div class="row  align-items-start selAddr"
-									data-location="Loacation1">
-									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
-
-								<div class="w-100"></div>
-
-								<div class="row  align-items-start selAddr"
-									data-location="Loacation2">
-									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
-
-								<div class="w-100"></div>
-
-								<div class="row  align-items-start selAddr"
-									data-location="Loacation3">
-									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
-
-								<div class="w-100"></div>
-
-								<div class="row  align-items-start selAddr"
-									data-location="Loacation4">
-									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
-
-								<div class="w-100"></div>
-
-								<div class="row  align-items-start selAddr">
-									<div class="col col-2 border-end border-secondary mt-1"
-										data-location="Loacation5">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
-
-
-								<div class="w-100"></div>
-
-								<div class="row  align-items-start selAddr">
-									<div class="col col-2 border-end border-secondary mt-1"
-										data-location="Loacation6">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
-
-								<div class="w-100"></div>
-
-								<div class="row  align-items-start selAddr"
-									data-location="Loacation7">
-									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
-
-								<div class="w-100"></div>
-
-								<div class="row  align-items-start selAddr"
-									data-location="Loacation8">
-									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
-
-
-								<div class="w-100"></div>
-
-								<div class="row  align-items-start selAddr"
-									data-location="Loacation9">
-									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
+								
+								
 							</div>
 
 						</div>
@@ -662,14 +593,14 @@ pre {
 
 					<div class="mb-3">
 						<label for="recipient-name" class="col-form-label ">검색:</label> <input
-							type="text" class="form-control" id="locSearch"
+							type="text" class="form-control" id="locSearch2"
 							data-bs-keyboard="false">
 					</div>
 					<div class="mb-3">
 						<label for="message-text" class="col-form-label  ">검색 결과:</label>
 						<div style="">
 
-							<div class="container text-center locArray"
+							<div id="placesList2" class="container text-center locArray"
 								style="overflow-y: scroll; height: 100px;">
 
 								<div class="row  align-items-start selAddr2"
