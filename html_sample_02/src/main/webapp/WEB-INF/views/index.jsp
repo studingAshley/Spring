@@ -22,8 +22,9 @@
 <link rel="stylesheet" href="/node_modules/reset.css/reset.css">
 
 
-
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b32a90eb17eb21978aacd0882239ee95&libraries=services"></script>
+
+
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
@@ -60,7 +61,7 @@ pre {
 			<div class="header">
 				<h2>홈</h2>
 			</div>
-
+			<!-- 페이지정보 -->
 			<div class="tweet_box">
 				<form id="writeForm" action="/sendPost" method="post"
 					enctype="multipart/form-data">
@@ -103,14 +104,9 @@ pre {
 				</form>
 			</div>
 
-
-
-
-
-
 			<!-- Post -->
 			<div id="post_wrap">
-
+				<input type="hidden" name="pageCounter" value="0">
 
 				<c:forEach var="pdto" items="${plist}" varStatus="status">
 					<div class="post" style="position: relative;">
@@ -146,6 +142,7 @@ pre {
 									</div>
 								</div>
 
+<!-- <<<<<<< HEAD -->
 								<div class="post_header-discription"
 									onclick="location.href='/viewContent?post_id=${plist[status.index].post_id}'">
 									<p>${plist[status.index].pcontent}</p>
@@ -160,6 +157,62 @@ pre {
 									
 									
 								</div>
+<!-- =======
+						</div>
+
+					</div>
+					<div class="container video_contaner">
+						<video controls loop muted preload="auto" src="video/video01.mp4">
+							
+							
+						</video>
+					</div>
+
+					<div class="post_footer">
+
+						<span class="material-icons ms_icons chat" data-bs-toggle="modal" data-bs-target="#writeModal">chat</span>
+						<h3>100</h3>
+						<span class="material-icons ms_icons repeat">repeat</span>
+						<h3>100</h3>
+						<span class="material-icons ms_icons favorite">favorite_border</span>
+						<h3>100</h3>
+						<div id="bookChk1">
+						<span class="material-icons bookmark" style="cursor: pointer; color: #BA68C8;">bookmark_border</span>
+						</div>
+
+
+					</div>
+
+				</div>
+
+			</div>
+			
+			<script>
+			 $(function(){
+				
+				$("#bookChk").click(function(){
+				    alert("z");
+				});
+			 });
+			</script>
+
+
+
+			<div class="post" style="position: relative;">
+
+				<div class="post_profile-image rounded-5">
+					<img class="" src="images/profile01.jpg" alt="profile">
+				</div>
+
+				<div class="post_body">
+					<div class="post_header">
+						<div class="post_header-text">
+							<h3>
+								만두 <span class="header-icon-section"> @Mandoo </span>
+							</h3>
+							<div style="margin-left: 1rem; text-align: center;">
+								<h3>24.01.01</h3>
+>>>>>>> refs/remotes/origin/hyg -->
 							</div>
 
 							<c:if
@@ -195,7 +248,7 @@ pre {
 											<div class="col-md-auto img-lg rounded-4">
 												<img src="/upload/${img[0]}" class="rounded " alt="java18"
 													data-bs-toggle="modal" data-bs-target="#exampleModal"
-													data-bs-whatever="upload/${img[0]}">
+													data-bs-whatever="/upload/${img[0]}">
 											</div>
 											<div class="col-md-auto img-lg rounded-4">
 												<img src="/upload/${img[1]}" class="rounded " alt="java18"
@@ -210,23 +263,23 @@ pre {
 									<div class="container">
 										<div class="row row-cols-auto">
 											<div class="col-md-auto img-md rounded-4">
-												<img src="upload/${img[0]}" class="rounded " alt="java18"
+												<img src="/upload/${img[0]}" class="rounded " alt="java18"
 													data-bs-toggle="modal" data-bs-target="#exampleModal"
-													data-bs-whatever="upload/${img[0]}">
+													data-bs-whatever="/upload/${img[0]}">
 											</div>
 											<div class="col-md-auto">
 												<div class="row row-cols-auto">
 													<div class="col-md-auto img-sm">
-														<img src="upload/${img[1]}" class="rounded " alt="java18"
+														<img src="/upload/${img[1]}" class="rounded " alt="java18"
 															data-bs-toggle="modal" data-bs-target="#exampleModal"
-															data-bs-whatever="upload/${img[1]}">
+															data-bs-whatever="/upload/${img[1]}">
 													</div>
 												</div>
 												<div class="row row-cols-auto">
 													<div class="col-md-auto img-sm">
-														<img src="upload/${img[2]}" class="rounded " alt="java18"
+														<img src="/upload/${img[2]}" class="rounded " alt="java18"
 															data-bs-toggle="modal" data-bs-target="#exampleModal"
-															data-bs-whatever="upload/${img[2]}">
+															data-bs-whatever="/upload/${img[2]}">
 													</div>
 												</div>
 											</div>
@@ -238,27 +291,27 @@ pre {
 									<div class="container img-sm">
 										<div class="row">
 											<div class="col-md-auto">
-												<img src="upload/${img[0]}" class="rounded " alt="java18"
+												<img src="/upload/${img[0]}" class="rounded " alt="java18"
 													data-bs-toggle="modal" data-bs-target="#exampleModal"
-													data-bs-whatever="upload/${img[0]}">
+													data-bs-whatever="/upload/${img[0]}">
 											</div>
 											<div class="col-md-auto">
-												<img src="upload/${img[1]}" class="rounded " alt="java18"
+												<img src="/upload/${img[1]}" class="rounded " alt="java18"
 													data-bs-toggle="modal" data-bs-target="#exampleModal"
-													data-bs-whatever="upload/${img[1]}">
+													data-bs-whatever="/upload/${img[1]}">
 											</div>
 										</div>
 
 										<div class="row">
 											<div class="col-md-auto">
-												<img src="upload/${img[2]}" class="rounded " alt="java18"
+												<img src="/upload/${img[2]}" class="rounded " alt="java18"
 													data-bs-toggle="modal" data-bs-target="#exampleModal"
-													data-bs-whatever="upload/${img[2]}">
+													data-bs-whatever="/upload/${img[2]}">
 											</div>
 											<div class="col-md-auto">
-												<img src="upload/${img[3]}" class="rounded " alt="java18"
+												<img src="/upload/${img[3]}" class="rounded " alt="java18"
 													data-bs-toggle="modal" data-bs-target="#exampleModal"
-													data-bs-whatever="upload/${img[3]}">
+													data-bs-whatever="/upload/${img[3]}">
 											</div>
 										</div>
 									</div>
@@ -268,12 +321,6 @@ pre {
 
 
 							</c:if>
-
-
-
-
-
-
 
 
 
@@ -302,7 +349,7 @@ pre {
 								</c:if>
 							
 							
-								<h3>${plist[status.index].renote}</h3>
+								<h3>${recount[status.index]}</h3>
 								
 								
 								
@@ -317,7 +364,7 @@ pre {
 							
 								</c:if>
 									
-								<h3>${plist[status.index].plike}</h3>
+								<h3>${facount[status.index]}</h3>
 								
 								
 								
@@ -338,17 +385,12 @@ pre {
 
 
 
-
-
-
-
-
-
 				<div class="post" style="position: relative;">
 
 					<div class="post_profile-image rounded-5">
 						<img class="" src="/images/profile01.jpg" alt="profile">
 					</div>
+
 
 					<div class="post_body">
 						<div class="post_header">
@@ -359,6 +401,7 @@ pre {
 								<div style="margin-left: 1rem; text-align: center;">
 									<h3>24.01.01</h3>
 								</div>
+
 							</div>
 
 							<div class="post_header-discription"
@@ -437,7 +480,11 @@ pre {
 				</div>
 
 
+
+
 			</div>
+
+
 		</main>
 		<!-- main section end -->
 
@@ -494,10 +541,10 @@ pre {
 						<label for="message-text" class="col-form-label  ">검색 결과:</label>
 						<div style="">
 
-							<div id="placesList" class="container text-center locArray"
+							<div id='placesList' class="container text-center locArray"
 								style="overflow-y: scroll; height: 100px;">
 
-								
+								<!-- 키워드 검색결과 영역 -->
 								
 							</div>
 
@@ -541,10 +588,7 @@ pre {
 
 								</div>
 
-
 							</div>
-
-
 
 						</div>
 
@@ -603,78 +647,7 @@ pre {
 							<div id="placesList2" class="container text-center locArray"
 								style="overflow-y: scroll; height: 100px;">
 
-								<div class="row  align-items-start selAddr2"
-									data-location="Loacation1">
-									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
-
-								<div class="w-100"></div>
-
-								<div class="row  align-items-start selAddr2"
-									data-location="Loacation2">
-									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
-
-								<div class="w-100"></div>
-
-								<div class="row  align-items-start selAddr2"
-									data-location="Loacation3">
-									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
-
-								<div class="w-100"></div>
-
-								<div class="row  align-items-start selAddr2"
-									data-location="Loacation4">
-									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
-
-								<div class="w-100"></div>
-
-								<div class="row  align-items-start selAddr2"
-									data-location="Loacation5">
-									<div class="col col-2 border-end border-secondary mt-1"
-										data-location="Loacation5">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
-
-
-								<div class="w-100"></div>
-
-								<div class="row  align-items-start selAddr2">
-									<div class="col col-2 border-end border-secondary mt-1"
-										data-location="Loacation6">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
-
-								<div class="w-100"></div>
-
-								<div class="row  align-items-start selAddr2"
-									data-location="Loacation7">
-									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
-
-								<div class="w-100"></div>
-
-								<div class="row  align-items-start selAddr2"
-									data-location="Loacation8">
-									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
-
-
-								<div class="w-100"></div>
-
-								<div class="row  align-items-start selAddr2"
-									data-location="Loacation9">
-									<div class="col col-2 border-end border-secondary mt-1">우편번호</div>
-									<div class="col col-5 mt-1">주소</div>
-								</div>
+								<!-- 키워드 검색결과 출력 -->
 							</div>
 
 						</div>
@@ -685,6 +658,7 @@ pre {
 			</div>
 		</div>
 	</div>
+
 
 
 

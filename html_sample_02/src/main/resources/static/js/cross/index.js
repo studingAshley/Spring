@@ -2,9 +2,8 @@
  * 
  */
 var fileCount = 0;
+let pageCounter = 0 ;
 $(function() {
-
-
 	var exampleModal = document.getElementById('exampleModal')
 	exampleModal.addEventListener('show.bs.modal', function(event) {
 		// Button that triggered the modal
@@ -19,14 +18,15 @@ $(function() {
 		var modalBodyInput = exampleModal.querySelector('.modal-body img')
 
 		modalTitle.textContent = recipient
-		modalBodyInput.src = recipient
+		modalBodyInput.src = recipient 
 	})
+
 	const DEFAULT_HEIGHT = 16; // textarea 기본 height
 
 	$("#currLocation").on("click", function() {
 		$("#locationModal").modal("show");
 	})
-
+	
 	$("#modal_currLocation").on("click", function() {
 		$("#locationModal2").modal("show");
 	})
@@ -46,7 +46,7 @@ $(function() {
 
 
 	})
-
+	
 	$("#modal_write-box").on("keydown", function(e) {
 		console.log($(e.target).val());
 		//	  console.log(e.target.style);
@@ -62,16 +62,16 @@ $(function() {
 
 
 	})
-
+	
 
 	$("#text-area").click(function() {
 		$("#write-box").focus();
 	})
-
+	
 	$("#modal_text-area").click(function() {
 		$("#modal_write-box").focus();
 	})
-
+	
 
 	$("#file").on("change", function(e) {
 		//  console.log(e);
@@ -108,16 +108,16 @@ $(function() {
 
 				}
 				reader.readAsDataURL(file);
-			} else if (isVideoFile(file)) {
+			}else if(isVideoFile(file)){
 				if (fileCount > 0) {
 					alert("영상 파일은 최대 하나까지만 첨부가능합니다.");
 					break;
 				}
-
+				
 				var reader = new FileReader();
 				reader.onload = function(e) {
 					var video = document.createElement("video");
-					console.log("isVideoFile", e.target);
+					console.log("isVideoFile",e.target);
 					video.setAttribute("src", e.target.result);
 					video.setAttribute("controls", "controls");
 					video.setAttribute("loop", "loop");
@@ -127,7 +127,7 @@ $(function() {
 
 
 				}
-
+				
 				reader.readAsDataURL(file);
 			}
 			fileCount++;
@@ -170,18 +170,18 @@ $(function() {
 
 
 				}
-
+				
 				reader.readAsDataURL(file);
-			} else if (isVideoFile(file)) {
+			}else if(isVideoFile(file)){
 				if (fileCount > 0) {
 					alert("영상 파일은 최대 하나까지만 첨부가능합니다.");
 					break;
 				}
-
+				
 				var reader = new FileReader();
 				reader.onload = function(e) {
 					var video = document.createElement("video");
-					console.log("isVideoFile", e.target);
+					console.log("isVideoFile",e.target);
 					video.setAttribute("src", e.target.result);
 					video.setAttribute("controls", "controls");
 					video.setAttribute("loop", "loop");
@@ -191,17 +191,17 @@ $(function() {
 
 
 				}
-
+				
 				reader.readAsDataURL(file);
 			}
 			fileCount++;
 
 		}
 	})
-
-	function isVideoFile(file) {
+	
+	function isVideoFile(file){
 		var ext = file.name.split(".").pop().toLowerCase();
-		return ($.inArray(ext, ["mpg", "mpeg", "mp4", "ogg", "webm", "avi", "wmv"]) === -1) ? false : true;
+		return ($.inArray(ext, ["mpg", "mpeg", "mp4", "ogg", "webm","avi","wmv"]) === -1) ? false : true;
 	}
 
 	function isImageFile(file) {
@@ -229,7 +229,7 @@ $(function() {
 		$(e.target).remove();
 		console.log($("#file")[0].files);
 	});
-
+	
 	$(document).on("click", ".modal_userfile", function(e) {
 
 		const files = $("#modalFile")[0].files;
@@ -264,7 +264,7 @@ $(function() {
 		$("#position_wrap").removeClass("invis");
 		$("#currLocation").html(element);
 		$("#regPosition").val(element);
-		
+
 		$("#locationModal").modal("hide");
 		$(".modal-backdrop").modal("hide");
 
@@ -273,7 +273,6 @@ $(function() {
 
 	$(document).on("click",".selAddr2",function(e) {
 
-
 		let element = $(e.currentTarget).attr("data-location");
 		$(".locSelectedM").remove();
 		$(e.currentTarget).append('<span class="material-icons locSelectedM">close</span>');
@@ -281,7 +280,7 @@ $(function() {
 		$("#modal_position_wrap").removeClass("invis");
 		$("#modal_currLocation").html(element);
 		$("#modalRegPosition").val(element);
-
+	
 
 		$("#locationModal2").modal("hide");
 		$("#writeModal").modal("show");
@@ -289,8 +288,8 @@ $(function() {
 
 
 	});
-
-
+	
+	
 
 	$(document).on("click", ".locSelected", function(e) {
 		e.stopPropagation();
@@ -302,6 +301,7 @@ $(function() {
 		console.log("locSelected");
 		$("#locationModal").modal("hide");
 		$(".modal-backdrop").modal("hide");
+		$("#writeModal").modal("show");
 		
 	});
 
@@ -309,23 +309,26 @@ $(function() {
 		e.stopPropagation();
 		$("#modal_position_wrap").addClass("invis");
 		$("#modal_currLocation").html("");
+		
+		e.currentTarget.remove();
 		$("#locationModal2").modal("hide");
+		$(".modal-backdrop").modal("hide");
+		$("#writeModal").modal("show");
 	});
 
 
 
 
 	$(document).on("click", ".chat", function(e) {
-		//	alert("chat");
+	//	alert("chat");
 	});
-
+	
 	$(document).on("click", ".chart", function(e) {
+
 		let post_id = $(e.target).attr("data-post_id");
 		console.log(post_id);
-
-		location.href = '/analystic?post_id=' + post_id;
-
-
+		
+		location.href='/analystic?post_id='+post_id;
 
 	});
 
@@ -343,25 +346,23 @@ $(function() {
 		} else {
 			$(e.target).removeClass("toggle");
 			repeatOff(postId, e);
-
 		}
 
 	});
 
-	$(document).on("click", ".favorite", function(e) {
+	$(document).on("click",".favorite", function(e) {
 
 		let postId = $(e.target).attr("data-post_id");
-
-
+		
 		if ($(e.target).hasClass("toggle") == false) {
-
-
+			
+			
 			$(e.target).addClass("toggle");
 			$(e.target).text("favorite");
 			favoriteOn(postId, e);
 		} else {
-
-
+			
+			
 			$(e.target).removeClass("toggle");
 			$(e.target).text("favorite_border");
 			favoriteOff(postId, e);
@@ -370,7 +371,7 @@ $(function() {
 
 	})
 
-	$(document).on("click", ".bookmark", function(e) {
+	$(document).on("click",".bookmark", function(e) {
 
 		if ($(e.target).hasClass("toggle") == false) {
 			$(e.target).addClass("toggle");
@@ -456,7 +457,7 @@ $(function() {
 
 
 
-	/* ---------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------*/
 
 	$("#writeBtn").on("click", function(e) {
 		e.preventDefault();
@@ -540,7 +541,7 @@ $(function() {
 		phtml += '<p>' + post.pcontent + '</p>';
 
 
-		if (post.plocation != null) {
+		if (post.plocation != "") {
 			phtml += '<div class="" style="color:gray">';
 			phtml += '<div style="display: flex;">';
 			phtml += '<span class="material-icons">location_on</span>';
@@ -679,18 +680,25 @@ $(function() {
 		var phtml = '<div class="post_footer">';
 		phtml += '<span class="material-icons ms_icons chat" data-bs-toggle="modal"';
 		phtml += 'data-bs-target="#writeModal" data-post_id="' + post.post_id + '"';
-		phtml += 'data-group="' + post.pgroup + '" ';
-		phtml += 'data-step="' + post.pstep + '" ';
-		phtml += 'data-indent="' + post.pindent + '">chat</span>';
+	//	phtml += 'data-group="' + post.pgroup + '" ';
+	//	phtml += 'data-step="' + post.pstep + '" ';
+	//	phtml += 'data-indent="' + post.pindent + '"
+		phtml += '>chat</span>';
 
 
-		phtml += '<h3>100</h3>';
-		phtml += '<span class="material-icons ms_icons repeat">repeat</span>';
-		phtml += '<h3>100</h3>';
-		phtml += '<span class="material-icons ms_icons favorite">favorite_border</span>';
-		phtml += '<h3>100</h3>';
-		phtml += '<span class="material-icons ms_icons chart">bar_chart</span>';
-		phtml += '<h3>100</h3>';
+		phtml += '<h3>0</h3>';
+		phtml += '<span class="material-icons ms_icons repeat"';
+		phtml += 'data-post_id="' + post.post_id + '"';
+		phtml += '>repeat</span>';
+		phtml += '<h3>0</h3>';
+		phtml += '<span class="material-icons ms_icons favorite"';
+		phtml += 'data-post_id="' + post.post_id + '"';
+		phtml += '>favorite_border</span>';
+		phtml += '<h3>0</h3>';
+		phtml += '<span class="material-icons ms_icons chart"';
+		phtml += 'data-post_id="' + post.post_id + '"';
+		phtml += '>bar_chart</span>';
+		phtml += '<h3>0</h3>';
 		phtml += '</div></div></div>';
 
 		return phtml;
@@ -718,7 +726,7 @@ $(function() {
 		ip1.setAttribute("value", postId);
 		ip1.setAttribute("name", "post_id");
 
-		var ip2 = document.createElement("input");
+/*		var ip2 = document.createElement("input");
 		ip2.setAttribute("type", "hidden");
 		ip2.setAttribute("value", group);
 		ip2.setAttribute("name", "pgroup");
@@ -733,12 +741,12 @@ $(function() {
 		ip4.setAttribute("value", indent);
 		ip4.setAttribute("name", "pindent");
 
-		$("#modal_hidden").html("");
+		$("#modal_hidden").html("");*/
 
 		$("#modal_hidden").append(ip1);
-		$("#modal_hidden").append(ip2);
+/*		$("#modal_hidden").append(ip2);
 		$("#modal_hidden").append(ip3);
-		$("#modal_hidden").append(ip4);
+		$("#modal_hidden").append(ip4);*/
 
 
 	})
@@ -765,25 +773,6 @@ $(function() {
 				console.log("profile : " + data.profile);
 				console.log("files : " + data.files);
 				console.log("type : " + data.type);
-				/*	if(data.nof==0){
-						console.log(makePostHtml0(data.name,data.profile,data.post));
-					  $("#post_wrap").prepend(makePostHtml0(data.name,data.profile,data.post)+ makePostHtmlFooter(data.post));
-				  }else if(data.nof==1){
-					  console.log("왜 안 됨 ? ");
-					  if((data.type).includes("image")){
-						   $("#post_wrap").prepend(makePostHtml1(data.name,data.profile,data.post,data.files));	
-						  console.log("이미지")	;			
-					  }else if((data.type).includes("video")){
-						   $("#post_wrap").prepend(makePostHtmlv(data.name,data.profile,data.post,data.files));
-						  console.log("비디오");	
-					  }
-				  }else if(data.nof==2){
-					   $("#post_wrap").prepend(makePostHtml2(data.name,data.profile,data.post,data.files));
-				  }else if(data.nof==3){
-					   $("#post_wrap").prepend(makePostHtml3(data.name,data.profile,data.post,data.files));
-				  }else if(data.nof==4){
-					   $("#post_wrap").prepend(makePostHtml4(data.name,data.profile,data.post,data.files));
-				  }*/
 				$("#modal_write-box").val("");
 				$("#modalRegPosition").val("");
 				$("#modal_currLocation").html("");
@@ -803,12 +792,6 @@ $(function() {
 			contentType: false,
 			processData: false
 		});
-
-
-
-
-
-
 
 
 	})
@@ -841,9 +824,6 @@ $(function() {
 
 	})
 
-
-
-
 	//////////////위치 검색 함수/////////////////////////////
 
 	$("#locSearch").on("keyup", function(e) {
@@ -871,15 +851,6 @@ $(function() {
 
 	//장소 검색 객체를 생성합니다
 	var ps = new kakao.maps.services.Places();
-
-
-	function findLocation() {
-
-		// 키워드로 장소를 검색합니다
-		searchPlaces();
-
-	}
-
 
 
 	//키워드 검색을 요청하는 함수입니다
@@ -973,9 +944,6 @@ $(function() {
 
 		addrHtml += '<div class="w-100"></div>';
 
-
-
-
 		el.innerHTML = addrHtml;
 		el.className = 'item';
 
@@ -983,13 +951,6 @@ $(function() {
 
 		return el;
 	}
-
-
-
-
-
-
-
 
 
 	//키워드 검색을 요청하는 함수입니다
@@ -1032,7 +993,7 @@ $(function() {
 	//검색 결과 목록과 마커를 표출하는 함수입니다
 	function displayPlaces2(places) {
 
-		var listEl = document.getElementById('placesList2	');
+		var listEl = document.getElementById('placesList2');
 		var menuEl = document.getElementById('menu_wrap');
 		var fragment = document.createDocumentFragment();
 		var bounds = new kakao.maps.LatLngBounds();
@@ -1054,12 +1015,16 @@ $(function() {
 
 	}
 	
+	
 	function makeListItem2(places) {
 
 		var el = document.createElement('div');
 		
 		let addrHtml = '<div class="row  align-items-start selAddr2"';
-		addrHtml += 'data-location="'+places.place_name	+'">';
+		addrHtml += 'data-location="'+places.place_name	+'"';
+		addrHtml += 'data-bs-dismiss="modal" aria-label="Close"';
+		addrHtml += '>';
+
 		
 		addrHtml += '<div class="col col-2 border-end border-secondary mt-1 addrHead">';
 		addrHtml += places.place_name;
@@ -1071,9 +1036,6 @@ $(function() {
 
 		addrHtml += '<div class="w-100"></div>';
 
-
-
-
 		el.innerHTML = addrHtml;
 		el.className = 'item';
 
@@ -1081,6 +1043,66 @@ $(function() {
 
 		return el;
 	}
+	
+	
+	/* ---------------------------스크롤 감지---------------------------- */
+
+$("main").scroll(function(){
+        var scrollTop = $(this).scrollTop();
+        var innerHeight = $(this).innerHeight();
+        var scrollHeight = $(this).prop('scrollHeight');
+
+        if (scrollTop + innerHeight >= scrollHeight) {
+       		
+       		pageCounter++;
+       		
+       		console.log(pageCounter);
+       		
+       		let postElement = $("#post_wrap");
+       		
+       		$.ajax({
+			url: "/getPostAjax",
+			type: 'POST',
+			data: { "pageCounter": pageCounter },
+			dataType: "json",
+			success: function(data) {
+
+				console.log("pageCounter : " + data.pageCounter);
+				console.log(data.plist);
+				console.log(data.ulist);
+				console.log(data.mlist);
+				console.log(data.recount);
+				console.log(data.renoted);
+				console.log(data.facount);
+				console.log(data.favorited);
+				console.log(data.replycount);
+				console.log(data.user_id);
+				
+				
+				
+			},
+			error: function(data) {
+				alert(data);
+			}
+		});
+
+       		
+        } else {
+       
+        }
+});
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
