@@ -29,12 +29,17 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
 	crossorigin="anonymous"></script>
+	
+<script src="/js/bootstrap.bundle.js"></script>
+
+
+
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
 <script src="/js/cross/index.js"></script>
-
+<script src="/js/cross/sidebar.js"></script>
 
 <style>
 pre {
@@ -137,7 +142,7 @@ pre {
 										${ulist[status.index].name}<span class="header-icon-section">@${ulist[status.index].user_id}
 										</span>
 									</h3>
-									<div style="margin-left: 1rem; text-align: center;">
+									<div class="thisDate" style="margin-left: 1rem; text-align: center;">
 										<h3>${plist[status.index].created}</h3>
 									</div>
 								</div>
@@ -145,74 +150,19 @@ pre {
 <!-- <<<<<<< HEAD -->
 								<div class="post_header-discription"
 									onclick="location.href='/viewContent?post_id=${plist[status.index].post_id}'">
-									<p>${plist[status.index].pcontent}</p>
+									<p class="thisContent">${plist[status.index].pcontent}</p>
 									<c:if test="${plist[status.index].plocation!=null}">
 										<div class="" style="color:gray">
 											<div style="display: flex;">
 												<span class="material-icons">location_on</span>
-												<div>${plist[status.index].plocation}</div>
+												<div class="thisLoc">${plist[status.index].plocation}</div>
 											</div>
 										</div>
 									</c:if>
 									
 									
 								</div>
-<!-- =======
-						</div>
 
-					</div>
-					<div class="container video_contaner">
-						<video controls loop muted preload="auto" src="video/video01.mp4">
-							
-							
-						</video>
-					</div>
-
-					<div class="post_footer">
-
-						<span class="material-icons ms_icons chat" data-bs-toggle="modal" data-bs-target="#writeModal">chat</span>
-						<h3>100</h3>
-						<span class="material-icons ms_icons repeat">repeat</span>
-						<h3>100</h3>
-						<span class="material-icons ms_icons favorite">favorite_border</span>
-						<h3>100</h3>
-						<div id="bookChk1">
-						<span class="material-icons bookmark" style="cursor: pointer; color: #BA68C8;">bookmark_border</span>
-						</div>
-
-
-					</div>
-
-				</div>
-
-			</div>
-			
-			<script>
-			 $(function(){
-				
-				$("#bookChk").click(function(){
-				    alert("z");
-				});
-			 });
-			</script>
-
-
-
-			<div class="post" style="position: relative;">
-
-				<div class="post_profile-image rounded-5">
-					<img class="" src="images/profile01.jpg" alt="profile">
-				</div>
-
-				<div class="post_body">
-					<div class="post_header">
-						<div class="post_header-text">
-							<h3>
-								만두 <span class="header-icon-section"> @Mandoo </span>
-							</h3>
-							<div style="margin-left: 1rem; text-align: center;">
-								<h3>24.01.01</h3>
->>>>>>> refs/remotes/origin/hyg -->
 							</div>
 
 							<c:if
@@ -221,6 +171,37 @@ pre {
 									<video controls loop muted preload="auto"
 										src="/upload/${mlist[status.index].file_name}">
 									</video>
+							<!-- 인용 알티 추가 중  -->		
+									<c:if test="${plist[status.index].quo_post_id!=0}">								
+										<div class="quotationPost">
+											<div class="rounded-4"
+												style="width: 450px; border: 1px solid var(--twitter-line-color); padding: 1rem;"
+												onclick="location.href='/viewContent'">
+												<div class="post_header">
+													<div class="post_header-text">
+														<h3>
+															만두 <span class="header-icon-section">@Mandoo</span>
+														</h3>
+														<div style="margin-left: 1rem; text-align: center;">
+															<h3>24.01.01</h3>
+														</div>
+													</div>
+												</div>
+		
+												<div class="post_header-renote" style="display: flex;">
+													<div class="container img-xs rounded" style="">
+														<img src="/images/post-image.jpeg">
+													</div>
+													<div style="width: 200px; height: 50px;">
+														<p>Text Only</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</c:if>
+									
+							<!-- 인용알티끝 -->
+							
 								</div>
 							</c:if>
 
@@ -317,13 +298,10 @@ pre {
 									</div>
 								</c:if>
 
-
-
-
 							</c:if>
 
 
-
+						<!--  인용알티 추가해야하는 곳  -->
 
 
 
@@ -336,19 +314,35 @@ pre {
 									data-step="${plist[status.index].pstep}" 
 									data-indent="${plist[status.index].pindent}">chat</span>
 								<h3>${replycount[status.index]}</h3>
-									
-								<c:if test="${renoted[status.index]<1}">
-									<span class="material-icons ms_icons repeat"
-									data-post_id="${plist[status.index].post_id}">repeat</span>
-							
-								</c:if>
-								<c:if test="${renoted[status.index]>=1}">
-									<span class="material-icons ms_icons repeat toggle"
-									data-post_id="${plist[status.index].post_id}">repeat</span>
-							
-								</c:if>
-							
-							
+
+
+								<div class="dropdown">
+									<c:if test="${renoted[status.index]<1}">
+										<span class="material-icons ms_icons dropdown-toggle repeat" 
+										data-bs-toggle="dropdown" aria-expanded="false"
+										>repeat</span>
+								
+									</c:if>
+									<c:if test="${renoted[status.index]>=1}">
+										<span class="material-icons ms_icons dropdown-toggle repeat toggle"
+										data-bs-toggle="dropdown" aria-expanded="false"
+										>repeat</span>
+								
+									</c:if>
+									<c:if test="${renoted[status.index]<1}">
+									  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+									    <li><span class="drpRepeat" data-post_id="${plist[status.index].post_id}"> 재게시</span></li>
+									    <li><span data-bs-toggle="modal" data-bs-target="#quotationModal"> 인용</span></li>
+									  </ul>
+									</c:if>
+									<c:if test="${renoted[status.index]>=1}">
+									  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+									    <li><span class="drpRepeat" data-post_id="${plist[status.index].post_id}"> 재게시 취소</span></li>
+									    <li><span data-bs-toggle="modal" data-bs-target="#quotationModal"> 인용</span></li>
+									  </ul>
+									</c:if>
+								</div>
+															
 								<h3>${recount[status.index]}</h3>
 								
 								
@@ -662,6 +656,89 @@ pre {
 
 
 
+
+<!-- 인용알티용 모달 -->
+	<div class="modal" id="quotationModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" style="height: 2rem;">
+					<h5 class="modal-title">답글쓰기</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<form id="modalForm" action="/modalSendPost" method="post" enctype="multipart/form-data">
+				<div id="modal_hidden"></div>
+					<div class="modal-body">
+						<div class="tweet_box">
+
+							<div class="tweet_box-input">
+								<div id="modal_text-area" class="rounded"
+									style="position: relative;">
+
+									<textarea rows="" cols="" class="content" id="modal_write-box" name="pcontent"
+										style="outline: none; width: 380px; border: none; resize: none; overflow: hidden"></textarea>
+									<div id="modal_position_wrap" class="invis">
+										<div id="position-area" style="display: flex;">
+											<span class="material-icons">location_on</span>
+											<div id="modal_currLocation"></div>
+										</div>
+									</div>
+									<div id="modal_image-area" style=""></div>
+									
+									<div class="quotationPost">
+											<div class="rounded-4"
+												style="width: 450px; border: 1px solid var(--twitter-line-color); padding: 1rem;"
+												onclick="location.href='/viewContent'">
+												<div class="post_header">
+													<div class="post_header-text">
+														<h3>
+															만두 <span class="header-icon-section">@Mandoo</span>
+														</h3>
+														<div style="margin-left: 1rem; text-align: center;">
+															<h3>24.01.01</h3>
+														</div>
+													</div>
+												</div>
+		
+												<div class="post_header-renote" style="display: flex;">
+													<div class="container img-xs rounded" style="max-width: 50px; margin:0;">
+														<img src="/images/post-image.jpeg">
+													</div>
+													<div style="width: 200px; height: 50px;">
+														<p>Text Only</p>
+													</div>
+												</div>
+											</div>
+										</div>
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<div class="modal_box-footer" style="">
+
+
+							<label for="modalFile" id="modalImgBtn"
+								class="btn btn-sm btn-dark">사진등록</label> 
+								<input type="file" name="files"	id="modalFile" multiple="multiple"> 
+								<label for="modalRegPosition" id="modalregBtn"
+								class="btn btn-sm btn-dark" data-bs-toggle="modal"
+								data-bs-target="#locationModal2" data-bs-whatever="Test">위치등록</label>
+							<input type="hidden" class="btn btn-sm btn-dark" id="modalRegPosition" name="plocation">
+							<input type="hidden" name="quo_post_id">
+							<button id="modal_write-btn" class="modal_write-btn btn btn-sm btn-dark">게시하기</button>
+
+
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
 
 	<!-- Modal End -->
 </body>

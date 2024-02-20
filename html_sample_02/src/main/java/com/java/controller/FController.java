@@ -134,7 +134,6 @@ public class FController {
 			jobj.put("replycount", replycount);
 			
 			
-			
 			jobj.put("user_id",session.getAttribute("session_id").toString());
 			jobj.put("user_profile",session.getAttribute("session_image").toString());
 			jobj.put("user_name",session.getAttribute("session_name").toString());

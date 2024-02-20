@@ -93,9 +93,9 @@
 		post.pgroup, post.pstep, post.pindent, post.hit, 
 		post.viewhit0, post.viewhit6, post.viewhit12, post.viewhit18, 
 		post.created, post.updated, post.renote, post.plike from 
-		( select * from user_follow  where source_id='aaa')uf, 
-		(select * from renote where user_id='aaa' )re, post  
-		where post.user_id = uf.target_id or post.user_id='aaa' or post.user_id=re.user_id
+		( select * from user_follow  where source_id=#{id})uf, 
+		(select * from renote where user_id=#{id} )re, post  
+		where post.user_id = uf.target_id or post.user_id=#{id} or post.user_id=re.user_id
 		GROUP BY post.post_id, post.user_id, post.pcontent, post.plocation, 
 		post.pgroup, post.pstep, post.pindent, 
 		post.hit, post.viewhit0, post.viewhit6, post.viewhit12, post.viewhit18, 
@@ -106,7 +106,7 @@
 		renote.post_order pgroup, post.pstep, post.pindent, post.hit, 
 		post.viewhit0, post.viewhit6, post.viewhit12, post.viewhit18, 
 		post.created, renote.created updated, post.renote, post.plike from 
-		renote inner join post on renote.post_id = post.post_id where renote.user_id = 'aaa') repo)) 
+		renote inner join post on renote.post_id = post.post_id where renote.user_id = #{id}) repo)) 
 		order by updated desc)ff)
 		where rnum between (20*#{pageCounter})+1  and (20*#{pageCounter})+20
  	</select>

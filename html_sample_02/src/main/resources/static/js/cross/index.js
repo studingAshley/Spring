@@ -333,18 +333,25 @@ $(function() {
 	});
 
 
-	$(document).on("click", ".repeat", function(e) {
+	$(document).on("click", ".drpRepeat", function(e) {
 
 		let postId = $(e.target).attr("data-post_id");
+		
+		console.log("repeat elements are ");
+		console.log(e);
+		console.log(e.target.parentNode.parentElement.previousElementSibling);
+		console.log($(e.target.parentNode.parentElement.previousElementSibling));
+		
+		let element = $(e.target.parentNode.parentElement.previousElementSibling); 
 
 
 		console.log("post ID : " + postId);
-		if ($(e.target).hasClass("toggle") == false) {
-			$(e.target).addClass("toggle");
+		if (element.hasClass("toggle") == false) {
+			element.addClass("toggle");
 			repeatOn(postId, e);
 
 		} else {
-			$(e.target).removeClass("toggle");
+			element.removeClass("toggle");
 			repeatOff(postId, e);
 		}
 
@@ -394,7 +401,9 @@ $(function() {
 			dataType: "text",
 			success: function(data) {
 				console.log("repeatOn : " + data);
-				$(e.target).next().text(data);
+				//e.next().text(data);
+				$(e.target.parentNode.parentNode.parentNode.nextElementSibling).text(data);
+				$(e.target).text("재게시 취소");
 			},
 			error: function(data) {
 				alert(data);
@@ -411,7 +420,9 @@ $(function() {
 			dataType: "text",
 			success: function(data) {
 				console.log("repeatOff : " + data);
-				$(e.target).next().text(data);
+				//e.next().text(data);
+				$(e.target.parentNode.parentNode.parentNode.nextElementSibling).text(data);
+				$(e.target).text("재게시");
 			},
 			error: function(data) {
 				alert(data);
@@ -1047,51 +1058,281 @@ $(function() {
 	
 	/* ---------------------------스크롤 감지---------------------------- */
 
-$("main").scroll(function(){
-        var scrollTop = $(this).scrollTop();
-        var innerHeight = $(this).innerHeight();
-        var scrollHeight = $(this).prop('scrollHeight');
+	$("main").scroll(function(){
+	        var scrollTop = $(this).scrollTop();
+	        var innerHeight = $(this).innerHeight();
+	        var scrollHeight = $(this).prop('scrollHeight');
+	
+	        if (scrollTop + innerHeight >= scrollHeight) {
+	       		
+	       		pageCounter++;
+	       		
+	       		console.log(pageCounter);
+	       		
+	       		let postElement = $("#post_wrap");
+	       		
+	       		$.ajax({
+				url: "/getPostAjax",
+				type: 'POST',
+				data: { "pageCounter": pageCounter },
+				dataType: "json",
+				success: function(data) {
+	
+					console.log("pageCounter : " + data.pageCounter);
+					console.log(data.plist);
+					console.log(data.ulist);
+					console.log(data.mlist);
+					console.log(data.recount);
+					console.log(data.renoted);
+					console.log(data.facount);
+					console.log(data.favorited);
+					console.log(data.replycount);
+					console.log(data.user_id);
+					console.log("Length : "+data.plist.length);
+					
+					for(let i = 0 ; i < data.plist.length ; i++){
+					
+						$("#post_wrap").append(makeHtml(data,i));
+					
+					}
+					
+				},
+				error: function(data) {
+					alert(data);
+				}
+			});
+	
+	       		
+	        } else {
+	       
+	        }
+	});
 
-        if (scrollTop + innerHeight >= scrollHeight) {
-       		
-       		pageCounter++;
-       		
-       		console.log(pageCounter);
-       		
-       		let postElement = $("#post_wrap");
-       		
-       		$.ajax({
-			url: "/getPostAjax",
-			type: 'POST',
-			data: { "pageCounter": pageCounter },
-			dataType: "json",
-			success: function(data) {
 
-				console.log("pageCounter : " + data.pageCounter);
-				console.log(data.plist);
-				console.log(data.ulist);
-				console.log(data.mlist);
-				console.log(data.recount);
-				console.log(data.renoted);
-				console.log(data.facount);
-				console.log(data.favorited);
-				console.log(data.replycount);
-				console.log(data.user_id);
+	function makeHtml(data,i){
+		
+		let postHtml="";
+		
+			
+			postHtml += '<div class="post" style="position: relative;">';
+			postHtml += '			<div class="post_profile-image rounded-5">';
+			postHtml += '				<img class="" src="/upload/'+data.ulist[i].profile_img+'"';
+			postHtml += '					alt="profile">';
+			postHtml += '				<div style="position: absolute; height: 100%; width: 80px;">';
+			
+			if(data.plist[i].post_id == data.plist[i+1].pindent){
+				postHtml += '					<div style="width: 3px; height: 98%; top: -3px; ';
+				postHtml += '						background-color: var(--twitter-line-color); position: absolute; left: 25%;">';
+				postHtml += '					</div>';
 				
-				
-				
-			},
-			error: function(data) {
-				alert(data);
 			}
-		});
+			postHtml += '				</div>';
+			postHtml += '			</div>';
+			postHtml += '			<div class="post_body">';
+			postHtml += '				<div class="post_header">';
+			postHtml += '					<div class="post_header-text">';
+			postHtml += '						<h3>';
+			postHtml += '							'+data.ulist[i].name+'<span class="header-icon-section">@'+data.ulist[i].name;
+			postHtml += '							</span>';
+			postHtml += '						</h3>';
+			postHtml += '						<div style="margin-left: 1rem; text-align: center;">';
+			postHtml += '							<h3>'+data.plist[i].created+'</h3>';
+			postHtml += '						</div>';
+			postHtml += '					</div>';
+			postHtml += '					<div class="post_header-discription"';
+			postHtml += '						onclick="location.href='+"'"+'/viewContent?post_id='+data.plist[i].post_id+"'"+'">';
+			postHtml += '						<p>'+data.plist[i].pcontent+'</p>';
+			
+			if(data.plist[i].plocation!=null){
+				postHtml += '							<div class="" style="color:gray">';
+				postHtml += '								<div style="display: flex;">';
+				postHtml += '									<span class="material-icons">location_on</span>';
+				postHtml += '									<div>'+data.plist[i].plocation+'</div>';
+				postHtml += '								</div>';
+				postHtml += '							</div>';
+				
+			}
+			
 
-       		
-        } else {
-       
-        }
-});
+			postHtml += '					</div>';
+			postHtml += '				</div>';
 
+			if(data.mlist[i]!=null){
+				if(data.mlist[i].file_type.includes('video')){
+					postHtml += '<div class="container video_contaner">';
+					postHtml += '	<video controls loop muted preload="auto"';
+					postHtml += '		src="/upload/'+data.mlist[i].file_name+'">';
+					postHtml += '	</video>';
+					postHtml += '</div>';
+				}else if(data.mlist[i].file_type.includes('image')){
+					let img = data.mlist[i].file_name.split(',');
+					
+					if(img.length==1){
+						postHtml += '				<div class="container">';
+						postHtml += '					<div class="row row-cols-auto ">';
+						postHtml += '						<div class="col-md-auto img-xl rounded-4">';
+						postHtml += '							<img src="/upload/'+data.mlist[i].file_name+'"';
+						postHtml += '								class="rounded " alt="java18" data-bs-toggle="modal"';
+						postHtml += '								data-bs-target="#exampleModal"';
+						postHtml += '								data-bs-whatever="/upload/'+data.mlist[i].file_name+'">';
+						postHtml += '						</div>';
+						postHtml += '					</div>';
+						postHtml += '				</div>';
+					}else if(img.length==2){
+						postHtml += '				<div class="container">';
+						postHtml += '					<div class="row row-cols-auto ">';
+						postHtml += '						<div class="col-md-auto img-lg rounded-4">';
+						postHtml += '							<img src="/upload/'+img[0]+'" class="rounded " alt="java18"';
+						postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
+						postHtml += '								data-bs-whatever="/upload/'+img[0]+'">';
+						postHtml += '						</div>';
+						postHtml += '						<div class="col-md-auto img-lg rounded-4">';
+						postHtml += '							<img src="/upload/'+img[1]+'" class="rounded " alt="java18"';
+						postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
+						postHtml += '								data-bs-whatever="/upload/'+img[1]+'">';
+						postHtml += '						</div>';
+						postHtml += '					</div>';
+						postHtml += '				</div>';
+						
+					}else if(img.length==3){
+						postHtml += '				<div class="container">';
+						postHtml += '					<div class="row row-cols-auto">';
+						postHtml += '						<div class="col-md-auto img-md rounded-4">';
+						postHtml += '							<img src="/upload/'+img[0]+'" class="rounded " alt="java18"';
+						postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
+						postHtml += '								data-bs-whatever="/upload/'+img[0]+'">';
+						postHtml += '						</div>';
+						postHtml += '						<div class="col-md-auto">';
+						postHtml += '							<div class="row row-cols-auto">';
+						postHtml += '								<div class="col-md-auto img-sm">';
+						postHtml += '									<img src="/upload/'+img[1]+'" class="rounded " alt="java18"';
+						postHtml += '										data-bs-toggle="modal" data-bs-target="#exampleModal"';
+						postHtml += '										data-bs-whatever="/upload/'+img[1]+'">';
+						postHtml += '								</div>';
+						postHtml += '							</div>';
+						postHtml += '							<div class="row row-cols-auto">';
+						postHtml += '								<div class="col-md-auto img-sm">';
+						postHtml += '									<img src="/upload/'+img[2]+'" class="rounded " alt="java18"';
+						postHtml += '										data-bs-toggle="modal" data-bs-target="#exampleModal"';
+						postHtml += '										data-bs-whatever="/upload/'+img[2]+'">';
+						postHtml += '								</div>';
+						postHtml += '							</div>';
+						postHtml += '						</div>';
+						postHtml += '					</div>';
+						postHtml += '				</div>';
+						
+					}else if(img.length==4){
+						postHtml += '				<div class="container img-sm">';
+						postHtml += '					<div class="row">';
+						postHtml += '						<div class="col-md-auto">';
+						postHtml += '							<img src="/upload/'+img[0]+'" class="rounded " alt="java18"';
+						postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
+						postHtml += '								data-bs-whatever="/upload/'+img[0]+'">';
+						postHtml += '						</div>';
+						postHtml += '						<div class="col-md-auto">';
+						postHtml += '							<img src="/upload/'+img[1]+'" class="rounded " alt="java18"';
+						postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
+						postHtml += '								data-bs-whatever="/upload/'+img[1]+'">';
+						postHtml += '						</div>';
+						postHtml += '					</div>';
+						postHtml += '					<div class="row">';
+						postHtml += '						<div class="col-md-auto">';
+						postHtml += '							<img src="/upload/'+img[2]+'" class="rounded " alt="java18"';
+						postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
+						postHtml += '								data-bs-whatever="/upload/'+img[2]+'">';
+						postHtml += '						</div>';
+						postHtml += '						<div class="col-md-auto">';
+						postHtml += '							<img src="/upload/'+img[3]+'" class="rounded " alt="java18"';
+						postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
+						postHtml += '								data-bs-whatever="/upload/'+img[3]+'">';
+						postHtml += '						</div>';
+						postHtml += '					</div>';
+						postHtml += '				</div>';
+						
+					}
+				}
+			}
+			postHtml += '				<div class="post_footer">';
+			postHtml += '					<span class="material-icons ms_icons chat"';
+			postHtml += '						data-bs-toggle="modal" data-bs-target="#writeModal" ';
+			postHtml += '						data-post_id="'+data.plist[i].post_id+'" ';
+			postHtml += '						data-group="'+data.plist[i].pgroup+'" ';
+			postHtml += '						data-step="'+data.plist[i].pstep+'" ';
+			postHtml += '						data-indent="'+data.plist[i].pindent+'">chat</span>';
+			postHtml += '					<h3>'+data.replycount[i]+'</h3>';
+								
+								if(data.renoted[i]<1){
+									postHtml += '<span class="material-icons ms_icons repeat"';
+									postHtml += 'data-post_id="'+data.plist[i].post_id+'">repeat</span>';
+								}else{
+									postHtml += '<span class="material-icons ms_icons repeat toggle"';
+									postHtml += 'data-post_id="'+data.plist[i].post_id+'">repeat</span>';
+								}
+								
+								postHtml += '<h3>'+data.recount[i]+'</h3>';
+								
+								if(data.favorited[i]<1){
+									postHtml += '<span class="material-icons ms_icons favorite"';
+									postHtml += 'data-post_id="'+data.plist[i].post_id+'">favorite_border</span>';
+								}else{
+									postHtml += '<span class="material-icons ms_icons favorite toggle"';
+									postHtml += 'data-post_id="'+plist[i].post_id+'">favorite</span>';
+								}
+								
+			postHtml += '					<h3>'+data.facount[i]+'</h3>';
+			postHtml += '					<span class="material-icons ms_icons chart"';
+			postHtml += '					data-post_id="'+data.plist[i].post_id+'">bar_chart</span>';
+			postHtml += '					<h3>'+data.plist[i].hit+1+'</h3>';
+			postHtml += '				</div>';
+			postHtml += '			</div>';
+			postHtml += '		</div>';
+			
+			
+			
+
+
+			
+			return postHtml;
+			
+		
+		
+		
+	}
+	
+	
+	
+	/* 인용알티 */
+	
+	
+	let quotationModal = document.getElementById('quotationModal')
+	quotationModal.addEventListener('show.bs.modal', function(e) {
+		
+		console.log("quotationModal is ...");
+		console.log(e);
+		console.log(e.relatedTarget.parentNode.parentNode.parentNode.parentNode.parentNode);
+		console.log($(e.relatedTarget.parentNode.parentNode.parentNode.parentNode.parentNode));
+
+		console.log(e.target.querySelector('.container'));
+		console.log($(e.target.querySelector('.container')).children('img').attr("src"));
+		console.log(e.target.querySelector('.post_header'));
+		console.log(e.relatedTarget.querySelector('.post_header-discription'));
+		console.log($(e.target.querySelector('.post_header')).children("p.thisContent"));
+		/*
+		// Button that triggered the modal
+		var button = event.relatedTarget
+		// Extract info from data-bs-* attributes
+		var recipient = button.getAttribute('data-bs-whatever')
+		// If necessary, you could initiate an AJAX request here
+		// and then do the updating in a callback.
+		//
+		// Update the modal's content.
+		var modalTitle = exampleModal.querySelector('.modal-title')
+		var modalBodyInput = exampleModal.querySelector('.modal-body img')
+
+		modalTitle.textContent = recipient
+		modalBodyInput.src = recipient 
+		*/
+	})
 
 });
 
