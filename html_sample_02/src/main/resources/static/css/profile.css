@@ -62,13 +62,13 @@ li {
 }
 
 li:hover {
-    color: var(--twitter-theme-color);
+    /* color: var(--twitter-theme-color);
     background-color: var(--twitter-background-color);
-    /* opacity: 0.9; */
+    opacity: 0.9;
     border-radius: 30px;
     width: 200px; 
+    text-align: center;  */
     cursor: pointer;
-    text-align: center; 
 }
 
 #twittericon {
@@ -223,6 +223,10 @@ figure:hover {
 
 .nawa {
     display: flex;
+}
+
+.nawa div{
+	cursor: pointer;
 }
 
 .heading {
@@ -545,7 +549,8 @@ figure:hover {
 }
 
 .media_box_1 video{
-	width:194px; height: 194px; 
+	width:194px; height: 194px;
+	object-fit: cover; 
 }
 
 .media_box_2{
@@ -557,7 +562,8 @@ figure:hover {
 }
 
 .media_box_2 video{
-	width:194px; height: 194px; 
+	width:194px; height: 194px;
+	object-fit: cover; 
 }
 
 .media_box_3{
@@ -569,7 +575,8 @@ figure:hover {
 }
 
 .media_box_3 video{
-	width:194px; height: 194px; 
+	width:194px; height: 194px;
+	object-fit: cover; 
 }
 
 /* media 끝 */

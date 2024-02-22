@@ -1,4 +1,3 @@
-
 package com.java.mapper;
 
 import java.util.ArrayList;
@@ -18,6 +17,8 @@ public interface PostLikeMapper {
 	int likeCount(String post_id);
 	//좋아요 한 글
 	ArrayList<PostLikeDto> selectLike(String id);
+	//아이디 변경
+	void accountUpdate1(String user_id, String org_id);
 
 	
 	

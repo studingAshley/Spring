@@ -48,7 +48,7 @@ public class KakaoController {
 		String content_type = "application/x-www-form-urlencoded;charset=utf-8";
 		//body에 담기
 		String grant_type = "authorization_code";
-		String client_id = "fe714f17477232187f3fb8741b56d8bd";
+		String client_id = "372e1e99bb3b540f6d9b77dbd77173ef";
 		String redirect_uri = "http://localhost:8000/kakao/oauth";
 		//code = code;
 
@@ -120,6 +120,12 @@ public class KakaoController {
 	    //--- 로그인 시켜줌. member 테이블에 id : id, pass: id_1234567890
 	    session.setAttribute("session_id", kaKaoDto.getId());
 	    session.setAttribute("session_name", kaKaoDto.getProperties().getNickname());
+
+	    if(kaKaoDto.getProperties().getProfile_image()!=null) {
+	    	session.setAttribute("session_image", kaKaoDto.getProperties().getProfile_image());	    	
+	    } else {
+	    	session.setAttribute("session_image", "proflie_default.png");
+	    }
 
 
 

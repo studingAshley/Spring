@@ -23,7 +23,7 @@
 
 
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b32a90eb17eb21978aacd0882239ee95&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services"></script>
 
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
@@ -38,7 +38,31 @@
 
 <script src="/js/cross/index.js"></script>
 <script src="/js/cross/sidebar.js"></script>
-
+<script>
+	$(function(){
+		$(".translate").click(function(){
+			let text = $(this).parent().parent().parent().parent().next().find("p").text();
+			let loc = $(this).parent().parent().parent().parent().next().find("p");
+			
+			$.ajax({
+				url:"/profile/translate",
+				type:"post",
+				data:{"text":text},
+				datatype:"text",
+				success:function(data){
+					let translatedText = data.message.result.translatedText
+					console.log(translatedText);					
+					loc.text(translatedText);
+				},
+				error:function(){
+					alert("실패");
+				}
+				
+			});//ajax
+		})
+		
+	})//jquery
+</script>
 
 
 
@@ -64,9 +88,22 @@
 				<c:forEach var="pdto" items="${plist}" varStatus="status">
 					<div class="post" style="position: relative;">
 
-						<div class="post_profile-image rounded-5">
-							<img class="" src="/upload/${ulist[status.index].profile_img}"
-								alt="profile">
+						<c:if test="${ulist[status.index].user_id!=session_id}">
+							<div class="post_profile-image rounded-5" onclick="location.href='/profile/your_content?user_id=${ulist[status.index].user_id}'">
+						</c:if>
+						<c:if test="${ulist[status.index].user_id==session_id}">
+							<div class="post_profile-image rounded-5" onclick="location.href='/profile/content?user_id=${ulist[status.index].user_id}'">
+						</c:if>	
+						
+							<c:if test="${ulist[status.index].profile_img!=null}">
+								<img class="" src="/upload/${ulist[status.index].profile_img}"
+									alt="profile">
+							</c:if>
+							<c:if test="${ulist[status.index].profile_img==null}">
+								<img class="" src="/upload/proflie_default.png"
+									alt="profile">
+							</c:if>
+								
 							<div style="position: absolute; height: 100%; width: 80px;">
 
 
@@ -103,7 +140,7 @@
 											</div>
 											<ul class="dropdown-menu dropdown-link-active-bg">
 												<li><div class="dropdown-item deleteOne" data-post_id="${plist[status.index].post_id}">삭제하기</div></li>
-				
+												<li><div class="dropdown-item translate">번역하기</div></li>
 											</ul>
 											
 										
@@ -119,6 +156,7 @@
 											<ul class="dropdown-menu">
 												<li><a class="dropdown-item" href="#">팔로우하기</a></li>
 												<li><a class="dropdown-item" href="#">차단하기</a></li>
+												<li><div class="dropdown-item translate">번역하기</div></li>
 											</ul>
 										</c:if>
 																	
@@ -265,33 +303,56 @@
 								<h3>${replycount[status.index]}</h3>
 								
 								
-								<c:if test="${renoted[status.index]<1}">
-									<span class="material-icons ms_icons repeat">repeat</span>
-							
-								</c:if>
-								<c:if test="${renoted[status.index]>=1}">
-									<span class="material-icons ms_icons repeat toggle">repeat</span>
-							
-								</c:if>
-							
+								<div class="dropdown">
+									<c:if test="${renoted[status.index]<1}">
+										<span class="material-icons ms_icons dropdown-toggle repeat" 
+										data-bs-toggle="dropdown" aria-expanded="false"
+										>repeat</span>
+								
+									</c:if>
+									<c:if test="${renoted[status.index]>=1}">
+										<span class="material-icons ms_icons dropdown-toggle repeat toggle"
+										data-bs-toggle="dropdown" aria-expanded="false"
+										>repeat</span>
+								
+									</c:if>
+									<c:if test="${renoted[status.index]<1}">
+									  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+									    <li><span class="drpRepeat" data-post_id="${plist[status.index].post_id}"> 재게시</span></li>
+									    <li><span data-bs-toggle="modal" data-bs-target="#quotationModal"> 인용</span></li>
+									  </ul>
+									</c:if>
+									<c:if test="${renoted[status.index]>=1}">
+									  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+									    <li><span class="drpRepeat" data-post_id="${plist[status.index].post_id}"> 재게시 취소</span></li>
+									    <li><span data-bs-toggle="modal" data-bs-target="#quotationModal"> 인용</span></li>
+									  </ul>
+									</c:if>
+								</div>
 							
 								<h3>${recount[status.index]}</h3>
 								
-								
-								
 								<c:if test="${favorited[status.index]<1}">
-									<span class="material-icons ms_icons favorite">favorite_border</span>
+									<span class="material-icons ms_icons favorite"
+									data-post_id="${plist[status.index].post_id}">favorite_border</span>
 							
 								</c:if>
 								<c:if test="${favorited[status.index]>=1}">
-									<span class="material-icons ms_icons favorite toggle">favorite</span>
+									<span class="material-icons ms_icons favorite toggle"
+									data-post_id="${plist[status.index].post_id}">favorite</span>
 							
 								</c:if>
 								<h3>${facount[status.index]}</h3>
 								
-								<span class="material-icons ms_icons bookmark">bookmark_border</span>
-								<h3>100</h3>
-
+								<c:if test="${bookmarked[status.index]<1}">
+									<span class="material-icons ms_icons bookmark"
+									data-post_id="${plist[status.index].post_id}">bookmark_border</span>
+								</c:if>							
+								<c:if test="${bookmarked[status.index]>=1}">
+									<span class="material-icons ms_icons bookmark toggle"
+									data-post_id="${plist[status.index].post_id}">bookmark</span>
+								</c:if>							
+								<h3></h3>
 
 							</div>
 
@@ -431,6 +492,90 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- 인용알티용 모달 -->
+	<div class="modal" id="quotationModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" style="height: 2rem;">
+					<h5 class="modal-title">답글쓰기</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<form id="modalForm" action="/modalSendPost" method="post" enctype="multipart/form-data">
+				<div id="modal_hidden"></div>
+					<div class="modal-body">
+						<div class="tweet_box">
+
+							<div class="tweet_box-input">
+								<div id="modal_text-area" class="rounded"
+									style="position: relative;">
+
+									<textarea rows="" cols="" class="content" id="modal_write-box" name="pcontent"
+										style="outline: none; width: 380px; border: none; resize: none; overflow: hidden"></textarea>
+									<div id="modal_position_wrap" class="invis">
+										<div id="position-area" style="display: flex;">
+											<span class="material-icons">location_on</span>
+											<div id="modal_currLocation"></div>
+										</div>
+									</div>
+									<div id="modal_image-area" style=""></div>
+									
+									<div class="quotationPost">
+											<div class="rounded-4"
+												style="width: 450px; border: 1px solid var(--twitter-line-color); padding: 1rem;"
+												onclick="location.href='/viewContent'">
+												<div class="post_header">
+													<div class="post_header-text">
+														<h3>
+															만두 <span class="header-icon-section">@Mandoo</span>
+														</h3>
+														<div style="margin-left: 1rem; text-align: center;">
+															<h3>24.01.01</h3>
+														</div>
+													</div>
+												</div>
+		
+												<div class="post_header-renote" style="display: flex;">
+													<div class="container img-xs rounded" style="max-width: 50px; margin:0;">
+														<img src="/images/post-image.jpeg">
+													</div>
+													<div style="width: 200px; height: 50px;">
+														<p>Text Only</p>
+													</div>
+												</div>
+											</div>
+										</div>
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<div class="modal_box-footer" style="">
+
+
+							<label for="modalFile" id="modalImgBtn"
+								class="btn btn-sm btn-dark">사진등록</label> 
+								<input type="file" name="files"	id="modalFile" multiple="multiple"> 
+								<label for="modalRegPosition" id="modalregBtn"
+								class="btn btn-sm btn-dark" data-bs-toggle="modal"
+								data-bs-target="#locationModal2" data-bs-whatever="Test">위치등록</label>
+							<input type="hidden" class="btn btn-sm btn-dark" id="modalRegPosition" name="plocation">
+							<input type="hidden" name="quo_post_id">
+							<button id="modal_write-btn" class="modal_write-btn btn btn-sm btn-dark">게시하기</button>
+
+
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+	
 
 	<!-- Modal End -->
 

@@ -20,7 +20,7 @@ $(function() {
 		modalTitle.textContent = recipient
 		modalBodyInput.src = recipient 
 	})
-
+	
 	const DEFAULT_HEIGHT = 16; // textarea 기본 height
 
 	$("#currLocation").on("click", function() {
@@ -76,6 +76,8 @@ $(function() {
 	$("#file").on("change", function(e) {
 		//  console.log(e);
 		//  console.log(e.target.files.length);
+		
+		alert("test2");
 		var felement = e.target.files;
 		$("#image-area").html("");
 		fileCount = 0;
@@ -138,6 +140,7 @@ $(function() {
 	$("#modalFile").on("change", function(e) {
 		//  console.log(e);
 		//  console.log(e.target.files.length);
+		alert("test");
 		var felement = e.target.files;
 		$("#modal_image-area").html("");
 		fileCount = 0;
@@ -360,35 +363,69 @@ $(function() {
 	$(document).on("click",".favorite", function(e) {
 
 		let postId = $(e.target).attr("data-post_id");
-		
+		let loc = $(e.target).next();
+		let stat = "";
 		if ($(e.target).hasClass("toggle") == false) {
 			
-			
+			stat = "likeUp"
 			$(e.target).addClass("toggle");
 			$(e.target).text("favorite");
-			favoriteOn(postId, e);
+			/*favoriteOn(postId, e);*/
 		} else {
 			
-			
+			stat = "likeDown"
 			$(e.target).removeClass("toggle");
 			$(e.target).text("favorite_border");
-			favoriteOff(postId, e);
+			/*favoriteOff(postId, e);*/
 
 		}
+		
+		console.log(stat);
+		
+		$.ajax({
+			url:"/profile/likeUpdate",
+			type:"post",
+			data:{"post_id":postId,"stat":stat},
+			datatype:"text",
+			success:function(data){
+				
+				$(loc).text(data);
+			},
+			error:function(){
+				alert("실패");
+			}
+		});//ajax
 
 	})
 
 	$(document).on("click",".bookmark", function(e) {
 
+		let postId = $(e.target).attr("data-post_id");
+		let stat = "";
+		
 		if ($(e.target).hasClass("toggle") == false) {
 			$(e.target).addClass("toggle");
 			$(e.target).text("bookmark");
-
+			stat = "check";
 		} else {
 			$(e.target).removeClass("toggle");
 			$(e.target).text("bookmark_border");
-
+			stat = "cancel";
 		}
+		
+		$.ajax({
+			url:"/bookmark/bookmarkUpdate",
+			type:"post",
+			data:{"post_id":postId,"stat":stat},
+			datatype:"text",
+			success:function(data){
+				
+				$(loc).text(data);
+			},
+			error:function(){
+				alert("실패");
+			}
+		});//ajax
 
 	})
 
@@ -795,6 +832,7 @@ $(function() {
 				$("#modalFile")[0].files = dataTranster.files;
 
 				location.reload(true);
+
 			},
 			error: function(data) {
 				alert(data);
@@ -803,6 +841,7 @@ $(function() {
 			contentType: false,
 			processData: false
 		});
+
 
 
 	})
@@ -859,7 +898,7 @@ $(function() {
 
 	});
 
-
+	
 	//장소 검색 객체를 생성합니다
 	var ps = new kakao.maps.services.Places();
 
@@ -1317,7 +1356,7 @@ $(function() {
 		console.log(e.target.querySelector('.post_header'));
 		console.log(e.relatedTarget.querySelector('.post_header-discription'));
 		console.log($(e.target.querySelector('.post_header')).children("p.thisContent"));
-		/*
+		
 		// Button that triggered the modal
 		var button = event.relatedTarget
 		// Extract info from data-bs-* attributes
@@ -1331,7 +1370,7 @@ $(function() {
 
 		modalTitle.textContent = recipient
 		modalBodyInput.src = recipient 
-		*/
+		
 	})
 
 });

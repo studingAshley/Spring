@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 		<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -41,7 +42,7 @@
 
 
 							<div class="wrap2">
-								<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=fe714f17477232187f3fb8741b56d8bd&redirect_uri=http://localhost:8000/kakao/oauth"
+								<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=fe714f17477232187f3fb8741b56d8bd&redirect_uri=http://localhost:8000/naver/oauth01/callback"
 									src="/images/kakao.png"><button type="button" class="kakaobutton">
 									</button></a>
 								<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=7g_j2G60OUulN4ds5aL_&state=STATE_STRING&redirect_uri=http://localhost:8000/naver/oauth01" data-wpel-link="external" target="_blank"
@@ -140,5 +141,6 @@
 				</div> -->
 			</body>
 			<br>
+
 
 			</html>

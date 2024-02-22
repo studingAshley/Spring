@@ -20,9 +20,9 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="/css/style_x_ui.css">
 <link rel="stylesheet" href="/node_modules/reset.css/reset.css">
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0242a4a15da7682f7e63d97312b81c85&libraries=services"></script>
 
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b32a90eb17eb21978aacd0882239ee95&libraries=services"></script>
 
 
 <script
@@ -39,7 +39,7 @@
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
 <script src="/js/cross/index.js"></script>
-<script src="/js/cross/sidebar.js"></script>
+<!-- <script src="/js/cross/sidebar.js"></script> -->
 
 <style>
 pre {
@@ -147,7 +147,7 @@ pre {
 									</div>
 								</div>
 
-<!-- <<<<<<< HEAD -->
+
 								<div class="post_header-discription"
 									onclick="location.href='/viewContent?post_id=${plist[status.index].post_id}'">
 									<p class="thisContent">${plist[status.index].pcontent}</p>
@@ -162,6 +162,7 @@ pre {
 									
 									
 								</div>
+
 
 							</div>
 
@@ -375,10 +376,6 @@ pre {
 
 				</c:forEach>
 
-
-
-
-
 				<div class="post" style="position: relative;">
 
 					<div class="post_profile-image rounded-5">
@@ -472,9 +469,6 @@ pre {
 					</div>
 
 				</div>
-
-
-
 
 			</div>
 
@@ -652,10 +646,6 @@ pre {
 			</div>
 		</div>
 	</div>
-
-
-
-
 
 <!-- 인용알티용 모달 -->
 	<div class="modal" id="quotationModal" tabindex="-1">

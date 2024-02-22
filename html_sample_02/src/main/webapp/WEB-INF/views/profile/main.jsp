@@ -10,7 +10,8 @@
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Twitter Profile</title>
-    <script src="/js/cross/profile.js"></script>
+    <!-- <script src="/js/cross/profile.js"></script> -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services"></script>
 
     
     <script>
@@ -78,8 +79,8 @@
                            <!-- <i class="fa fa-calendar"></i> 2024.01.25 -->
                     </span>
                     <div class="nawa">
-                        <div class="followers"> 100 <span>Following</span></div>
-                        <div>100<span> Followers</span></div>
+                        <div class="followers" onclick="location.href='/profile/following?user_id=${user_id}'"> ${followingCount} <span>Following</span></div>
+                        <div onclick="location.href='/profile/follower?user_id=${user_id}'">${followerCount}<span> Followers</span></div>
                     </div>
                 </div>
             </section>

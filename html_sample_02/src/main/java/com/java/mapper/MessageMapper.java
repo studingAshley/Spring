@@ -48,7 +48,12 @@ public interface MessageMapper {
 
 	//check update
 	void checkUpdate(int msg_id);
+
+	//아이디 변경
+	void accountUpdate1(String user_id, String org_id);
+	void accountUpdate2(String user_id, String org_id);
 	
 
 
 }
+

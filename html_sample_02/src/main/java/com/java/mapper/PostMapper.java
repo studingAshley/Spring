@@ -1,11 +1,10 @@
-
 package com.java.mapper;
+
 
 import java.util.List;
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
-
 import com.java.dto.Cross_userDto;
 import com.java.dto.PostDto;
 import com.java.dto.PostMediaUserDto;
@@ -19,6 +18,9 @@ public interface PostMapper {
 	ArrayList<PostMediaUserDto> selectDefault(String id); //구작업
 	ArrayList<PostDto> getMypost(String id); //신작업
 	
+	//답글 가져오기
+	ArrayList<PostDto> getMyreply(String id);
+	
 	//post 좋아요 카운트Up
 	void likeUp(String post_id);
 	//post 좋아요 카운트Down
@@ -26,13 +28,25 @@ public interface PostMapper {
 	
 	//미디어 불러오기
 	ArrayList<PostMediaUserDto> selectMedia(String id);
-	
-	
+		
 	//좋아요한 글 불러오기
 	ArrayList<PostMediaUserDto> selectLikePost(String id);
 	ArrayList<PostDto> getMylike(String id);
 	
+	//아이디 변경
+	void accountUpdate1(String user_id, String org_id);
 	
+	//게시글 검색(미디어)
+	List<PostDto> selectkeyword_media(String keyword);
+	
+	//북마크된 게시글 가져오기
+	ArrayList<PostDto> getMyBookmark(String id);
+	//북마크된 게시글인지 체크
+	Integer myBookmarkCheck(String user_id, int post_id);
+	
+	//알람 대상 아이디 검색
+	PostDto getTargetId(PostDto postDto); //답글
+	String getLikeTargetId(String post_id); //좋아요
 	//-----------------------------------------------------
 	
 	//향연 작업
@@ -40,7 +54,9 @@ public interface PostMapper {
 	int sendPost(PostDto postDto);
 
 	//사용자 포스트 타임라인 불러오기
+
 	ArrayList<PostDto> getMyTimeline(String id, int pageCounter);
+
 
 	//특정포스트(post_id) 타임라인 불러오기
 	ArrayList<PostDto> getSelected(int post_id);
@@ -123,8 +139,6 @@ public interface PostMapper {
 	void likeUp(int post_id);
 	PostDto getSelectedOne(int post_id);
 
-	
-	
-
 }
+
 
