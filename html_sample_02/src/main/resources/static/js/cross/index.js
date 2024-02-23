@@ -2,7 +2,7 @@
  * 
  */
 var fileCount = 0;
-let pageCounter = 0 ;
+let pageCounter = 0;
 $(function() {
 	var exampleModal = document.getElementById('exampleModal')
 	exampleModal.addEventListener('show.bs.modal', function(event) {
@@ -18,15 +18,15 @@ $(function() {
 		var modalBodyInput = exampleModal.querySelector('.modal-body img')
 
 		modalTitle.textContent = recipient
-		modalBodyInput.src = recipient 
+		modalBodyInput.src = recipient
 	})
-	
+
 	const DEFAULT_HEIGHT = 16; // textarea 기본 height
 
 	$("#currLocation").on("click", function() {
 		$("#locationModal").modal("show");
 	})
-	
+
 	$("#modal_currLocation").on("click", function() {
 		$("#locationModal2").modal("show");
 	})
@@ -46,7 +46,7 @@ $(function() {
 
 
 	})
-	
+
 	$("#modal_write-box").on("keydown", function(e) {
 		console.log($(e.target).val());
 		//	  console.log(e.target.style);
@@ -62,22 +62,22 @@ $(function() {
 
 
 	})
-	
+
 
 	$("#text-area").click(function() {
 		$("#write-box").focus();
 	})
-	
+
 	$("#modal_text-area").click(function() {
 		$("#modal_write-box").focus();
 	})
-	
+
 
 	$("#file").on("change", function(e) {
 		//  console.log(e);
 		//  console.log(e.target.files.length);
-		
-		alert("test2");
+
+		//alert("test2");
 		var felement = e.target.files;
 		$("#image-area").html("");
 		fileCount = 0;
@@ -110,16 +110,16 @@ $(function() {
 
 				}
 				reader.readAsDataURL(file);
-			}else if(isVideoFile(file)){
+			} else if (isVideoFile(file)) {
 				if (fileCount > 0) {
 					alert("영상 파일은 최대 하나까지만 첨부가능합니다.");
 					break;
 				}
-				
+
 				var reader = new FileReader();
 				reader.onload = function(e) {
 					var video = document.createElement("video");
-					console.log("isVideoFile",e.target);
+					console.log("isVideoFile", e.target);
 					video.setAttribute("src", e.target.result);
 					video.setAttribute("controls", "controls");
 					video.setAttribute("loop", "loop");
@@ -129,7 +129,7 @@ $(function() {
 
 
 				}
-				
+
 				reader.readAsDataURL(file);
 			}
 			fileCount++;
@@ -138,8 +138,7 @@ $(function() {
 	})
 
 	$("#modalFile").on("change", function(e) {
-		//  console.log(e);
-		//  console.log(e.target.files.length);
+
 		alert("test");
 		var felement = e.target.files;
 		$("#modal_image-area").html("");
@@ -150,19 +149,15 @@ $(function() {
 
 			let name = file.name;
 
-			//console.log(name);
-
 			if (isImageFile(file)) {
 				if (fileCount > 3) {
 					alert("이미지 파일은 최대 네개까지만 첨부가능합니다.");
 					break;
 				}
 
-
 				var reader = new FileReader();
 				reader.onload = function(e) {
 					var img = document.createElement("img");
-					//	console.log("isImageFile",e.target);
 					img.setAttribute("src", e.target.result);
 					img.setAttribute("class", "modal_userfile");
 					img.setAttribute("onmouseover", "this.src='/images/cancel.png'");
@@ -171,20 +166,19 @@ $(function() {
 					img.setAttribute("data-set", name);
 					$("#modal_image-area").prepend(img);
 
-
 				}
-				
+
 				reader.readAsDataURL(file);
-			}else if(isVideoFile(file)){
+			} else if (isVideoFile(file)) {
 				if (fileCount > 0) {
 					alert("영상 파일은 최대 하나까지만 첨부가능합니다.");
 					break;
 				}
-				
+
 				var reader = new FileReader();
 				reader.onload = function(e) {
 					var video = document.createElement("video");
-					console.log("isVideoFile",e.target);
+					console.log("isVideoFile", e.target);
 					video.setAttribute("src", e.target.result);
 					video.setAttribute("controls", "controls");
 					video.setAttribute("loop", "loop");
@@ -194,17 +188,16 @@ $(function() {
 
 
 				}
-				
+
 				reader.readAsDataURL(file);
 			}
 			fileCount++;
-
 		}
 	})
-	
-	function isVideoFile(file){
+
+	function isVideoFile(file) {
 		var ext = file.name.split(".").pop().toLowerCase();
-		return ($.inArray(ext, ["mpg", "mpeg", "mp4", "ogg", "webm","avi","wmv"]) === -1) ? false : true;
+		return ($.inArray(ext, ["mpg", "mpeg", "mp4", "ogg", "webm", "avi", "wmv"]) === -1) ? false : true;
 	}
 
 	function isImageFile(file) {
@@ -232,7 +225,7 @@ $(function() {
 		$(e.target).remove();
 		console.log($("#file")[0].files);
 	});
-	
+
 	$(document).on("click", ".modal_userfile", function(e) {
 
 		const files = $("#modalFile")[0].files;
@@ -258,11 +251,11 @@ $(function() {
 
 
 
-	$(document).on("click",".selAddr",function(e) {
+	$(document).on("click", ".selAddr", function(e) {
 
 		let element = $(e.currentTarget).attr("data-location");
 		$(".locSelected").remove();
-		$(e.currentTarget).append('<span class="material-icons locSelected">close</span>');
+		$(e.currentTarget).append('<span class="material-icons locSelected" data-bs-dismiss="modal" aria-label="Close">close</span>');
 		console.log(element);
 		$("#position_wrap").removeClass("invis");
 		$("#currLocation").html(element);
@@ -270,49 +263,46 @@ $(function() {
 
 		$("#locationModal").modal("hide");
 		$(".modal-backdrop").modal("hide");
-
+		$(".modal-backdrop").modal("hide");
 
 	});
 
-	$(document).on("click",".selAddr2",function(e) {
+	$(document).on("click", ".selAddr2", function(e) {
 
 		let element = $(e.currentTarget).attr("data-location");
 		$(".locSelectedM").remove();
-		$(e.currentTarget).append('<span class="material-icons locSelectedM">close</span>');
+		$(e.currentTarget).append('<span class="material-icons locSelectedM" data-bs-dismiss="modal" aria-label="Close">close</span>');
 		console.log(element);
 		$("#modal_position_wrap").removeClass("invis");
 		$("#modal_currLocation").html(element);
 		$("#modalRegPosition").val(element);
-	
 
 		$("#locationModal2").modal("hide");
 		$("#writeModal").modal("show");
 
-
-
 	});
-	
-	
+
+
 
 	$(document).on("click", ".locSelected", function(e) {
 		e.stopPropagation();
 		$("#position_wrap").addClass("invis");
 		$("#currLocation").html("");
 		$("#currLocation").text("");
-		
+
 		e.currentTarget.remove();
 		console.log("locSelected");
 		$("#locationModal").modal("hide");
 		$(".modal-backdrop").modal("hide");
-		$("#writeModal").modal("show");
-		
+
+
 	});
 
 	$(document).on("click", ".locSelectedM", function(e) {
 		e.stopPropagation();
 		$("#modal_position_wrap").addClass("invis");
 		$("#modal_currLocation").html("");
-		
+
 		e.currentTarget.remove();
 		$("#locationModal2").modal("hide");
 		$(".modal-backdrop").modal("hide");
@@ -323,15 +313,15 @@ $(function() {
 
 
 	$(document).on("click", ".chat", function(e) {
-	//	alert("chat");
+		//	alert("chat");
 	});
-	
+
 	$(document).on("click", ".chart", function(e) {
 
 		let post_id = $(e.target).attr("data-post_id");
 		console.log(post_id);
-		
-		location.href='/analystic?post_id='+post_id;
+
+		location.href = '/analystic?post_id=' + post_id;
 
 	});
 
@@ -339,13 +329,13 @@ $(function() {
 	$(document).on("click", ".drpRepeat", function(e) {
 
 		let postId = $(e.target).attr("data-post_id");
-		
+
 		console.log("repeat elements are ");
 		console.log(e);
 		console.log(e.target.parentNode.parentElement.previousElementSibling);
 		console.log($(e.target.parentNode.parentElement.previousElementSibling));
-		
-		let element = $(e.target.parentNode.parentElement.previousElementSibling); 
+
+		let element = $(e.target.parentNode.parentElement.previousElementSibling);
 
 
 		console.log("post ID : " + postId);
@@ -360,49 +350,49 @@ $(function() {
 
 	});
 
-	$(document).on("click",".favorite", function(e) {
+	$(document).on("click", ".favorite", function(e) {
 
 		let postId = $(e.target).attr("data-post_id");
 		let loc = $(e.target).next();
 		let stat = "";
 		if ($(e.target).hasClass("toggle") == false) {
-			
+
 			stat = "likeUp"
 			$(e.target).addClass("toggle");
 			$(e.target).text("favorite");
 			/*favoriteOn(postId, e);*/
 		} else {
-			
+
 			stat = "likeDown"
 			$(e.target).removeClass("toggle");
 			$(e.target).text("favorite_border");
 			/*favoriteOff(postId, e);*/
 
 		}
-		
+
 		console.log(stat);
-		
+
 		$.ajax({
-			url:"/profile/likeUpdate",
-			type:"post",
-			data:{"post_id":postId,"stat":stat},
-			datatype:"text",
-			success:function(data){
-				
+			url: "/profile/likeUpdate",
+			type: "post",
+			data: { "post_id": postId, "stat": stat },
+			datatype: "text",
+			success: function(data) {
+
 				$(loc).text(data);
 			},
-			error:function(){
+			error: function() {
 				alert("실패");
 			}
 		});//ajax
 
 	})
 
-	$(document).on("click",".bookmark", function(e) {
+	$(document).on("click", ".bookmark", function(e) {
 
 		let postId = $(e.target).attr("data-post_id");
 		let stat = "";
-		
+
 		if ($(e.target).hasClass("toggle") == false) {
 			$(e.target).addClass("toggle");
 			$(e.target).text("bookmark");
@@ -412,17 +402,17 @@ $(function() {
 			$(e.target).text("bookmark_border");
 			stat = "cancel";
 		}
-		
+
 		$.ajax({
-			url:"/bookmark/bookmarkUpdate",
-			type:"post",
-			data:{"post_id":postId,"stat":stat},
-			datatype:"text",
-			success:function(data){
-				
+			url: "/bookmark/bookmarkUpdate",
+			type: "post",
+			data: { "post_id": postId, "stat": stat },
+			datatype: "text",
+			success: function(data) {
+
 				$(loc).text(data);
 			},
-			error:function(){
+			error: function() {
 				alert("실패");
 			}
 		});//ajax
@@ -437,15 +427,12 @@ $(function() {
 			data: { "post_id": post_id },
 			dataType: "text",
 			success: function(data) {
-				console.log("repeatOn : " + data);
-				//e.next().text(data);
 				$(e.target.parentNode.parentNode.parentNode.nextElementSibling).text(data);
 				$(e.target).text("재게시 취소");
 			},
 			error: function(data) {
 				alert(data);
 			}
-
 		});
 	}
 
@@ -456,15 +443,12 @@ $(function() {
 			data: { "post_id": post_id },
 			dataType: "text",
 			success: function(data) {
-				console.log("repeatOff : " + data);
-				//e.next().text(data);
 				$(e.target.parentNode.parentNode.parentNode.nextElementSibling).text(data);
 				$(e.target).text("재게시");
 			},
 			error: function(data) {
 				alert(data);
 			}
-
 		});
 	}
 
@@ -475,13 +459,11 @@ $(function() {
 			data: { "post_id": post_id },
 			dataType: "text",
 			success: function(data) {
-				console.log("favoriteOn : " + data);
 				$(e.target).next().text(data);
 			},
 			error: function(data) {
 				alert(data);
 			}
-
 		});
 	}
 
@@ -492,20 +474,18 @@ $(function() {
 			data: { "post_id": post_id },
 			dataType: "text",
 			success: function(data) {
-				console.log("favoriteOff : " + data);
 				$(e.target).next().text(data);
 			},
 			error: function(data) {
 				alert(data);
 			}
-
 		});
 	}
 
 
 
 
-/* ---------------------------------------------------------------------------------------------*/
+	/* ---------------------------------------------------------------------------------------------*/
 
 	$("#writeBtn").on("click", function(e) {
 		e.preventDefault();
@@ -520,22 +500,15 @@ $(function() {
 			data: formData,
 			dataType: "json",
 			success: function(data) {
-				console.log(data);
-				console.log("number of files : " + data.nof);
-				console.log("profile : " + data.profile);
-				console.log("files : " + data.files);
-				console.log("type : " + data.type);
+
 				if (data.nof == 0) {
 					console.log(makePostHtml0(data.name, data.profile, data.post));
 					$("#post_wrap").prepend(makePostHtml0(data.name, data.profile, data.post) + makePostHtmlFooter(data.post));
 				} else if (data.nof == 1) {
-					console.log("왜 안 됨 ? ");
 					if ((data.type).includes("image")) {
 						$("#post_wrap").prepend(makePostHtml1(data.name, data.profile, data.post, data.files));
-						console.log("이미지");
 					} else if ((data.type).includes("video")) {
 						$("#post_wrap").prepend(makePostHtmlv(data.name, data.profile, data.post, data.files));
-						console.log("비디오");
 					}
 				} else if (data.nof == 2) {
 					$("#post_wrap").prepend(makePostHtml2(data.name, data.profile, data.post, data.files));
@@ -562,7 +535,6 @@ $(function() {
 			contentType: false,
 			processData: false
 		});
-
 
 	})
 
@@ -728,9 +700,9 @@ $(function() {
 		var phtml = '<div class="post_footer">';
 		phtml += '<span class="material-icons ms_icons chat" data-bs-toggle="modal"';
 		phtml += 'data-bs-target="#writeModal" data-post_id="' + post.post_id + '"';
-	//	phtml += 'data-group="' + post.pgroup + '" ';
-	//	phtml += 'data-step="' + post.pstep + '" ';
-	//	phtml += 'data-indent="' + post.pindent + '"
+		//	phtml += 'data-group="' + post.pgroup + '" ';
+		//	phtml += 'data-step="' + post.pstep + '" ';
+		//	phtml += 'data-indent="' + post.pindent + '"
 		phtml += '>chat</span>';
 
 
@@ -774,27 +746,27 @@ $(function() {
 		ip1.setAttribute("value", postId);
 		ip1.setAttribute("name", "post_id");
 
-/*		var ip2 = document.createElement("input");
-		ip2.setAttribute("type", "hidden");
-		ip2.setAttribute("value", group);
-		ip2.setAttribute("name", "pgroup");
-
-		var ip3 = document.createElement("input");
-		ip3.setAttribute("type", "hidden");
-		ip3.setAttribute("value", step);
-		ip3.setAttribute("name", "pstep");
-
-		var ip4 = document.createElement("input");
-		ip4.setAttribute("type", "hidden");
-		ip4.setAttribute("value", indent);
-		ip4.setAttribute("name", "pindent");
-
-		$("#modal_hidden").html("");*/
+		/*		var ip2 = document.createElement("input");
+				ip2.setAttribute("type", "hidden");
+				ip2.setAttribute("value", group);
+				ip2.setAttribute("name", "pgroup");
+		
+				var ip3 = document.createElement("input");
+				ip3.setAttribute("type", "hidden");
+				ip3.setAttribute("value", step);
+				ip3.setAttribute("name", "pstep");
+		
+				var ip4 = document.createElement("input");
+				ip4.setAttribute("type", "hidden");
+				ip4.setAttribute("value", indent);
+				ip4.setAttribute("name", "pindent");
+		
+				$("#modal_hidden").html("");*/
 
 		$("#modal_hidden").append(ip1);
-/*		$("#modal_hidden").append(ip2);
-		$("#modal_hidden").append(ip3);
-		$("#modal_hidden").append(ip4);*/
+		/*		$("#modal_hidden").append(ip2);
+				$("#modal_hidden").append(ip3);
+				$("#modal_hidden").append(ip4);*/
 
 
 	})
@@ -886,7 +858,7 @@ $(function() {
 		}
 
 	});
-	
+
 	$("#locSearch2").on("keyup", function(e) {
 
 		if (e.keyCode == 13) {
@@ -898,7 +870,7 @@ $(function() {
 
 	});
 
-	
+
 	//장소 검색 객체를 생성합니다
 	var ps = new kakao.maps.services.Places();
 
@@ -917,17 +889,11 @@ $(function() {
 		ps.keywordSearch(keyword, placesSearchCB);
 	}
 
-
 	//장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 	function placesSearchCB(data, status, pagination) {
 		if (status === kakao.maps.services.Status.OK) {
 
-			// 정상적으로 검색이 완료됐으면
-			// 검색 목록과 마커를 표출합니다
 			displayPlaces(data);
-
-			// 페이지 번호를 표출합니다
-	//		displayPagination(pagination);
 
 		} else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 
@@ -938,7 +904,6 @@ $(function() {
 
 			alert('검색 결과 중 오류가 발생했습니다.');
 			return;
-
 		}
 	}
 
@@ -946,30 +911,21 @@ $(function() {
 	function displayPlaces(places) {
 
 		var listEl = document.getElementById('placesList');
-	//	var menuEl = document.getElementById('menu_wrap');
 		var fragment = document.createDocumentFragment();
-	//	var bounds = new kakao.maps.LatLngBounds();
 
-		// 검색 결과 목록에 추가된 항목들을 제거합니다
 		removeAllChildNods(listEl);
 
 		for (var i = 0; i < places.length; i++) {
 			var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x);
-
 			var itemEl = makeListItem(places[i]);
-			
 
 			fragment.append(itemEl);
 		}
 
-		// 검색결과 항목들을 검색결과 목록 Element에 추가합니다
 		listEl.appendChild(fragment);
 
 	}
 
-
-
-	// 검색결과 목록의 자식 Element를 제거하는 함수입니다
 	function removeAllChildNods(el) {
 		while (el.hasChildNodes()) {
 			el.removeChild(el.lastChild);
@@ -980,10 +936,10 @@ $(function() {
 	function makeListItem(places) {
 
 		var el = document.createElement('div');
-		
-		let addrHtml = '<div class="row  align-items-start selAddr"';
-		addrHtml += 'data-location="'+places.place_name	+'">';
-		
+
+		let addrHtml = '<div class="row  align-items-start selAddr" data-bs-dismiss="modal" aria-label="Close"';
+		addrHtml += 'data-location="' + places.place_name + '">';
+
 		addrHtml += '<div class="col col-2 border-end border-secondary mt-1 addrHead">';
 		addrHtml += places.place_name;
 		addrHtml += '</div>';
@@ -1016,17 +972,14 @@ $(function() {
 		// 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
 		ps.keywordSearch(keyword, placesSearchCB2);
 	}
-	
+
 	//장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 	function placesSearchCB2(data, status, pagination) {
 		if (status === kakao.maps.services.Status.OK) {
 
 			// 정상적으로 검색이 완료됐으면
-			// 검색 목록과 마커를 표출합니다
+			// 검색 목록을 표출합니다
 			displayPlaces2(data);
-
-			// 페이지 번호를 표출합니다
-	//		displayPagination(pagination);
 
 		} else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 
@@ -1040,7 +993,7 @@ $(function() {
 
 		}
 	}
-	//검색 결과 목록과 마커를 표출하는 함수입니다
+	//검색 결과 목록을 표출하는 함수입니다
 	function displayPlaces2(places) {
 
 		var listEl = document.getElementById('placesList2');
@@ -1055,7 +1008,7 @@ $(function() {
 			var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x);
 
 			var itemEl = makeListItem2(places[i]);
-			
+
 
 			fragment.append(itemEl);
 		}
@@ -1064,18 +1017,18 @@ $(function() {
 		listEl.appendChild(fragment);
 
 	}
-	
-	
+
+
 	function makeListItem2(places) {
 
 		var el = document.createElement('div');
-		
-		let addrHtml = '<div class="row  align-items-start selAddr2"';
-		addrHtml += 'data-location="'+places.place_name	+'"';
+
+		let addrHtml = '<div class="row  align-items-start selAddr2" data-bs-dismiss="modal" aria-label="Close"';
+		addrHtml += 'data-location="' + places.place_name + '"';
 		addrHtml += 'data-bs-dismiss="modal" aria-label="Close"';
 		addrHtml += '>';
 
-		
+
 		addrHtml += '<div class="col col-2 border-end border-secondary mt-1 addrHead">';
 		addrHtml += places.place_name;
 		addrHtml += '</div>';
@@ -1093,259 +1046,240 @@ $(function() {
 
 		return el;
 	}
-	
-	
+
+
 	/* ---------------------------스크롤 감지---------------------------- */
 
-	$("main").scroll(function(){
-	        var scrollTop = $(this).scrollTop();
-	        var innerHeight = $(this).innerHeight();
-	        var scrollHeight = $(this).prop('scrollHeight');
-	
-	        if (scrollTop + innerHeight >= scrollHeight) {
-	       		
-	       		pageCounter++;
-	       		
-	       		console.log(pageCounter);
-	       		
-	       		let postElement = $("#post_wrap");
-	       		
-	       		$.ajax({
+	$("main").scroll(function() {
+		var scrollTop = $(this).scrollTop();
+		var innerHeight = $(this).innerHeight();
+		var scrollHeight = $(this).prop('scrollHeight');
+
+		if (scrollTop + innerHeight >= scrollHeight) {
+
+			pageCounter++;
+
+			let postElement = $("#post_wrap");
+
+			$.ajax({
 				url: "/getPostAjax",
 				type: 'POST',
 				data: { "pageCounter": pageCounter },
 				dataType: "json",
 				success: function(data) {
-	
-					console.log("pageCounter : " + data.pageCounter);
-					console.log(data.plist);
-					console.log(data.ulist);
-					console.log(data.mlist);
-					console.log(data.recount);
-					console.log(data.renoted);
-					console.log(data.facount);
-					console.log(data.favorited);
-					console.log(data.replycount);
-					console.log(data.user_id);
-					console.log("Length : "+data.plist.length);
-					
-					for(let i = 0 ; i < data.plist.length ; i++){
-					
-						$("#post_wrap").append(makeHtml(data,i));
-					
+
+					for (let i = 0; i < data.plist.length; i++) {
+
+						$("#post_wrap").append(makeHtml(data, i));
+
 					}
-					
 				},
 				error: function(data) {
 					alert(data);
 				}
 			});
-	
-	       		
-	        } else {
-	       
-	        }
+		}
 	});
 
 
-	function makeHtml(data,i){
-		
-		let postHtml="";
-		
-			
-			postHtml += '<div class="post" style="position: relative;">';
-			postHtml += '			<div class="post_profile-image rounded-5">';
-			postHtml += '				<img class="" src="/upload/'+data.ulist[i].profile_img+'"';
-			postHtml += '					alt="profile">';
-			postHtml += '				<div style="position: absolute; height: 100%; width: 80px;">';
-			
-			if(data.plist[i].post_id == data.plist[i+1].pindent){
-				postHtml += '					<div style="width: 3px; height: 98%; top: -3px; ';
-				postHtml += '						background-color: var(--twitter-line-color); position: absolute; left: 25%;">';
-				postHtml += '					</div>';
-				
-			}
-			postHtml += '				</div>';
-			postHtml += '			</div>';
-			postHtml += '			<div class="post_body">';
-			postHtml += '				<div class="post_header">';
-			postHtml += '					<div class="post_header-text">';
-			postHtml += '						<h3>';
-			postHtml += '							'+data.ulist[i].name+'<span class="header-icon-section">@'+data.ulist[i].name;
-			postHtml += '							</span>';
-			postHtml += '						</h3>';
-			postHtml += '						<div style="margin-left: 1rem; text-align: center;">';
-			postHtml += '							<h3>'+data.plist[i].created+'</h3>';
-			postHtml += '						</div>';
-			postHtml += '					</div>';
-			postHtml += '					<div class="post_header-discription"';
-			postHtml += '						onclick="location.href='+"'"+'/viewContent?post_id='+data.plist[i].post_id+"'"+'">';
-			postHtml += '						<p>'+data.plist[i].pcontent+'</p>';
-			
-			if(data.plist[i].plocation!=null){
-				postHtml += '							<div class="" style="color:gray">';
-				postHtml += '								<div style="display: flex;">';
-				postHtml += '									<span class="material-icons">location_on</span>';
-				postHtml += '									<div>'+data.plist[i].plocation+'</div>';
-				postHtml += '								</div>';
-				postHtml += '							</div>';
-				
-			}
-			
+	function makeHtml(data, i) {
 
-			postHtml += '					</div>';
-			postHtml += '				</div>';
+		let postHtml = "";
 
-			if(data.mlist[i]!=null){
-				if(data.mlist[i].file_type.includes('video')){
-					postHtml += '<div class="container video_contaner">';
-					postHtml += '	<video controls loop muted preload="auto"';
-					postHtml += '		src="/upload/'+data.mlist[i].file_name+'">';
-					postHtml += '	</video>';
-					postHtml += '</div>';
-				}else if(data.mlist[i].file_type.includes('image')){
-					let img = data.mlist[i].file_name.split(',');
-					
-					if(img.length==1){
-						postHtml += '				<div class="container">';
-						postHtml += '					<div class="row row-cols-auto ">';
-						postHtml += '						<div class="col-md-auto img-xl rounded-4">';
-						postHtml += '							<img src="/upload/'+data.mlist[i].file_name+'"';
-						postHtml += '								class="rounded " alt="java18" data-bs-toggle="modal"';
-						postHtml += '								data-bs-target="#exampleModal"';
-						postHtml += '								data-bs-whatever="/upload/'+data.mlist[i].file_name+'">';
-						postHtml += '						</div>';
-						postHtml += '					</div>';
-						postHtml += '				</div>';
-					}else if(img.length==2){
-						postHtml += '				<div class="container">';
-						postHtml += '					<div class="row row-cols-auto ">';
-						postHtml += '						<div class="col-md-auto img-lg rounded-4">';
-						postHtml += '							<img src="/upload/'+img[0]+'" class="rounded " alt="java18"';
-						postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
-						postHtml += '								data-bs-whatever="/upload/'+img[0]+'">';
-						postHtml += '						</div>';
-						postHtml += '						<div class="col-md-auto img-lg rounded-4">';
-						postHtml += '							<img src="/upload/'+img[1]+'" class="rounded " alt="java18"';
-						postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
-						postHtml += '								data-bs-whatever="/upload/'+img[1]+'">';
-						postHtml += '						</div>';
-						postHtml += '					</div>';
-						postHtml += '				</div>';
-						
-					}else if(img.length==3){
-						postHtml += '				<div class="container">';
-						postHtml += '					<div class="row row-cols-auto">';
-						postHtml += '						<div class="col-md-auto img-md rounded-4">';
-						postHtml += '							<img src="/upload/'+img[0]+'" class="rounded " alt="java18"';
-						postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
-						postHtml += '								data-bs-whatever="/upload/'+img[0]+'">';
-						postHtml += '						</div>';
-						postHtml += '						<div class="col-md-auto">';
-						postHtml += '							<div class="row row-cols-auto">';
-						postHtml += '								<div class="col-md-auto img-sm">';
-						postHtml += '									<img src="/upload/'+img[1]+'" class="rounded " alt="java18"';
-						postHtml += '										data-bs-toggle="modal" data-bs-target="#exampleModal"';
-						postHtml += '										data-bs-whatever="/upload/'+img[1]+'">';
-						postHtml += '								</div>';
-						postHtml += '							</div>';
-						postHtml += '							<div class="row row-cols-auto">';
-						postHtml += '								<div class="col-md-auto img-sm">';
-						postHtml += '									<img src="/upload/'+img[2]+'" class="rounded " alt="java18"';
-						postHtml += '										data-bs-toggle="modal" data-bs-target="#exampleModal"';
-						postHtml += '										data-bs-whatever="/upload/'+img[2]+'">';
-						postHtml += '								</div>';
-						postHtml += '							</div>';
-						postHtml += '						</div>';
-						postHtml += '					</div>';
-						postHtml += '				</div>';
-						
-					}else if(img.length==4){
-						postHtml += '				<div class="container img-sm">';
-						postHtml += '					<div class="row">';
-						postHtml += '						<div class="col-md-auto">';
-						postHtml += '							<img src="/upload/'+img[0]+'" class="rounded " alt="java18"';
-						postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
-						postHtml += '								data-bs-whatever="/upload/'+img[0]+'">';
-						postHtml += '						</div>';
-						postHtml += '						<div class="col-md-auto">';
-						postHtml += '							<img src="/upload/'+img[1]+'" class="rounded " alt="java18"';
-						postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
-						postHtml += '								data-bs-whatever="/upload/'+img[1]+'">';
-						postHtml += '						</div>';
-						postHtml += '					</div>';
-						postHtml += '					<div class="row">';
-						postHtml += '						<div class="col-md-auto">';
-						postHtml += '							<img src="/upload/'+img[2]+'" class="rounded " alt="java18"';
-						postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
-						postHtml += '								data-bs-whatever="/upload/'+img[2]+'">';
-						postHtml += '						</div>';
-						postHtml += '						<div class="col-md-auto">';
-						postHtml += '							<img src="/upload/'+img[3]+'" class="rounded " alt="java18"';
-						postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
-						postHtml += '								data-bs-whatever="/upload/'+img[3]+'">';
-						postHtml += '						</div>';
-						postHtml += '					</div>';
-						postHtml += '				</div>';
-						
-					}
+
+		postHtml += '<div class="post" style="position: relative;">';
+		postHtml += '			<div class="post_profile-image rounded-5">';
+		postHtml += '				<img class="" src="/upload/' + data.ulist[i].profile_img + '"';
+		postHtml += '					alt="profile">';
+		postHtml += '				<div style="position: absolute; height: 100%; width: 80px;">';
+
+		if (data.plist[i].post_id == data.plist[i + 1].pindent) {
+			postHtml += '					<div style="width: 3px; height: 98%; top: -3px; ';
+			postHtml += '						background-color: var(--twitter-line-color); position: absolute; left: 25%;">';
+			postHtml += '					</div>';
+
+		}
+		postHtml += '				</div>';
+		postHtml += '			</div>';
+		postHtml += '			<div class="post_body">';
+		postHtml += '				<div class="post_header">';
+		postHtml += '					<div class="post_header-text">';
+		postHtml += '						<h3>';
+		postHtml += '							' + data.ulist[i].name + '<span class="header-icon-section">@' + data.ulist[i].user_id;
+		postHtml += '							</span>';
+		postHtml += '						</h3>';
+		postHtml += '						<div style="margin-left: 1rem; text-align: center;">';
+		postHtml += '							<h3>' + data.plist[i].created + '</h3>';
+		postHtml += '						</div>';
+		postHtml += '					</div>';
+		postHtml += '					<div class="post_header-discription"';
+		postHtml += '						onclick="location.href=' + "'" + '/viewContent?post_id=' + data.plist[i].post_id + "'" + '">';
+		postHtml += '						<p>' + data.plist[i].pcontent + '</p>';
+
+		if (data.plist[i].plocation != null) {
+			postHtml += '							<div class="" style="color:gray">';
+			postHtml += '								<div style="display: flex;">';
+			postHtml += '									<span class="material-icons">location_on</span>';
+			postHtml += '									<div>' + data.plist[i].plocation + '</div>';
+			postHtml += '								</div>';
+			postHtml += '							</div>';
+
+		}
+
+
+		postHtml += '					</div>';
+		postHtml += '				</div>';
+
+		if (data.mlist[i] != null) {
+			if (data.mlist[i].file_type.includes('video')) {
+				postHtml += '<div class="container video_contaner">';
+				postHtml += '	<video controls loop muted preload="auto"';
+				postHtml += '		src="/upload/' + data.mlist[i].file_name + '">';
+				postHtml += '	</video>';
+				postHtml += '</div>';
+			} else if (data.mlist[i].file_type.includes('image')) {
+				let img = data.mlist[i].file_name.split(',');
+
+				if (img.length == 1) {
+					postHtml += '				<div class="container">';
+					postHtml += '					<div class="row row-cols-auto ">';
+					postHtml += '						<div class="col-md-auto img-xl rounded-4">';
+					postHtml += '							<img src="/upload/' + data.mlist[i].file_name + '"';
+					postHtml += '								class="rounded " alt="java18" data-bs-toggle="modal"';
+					postHtml += '								data-bs-target="#exampleModal"';
+					postHtml += '								data-bs-whatever="/upload/' + data.mlist[i].file_name + '">';
+					postHtml += '						</div>';
+					postHtml += '					</div>';
+					postHtml += '				</div>';
+				} else if (img.length == 2) {
+					postHtml += '				<div class="container">';
+					postHtml += '					<div class="row row-cols-auto ">';
+					postHtml += '						<div class="col-md-auto img-lg rounded-4">';
+					postHtml += '							<img src="/upload/' + img[0] + '" class="rounded " alt="java18"';
+					postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
+					postHtml += '								data-bs-whatever="/upload/' + img[0] + '">';
+					postHtml += '						</div>';
+					postHtml += '						<div class="col-md-auto img-lg rounded-4">';
+					postHtml += '							<img src="/upload/' + img[1] + '" class="rounded " alt="java18"';
+					postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
+					postHtml += '								data-bs-whatever="/upload/' + img[1] + '">';
+					postHtml += '						</div>';
+					postHtml += '					</div>';
+					postHtml += '				</div>';
+
+				} else if (img.length == 3) {
+					postHtml += '				<div class="container">';
+					postHtml += '					<div class="row row-cols-auto">';
+					postHtml += '						<div class="col-md-auto img-md rounded-4">';
+					postHtml += '							<img src="/upload/' + img[0] + '" class="rounded " alt="java18"';
+					postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
+					postHtml += '								data-bs-whatever="/upload/' + img[0] + '">';
+					postHtml += '						</div>';
+					postHtml += '						<div class="col-md-auto">';
+					postHtml += '							<div class="row row-cols-auto">';
+					postHtml += '								<div class="col-md-auto img-sm">';
+					postHtml += '									<img src="/upload/' + img[1] + '" class="rounded " alt="java18"';
+					postHtml += '										data-bs-toggle="modal" data-bs-target="#exampleModal"';
+					postHtml += '										data-bs-whatever="/upload/' + img[1] + '">';
+					postHtml += '								</div>';
+					postHtml += '							</div>';
+					postHtml += '							<div class="row row-cols-auto">';
+					postHtml += '								<div class="col-md-auto img-sm">';
+					postHtml += '									<img src="/upload/' + img[2] + '" class="rounded " alt="java18"';
+					postHtml += '										data-bs-toggle="modal" data-bs-target="#exampleModal"';
+					postHtml += '										data-bs-whatever="/upload/' + img[2] + '">';
+					postHtml += '								</div>';
+					postHtml += '							</div>';
+					postHtml += '						</div>';
+					postHtml += '					</div>';
+					postHtml += '				</div>';
+
+				} else if (img.length == 4) {
+					postHtml += '				<div class="container img-sm">';
+					postHtml += '					<div class="row">';
+					postHtml += '						<div class="col-md-auto">';
+					postHtml += '							<img src="/upload/' + img[0] + '" class="rounded " alt="java18"';
+					postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
+					postHtml += '								data-bs-whatever="/upload/' + img[0] + '">';
+					postHtml += '						</div>';
+					postHtml += '						<div class="col-md-auto">';
+					postHtml += '							<img src="/upload/' + img[1] + '" class="rounded " alt="java18"';
+					postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
+					postHtml += '								data-bs-whatever="/upload/' + img[1] + '">';
+					postHtml += '						</div>';
+					postHtml += '					</div>';
+					postHtml += '					<div class="row">';
+					postHtml += '						<div class="col-md-auto">';
+					postHtml += '							<img src="/upload/' + img[2] + '" class="rounded " alt="java18"';
+					postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
+					postHtml += '								data-bs-whatever="/upload/' + img[2] + '">';
+					postHtml += '						</div>';
+					postHtml += '						<div class="col-md-auto">';
+					postHtml += '							<img src="/upload/' + img[3] + '" class="rounded " alt="java18"';
+					postHtml += '								data-bs-toggle="modal" data-bs-target="#exampleModal"';
+					postHtml += '								data-bs-whatever="/upload/' + img[3] + '">';
+					postHtml += '						</div>';
+					postHtml += '					</div>';
+					postHtml += '				</div>';
+
 				}
 			}
-			postHtml += '				<div class="post_footer">';
-			postHtml += '					<span class="material-icons ms_icons chat"';
-			postHtml += '						data-bs-toggle="modal" data-bs-target="#writeModal" ';
-			postHtml += '						data-post_id="'+data.plist[i].post_id+'" ';
-			postHtml += '						data-group="'+data.plist[i].pgroup+'" ';
-			postHtml += '						data-step="'+data.plist[i].pstep+'" ';
-			postHtml += '						data-indent="'+data.plist[i].pindent+'">chat</span>';
-			postHtml += '					<h3>'+data.replycount[i]+'</h3>';
-								
-								if(data.renoted[i]<1){
-									postHtml += '<span class="material-icons ms_icons repeat"';
-									postHtml += 'data-post_id="'+data.plist[i].post_id+'">repeat</span>';
-								}else{
-									postHtml += '<span class="material-icons ms_icons repeat toggle"';
-									postHtml += 'data-post_id="'+data.plist[i].post_id+'">repeat</span>';
-								}
-								
-								postHtml += '<h3>'+data.recount[i]+'</h3>';
-								
-								if(data.favorited[i]<1){
-									postHtml += '<span class="material-icons ms_icons favorite"';
-									postHtml += 'data-post_id="'+data.plist[i].post_id+'">favorite_border</span>';
-								}else{
-									postHtml += '<span class="material-icons ms_icons favorite toggle"';
-									postHtml += 'data-post_id="'+plist[i].post_id+'">favorite</span>';
-								}
-								
-			postHtml += '					<h3>'+data.facount[i]+'</h3>';
-			postHtml += '					<span class="material-icons ms_icons chart"';
-			postHtml += '					data-post_id="'+data.plist[i].post_id+'">bar_chart</span>';
-			postHtml += '					<h3>'+data.plist[i].hit+1+'</h3>';
-			postHtml += '				</div>';
-			postHtml += '			</div>';
-			postHtml += '		</div>';
-			
-			
-			
+		}
+		postHtml += '				<div class="post_footer">';
+		postHtml += '					<span class="material-icons ms_icons chat"';
+		postHtml += '						data-bs-toggle="modal" data-bs-target="#writeModal" ';
+		postHtml += '						data-post_id="' + data.plist[i].post_id + '" ';
+		postHtml += '						data-group="' + data.plist[i].pgroup + '" ';
+		postHtml += '						data-step="' + data.plist[i].pstep + '" ';
+		postHtml += '						data-indent="' + data.plist[i].pindent + '">chat</span>';
+		postHtml += '					<h3>' + data.replycount[i] + '</h3>';
+
+		if (data.renoted[i] < 1) {
+			postHtml += '<span class="material-icons ms_icons repeat"';
+			postHtml += 'data-post_id="' + data.plist[i].post_id + '">repeat</span>';
+		} else {
+			postHtml += '<span class="material-icons ms_icons repeat toggle"';
+			postHtml += 'data-post_id="' + data.plist[i].post_id + '">repeat</span>';
+		}
+
+		postHtml += '<h3>' + data.recount[i] + '</h3>';
+
+		if (data.favorited[i] < 1) {
+			postHtml += '<span class="material-icons ms_icons favorite"';
+			postHtml += 'data-post_id="' + data.plist[i].post_id + '">favorite_border</span>';
+		} else {
+			postHtml += '<span class="material-icons ms_icons favorite toggle"';
+			postHtml += 'data-post_id="' + plist[i].post_id + '">favorite</span>';
+		}
+
+		postHtml += '					<h3>' + data.facount[i] + '</h3>';
+		postHtml += '					<span class="material-icons ms_icons chart"';
+		postHtml += '					data-post_id="' + data.plist[i].post_id + '">bar_chart</span>';
+		postHtml += '					<h3>' + data.plist[i].hit + 1 + '</h3>';
+		postHtml += '				</div>';
+		postHtml += '			</div>';
+		postHtml += '		</div>';
 
 
-			
-			return postHtml;
-			
-		
-		
-		
+
+
+
+
+		return postHtml;
+
+
+
+
 	}
-	
-	
-	
+
+
+
 	/* 인용알티 */
-	
-	
+
+
 	let quotationModal = document.getElementById('quotationModal')
 	quotationModal.addEventListener('show.bs.modal', function(e) {
-		
+
 		console.log("quotationModal is ...");
 		console.log(e);
 		console.log(e.relatedTarget.parentNode.parentNode.parentNode.parentNode.parentNode);
@@ -1356,7 +1290,7 @@ $(function() {
 		console.log(e.target.querySelector('.post_header'));
 		console.log(e.relatedTarget.querySelector('.post_header-discription'));
 		console.log($(e.target.querySelector('.post_header')).children("p.thisContent"));
-		
+
 		// Button that triggered the modal
 		var button = event.relatedTarget
 		// Extract info from data-bs-* attributes
@@ -1369,8 +1303,8 @@ $(function() {
 		var modalBodyInput = exampleModal.querySelector('.modal-body img')
 
 		modalTitle.textContent = recipient
-		modalBodyInput.src = recipient 
-		
+		modalBodyInput.src = recipient
+
 	})
 
 });

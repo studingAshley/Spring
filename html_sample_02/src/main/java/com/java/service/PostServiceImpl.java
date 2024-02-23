@@ -93,10 +93,7 @@ public  class PostServiceImpl implements PostService {
 		
 		return map;
 	}
-	
-	
 
-	//포스트 클릭 view이동
 	@Override
 	public Map<String, Object> getMyTimelineMore(String id, int pageCounter) {
 		
