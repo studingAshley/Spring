@@ -210,10 +210,13 @@ public class FController {
 	
 	@PostMapping("sendPost")
 	@ResponseBody
-	public JSONObject sendPost(PostDto postDto, @RequestPart List<MultipartFile> files)
+	public JSONObject sendPost(PostDto postDto, @RequestPart List<MultipartFile> files, Model model)
 	{
+		
 		JSONObject jobj = new JSONObject();
+		
 		MediaDto mediaDto = new MediaDto();
+		
 		String orgName ="";
 		String newName ="";
 		String MergeName="";
@@ -221,30 +224,40 @@ public class FController {
 		int totalsize=0;
 
 		postDto.setUser_id(session.getAttribute("session_id").toString());
-
+		
+		System.out.println("ID : " + postDto.getUser_id());
+		System.out.println("postDto.content : "+postDto.getPcontent());
+		System.out.println("postDto.loc : "+postDto.getPlocation() );
+		
 		int numberOfFiles = 0 ;
 		for(MultipartFile file : files)
 		{
 			orgName = file.getOriginalFilename();
-
+			
+			System.out.println("Media Type : " + file.getContentType());
+			
 			if(file.getContentType().contains("application"))
 			{
 				break;
 			}
 			long time = System.currentTimeMillis();
 			newName = time+"_"+orgName;
+			
 			MergeName += newName+",";
 			types += file.getContentType()+",";
 			totalsize += file.getSize();
 			
 			String upload = "C:/upload/";
+			
 			File f = new File(upload+newName);
 			try {
+				
 				file.transferTo(f);
 				mediaDto.setFile_name(newName);
 				System.out.println("newName : " + newName);
 				numberOfFiles++;
 			} catch (IllegalStateException | IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -256,6 +269,7 @@ public class FController {
 		{
 			MergeName = MergeName.substring(0, MergeName.length()-1);
 			mediaDto.setFile_name(MergeName);
+			
 			mediaDto.setPost_id(post_id);
 			types = types.substring(0, types.length()-1);
 			mediaDto.setFile_type(types);
@@ -263,6 +277,11 @@ public class FController {
 			
 			mediaService.sendPost(mediaDto);
 		}
+
+		System.out.println("MergeName : " + mediaDto.getFile_name());
+
+
+		System.out.println("return Post ID : " + post_id );
 		
 		jobj.put("post", postDto);
 		jobj.put("files",MergeName);

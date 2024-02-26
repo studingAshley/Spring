@@ -271,7 +271,7 @@ main::-webkit-scrollbar{
     transform: translate(-50%, -50%);
 }
 
-.post_body .img-sm {
+.post_body .img-sm{
 	max-height: 180px;
 	overflow: hidden;
     border-radius: 20px;
@@ -281,6 +281,8 @@ main::-webkit-scrollbar{
 .post_body .img-sm img{
     width: 230px;
     object-fit: cover;
+
+
 }
 
 .post_body .img-md{
