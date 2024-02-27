@@ -325,7 +325,7 @@ $(function(){
 							   <button class="followBtn">팔로우</button>
 						   </c:if>
 						   
-						   <c:if test="${alramCrossUserDto.alramDto.alram_type=='comment'}">의 게시글에
+						   <c:if test="${alramCrossUserDto.alramDto.alram_type=='comment'}">이 게시글에
 						   		댓글을 남겼습니다.
 		                    </div>
 	                       </p>

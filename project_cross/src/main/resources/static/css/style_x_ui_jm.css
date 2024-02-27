@@ -727,6 +727,12 @@ background-color: #AB47BC !important;
     }
 .note-resizebar{display: none;}
 
+.alram_header{
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
 
 
 

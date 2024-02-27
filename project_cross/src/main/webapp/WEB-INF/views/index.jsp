@@ -121,10 +121,10 @@ pre {
 					<div class="post" style="position: relative;">
 
 						<div class="post_profile-image rounded-5">
-							<c:if test="${session_image==''}">
+							<c:if test="${ulist[status.index].profile_img==null}">
 								<img src="/images/proflie_default.png" alt="profile imagw">
 							</c:if>
-							<c:if test="${session_image!=''}">
+							<c:if test="${ulist[status.index].profile_img!=null}">
 								<img class="" src="/upload/${ulist[status.index].profile_img}"
 									alt="profile">
 							</c:if>
@@ -137,8 +137,6 @@ pre {
 										style="width: 3px; height: 98%; top: -3px; background-color: var(--twitter-line-color); position: absolute; left: 25%;">
 									</div>
 								</c:if>
-
-
 
 
 							</div>

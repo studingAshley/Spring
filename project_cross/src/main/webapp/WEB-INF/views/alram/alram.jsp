@@ -179,7 +179,7 @@ $(function(){
 </script>
  <main>
         <div class="header_alram dropdown">
-             <span class="material-icons">notifications</span>
+             <span class="material-icons">notifications</span><span class="alram_header">알림</span>
              	<span class="material-symbols-outlined dropdown_bar">pending</span>
     	    	 <div class="dropdown_content">
         		 	<a class="alramCheck" href="">모두 읽은상태 표시</a>
@@ -390,7 +390,7 @@ $(function(){
 	                       </c:if>
 						   </c:if>
 						   
-						   <c:if test="${alramCrossUserDto.alramDto.alram_type=='comment'}">의 게시글에
+						   <c:if test="${alramCrossUserDto.alramDto.alram_type=='comment'}">이 게시글에
 						   		댓글을 남겼습니다.
 		                    </div>
 	                       </p>
