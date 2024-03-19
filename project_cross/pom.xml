@@ -116,6 +116,13 @@
 		    <version>1.6.0</version>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-websocket</artifactId>
+		    <version>3.2.2</version>
+		</dependency>
+		
 		<!--
 		 소셜 로그인(네이버)         
         <dependency>
